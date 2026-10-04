@@ -44,6 +44,13 @@ audio_files = [
 ]
 
 for aud in audio_files:
+    # 0. ElevenLabs specific path
+    p_el = os.path.join(WORKSPACE_DIR, "assets", "audio", "elevenlabs", aud)
+    if os.path.exists(p_el):
+        with open(p_el, "rb") as af:
+            b64_el = base64.b64encode(af.read()).decode('utf-8')
+            content = content.replace(f'assets/audio/elevenlabs/{aud}', f'data:audio/mp3;base64,{b64_el}')
+
     # 1. Sardor specific path
     p_sardor = os.path.join(WORKSPACE_DIR, "assets", "audio", "sardor", aud)
     if os.path.exists(p_sardor):
