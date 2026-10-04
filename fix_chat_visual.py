@@ -34,14 +34,14 @@ def create_realistic_communication_mockup():
     draw.rectangle([card_x1, card_y1 + 50, card_x2, card_y1 + 75], fill=(15, 23, 42))
     draw.line([(card_x1, card_y1 + 75), (card_x2, card_y1 + 75)], fill=(30, 41, 59), width=1)
 
-    # Avatar circle (User initials)
-    draw.ellipse([card_x1 + 25, card_y1 + 16, card_x1 + 67, card_y1 + 58], fill=(37, 99, 235))
-    draw.text((card_x1 + 37, card_y1 + 23), "D", font=get_font(20, bold=True), fill=(255, 255, 255))
+    # Avatar circle (User initials: M for Mamun University study group)
+    draw.ellipse([card_x1 + 25, card_y1 + 16, card_x1 + 67, card_y1 + 58], fill=(99, 102, 241))
+    draw.text((card_x1 + 35, card_y1 + 22), "M", font=get_font(20, bold=True), fill=(255, 255, 255))
     # Active online indicator
     draw.ellipse([card_x1 + 55, card_y1 + 46, card_x1 + 67, card_y1 + 58], fill=(34, 197, 94), outline=(15, 23, 42), width=2)
 
-    draw.text((card_x1 + 80, card_y1 + 20), "Family & Friends Chat", font=get_font(16, bold=True), fill=(255, 255, 255))
-    draw.text((card_x1 + 80, card_y1 + 44), "Online • Distance: 2,500 km away", font=get_font(12), fill=(56, 189, 248))
+    draw.text((card_x1 + 80, card_y1 + 20), "Study Group • Ma'mun University", font=get_font(16, bold=True), fill=(255, 255, 255))
+    draw.text((card_x1 + 80, card_y1 + 44), "Online • Discussion: Social Networks Presentation", font=get_font(12), fill=(56, 189, 248))
 
     # Video call icon badge in header (Right)
     vx = card_x2 - 110
@@ -51,36 +51,51 @@ def create_realistic_communication_mockup():
     draw.polygon([(vx + 46, card_y1 + 35), (vx + 58, card_y1 + 30), (vx + 58, card_y1 + 46), (vx + 46, card_y1 + 41)], fill=(56, 189, 248))
     draw.text((vx + 64, card_y1 + 31), "Call", font=get_font(11, bold=True), fill=(255, 255, 255))
 
-    # --- Message 1 (Incoming from friend/family) ---
+    # --- Message 1 (Incoming: Question about presentation) ---
     m1_y = card_y1 + 95
-    draw.rounded_rectangle([card_x1 + 25, m1_y, card_x1 + 480, m1_y + 70], radius=16, fill=(30, 41, 59))
-    draw.text((card_x1 + 42, m1_y + 14), "Hey! How is university life going? We miss you!", font=get_font(14, bold=True), fill=(255, 255, 255))
-    draw.text((card_x1 + 42, m1_y + 38), "Salom! Universitetda o‘qishlar qanday? Seni sog‘indik!", font=get_font(12), fill=(148, 163, 184))
-    draw.text((card_x1 + 435, m1_y + 44), "10:14", font=get_font(10), fill=(100, 116, 139))
+    m1_w = 515
+    draw.rounded_rectangle([card_x1 + 25, m1_y, card_x1 + 25 + m1_w, m1_y + 70], radius=16, fill=(30, 41, 59))
+    draw.text((card_x1 + 42, m1_y + 14), "Hey! Did you finish making the presentation? How did it turn out?", font=get_font(13, bold=True), fill=(255, 255, 255))
+    draw.text((card_x1 + 42, m1_y + 38), "Salom! Taqdimotni tayyorlab bo'ldingmi? Qanday chiqdi?", font=get_font(11), fill=(148, 163, 184))
+    draw.text((card_x1 + 25 + m1_w - 45, m1_y + 44), "10:14", font=get_font(10), fill=(100, 116, 139))
 
-    # --- Message 2 (Outgoing reply) ---
+    # --- Message 2 (Outgoing: Answer about presentation) ---
     m2_y = m1_y + 85
-    draw.rounded_rectangle([card_x2 - 500, m2_y, card_x2 - 25, m2_y + 70], radius=16, fill=(37, 99, 235))
-    draw.text((card_x2 - 480, m2_y + 14), "Everything is great! Studying hard and making new friends.", font=get_font(13, bold=True), fill=(255, 255, 255))
-    draw.text((card_x2 - 480, m2_y + 38), "Hammasi ajoyib! Darslarni o‘qiyapman, yangi do‘stlar orttirdim.", font=get_font(11), fill=(191, 219, 254))
-    # double check mark
+    m2_w = 525
+    draw.rounded_rectangle([card_x2 - 25 - m2_w, m2_y, card_x2 - 25, m2_y + 70], radius=16, fill=(37, 99, 235))
+    draw.text((card_x2 - 25 - m2_w + 20, m2_y + 14), "Yes, all finished! It turned out great with interactive quiz slides.", font=get_font(13, bold=True), fill=(255, 255, 255))
+    draw.text((card_x2 - 25 - m2_w + 20, m2_y + 38), "Ha, tayyorlab bo'ldim! Interaktiv viktorina bilan juda zo'r chiqdi.", font=get_font(11), fill=(191, 219, 254))
+    # double check mark & time
     cx_mark = card_x2 - 50
     draw.line([(cx_mark, m2_y + 48), (cx_mark + 5, m2_y + 53), (cx_mark + 12, m2_y + 42)], fill=(147, 197, 253), width=2)
     draw.line([(cx_mark + 6, m2_y + 48), (cx_mark + 11, m2_y + 53), (cx_mark + 18, m2_y + 42)], fill=(147, 197, 253), width=2)
 
-    # --- Message 3 (Shared photo / moment) ---
+    # --- Message 3 (Shared presentation slide preview) ---
     m3_y = m2_y + 85
     pw = 280
     draw.rounded_rectangle([card_x1 + 25, m3_y, card_x1 + 25 + pw, m3_y + 160], radius=16, fill=(30, 41, 59))
-    # Photo canvas inside
+    # Slide canvas inside
     draw.rounded_rectangle([card_x1 + 35, m3_y + 10, card_x1 + 15 + pw, m3_y + 115], radius=12, fill=(15, 23, 42))
-    # Stylized sunset & university silhouette
-    draw.ellipse([card_x1 + 140, m3_y + 35, card_x1 + 175, m3_y + 70], fill=(251, 191, 36))
-    # mountains / campus roof
-    draw.polygon([(card_x1 + 55, m3_y + 115), (card_x1 + 120, m3_y + 65), (card_x1 + 190, m3_y + 115)], fill=(37, 99, 235))
-    draw.polygon([(card_x1 + 160, m3_y + 115), (card_x1 + 220, m3_y + 75), (card_x1 + 280, m3_y + 115)], fill=(30, 64, 175))
-    draw.text((card_x1 + 45, m3_y + 126), "Photo: University Campus & Library", font=get_font(12, bold=True), fill=(255, 255, 255))
-    draw.text((card_x1 + 45, m3_y + 142), "Talabalar shaharchasidan fotosurat", font=get_font(10), fill=(148, 163, 184))
+    
+    # Mini presentation slide graphics inside thumbnail:
+    # Header bar of mini slide
+    draw.rectangle([card_x1 + 35, m3_y + 10, card_x1 + 15 + pw, m3_y + 32], fill=(30, 41, 59))
+    draw.text((card_x1 + 45, m3_y + 16), "SLIDE 01 • SOCIAL NETWORKS", font=get_font(8, bold=True), fill=(56, 189, 248))
+    # Mini colorful bars (charts)
+    draw.rounded_rectangle([card_x1 + 50, m3_y + 65, card_x1 + 75, m3_y + 105], radius=3, fill=(56, 189, 248))
+    draw.rounded_rectangle([card_x1 + 85, m3_y + 48, card_x1 + 110, m3_y + 105], radius=3, fill=(99, 102, 241))
+    draw.rounded_rectangle([card_x1 + 120, m3_y + 58, card_x1 + 145, m3_y + 105], radius=3, fill=(16, 185, 129))
+    draw.rounded_rectangle([card_x1 + 155, m3_y + 40, card_x1 + 180, m3_y + 105], radius=3, fill=(245, 158, 11))
+    
+    # Mini decorative interactive badge (No emoji glyphs to prevent missing character boxes)
+    draw.rounded_rectangle([card_x1 + 195, m3_y + 45, card_x1 + 260, m3_y + 68], radius=6, fill=(23, 37, 84), outline=(56, 189, 248), width=1)
+    draw.text((card_x1 + 201, m3_y + 51), "QUIZ ACTIVE", font=get_font(8, bold=True), fill=(56, 189, 248))
+    
+    draw.rounded_rectangle([card_x1 + 195, m3_y + 75, card_x1 + 260, m3_y + 98], radius=6, fill=(6, 78, 59), outline=(16, 185, 129), width=1)
+    draw.text((card_x1 + 204, m3_y + 81), "100% READY", font=get_font(8, bold=True), fill=(52, 211, 153))
+
+    draw.text((card_x1 + 45, m3_y + 126), "Photo: Presentation Slides & Quiz", font=get_font(12, bold=True), fill=(255, 255, 255))
+    draw.text((card_x1 + 45, m3_y + 142), "Taqdimot slaydlari va viktorina namunasi", font=get_font(10), fill=(148, 163, 184))
 
     # --- Audio Voice Message Card (Right side of photo) ---
     vm_x = card_x1 + 25 + pw + 25
@@ -95,14 +110,15 @@ def create_realistic_communication_mockup():
         wh = max(4, int(14 + math.sin(i * 0.9) * 12))
         wx = vm_x + 72 + i * 11
         draw.rounded_rectangle([wx, m3_y + 52 - wh//2, wx + 4, m3_y + 52 + wh//2], radius=2, fill=(147, 197, 253))
-    draw.text((vm_x + 72, m3_y + 24), "Voice Message (0:38) • Ovozli xabar", font=get_font(11, bold=True), fill=(255, 255, 255))
+    draw.text((vm_x + 72, m3_y + 24), "Voice Message (0:38) • Presentation Audio", font=get_font(11, bold=True), fill=(255, 255, 255))
 
     # Connectivity banner below voice message
     draw.rounded_rectangle([vm_x, m3_y + 105, vm_x + vm_w, m3_y + 160], radius=14, fill=(30, 41, 59))
-    draw.text((vm_x + 18, m3_y + 117), "Distance is no longer a barrier", font=get_font(12, bold=True), fill=(56, 189, 248))
-    draw.text((vm_x + 18, m3_y + 137), "Masofa endi to‘siq emas — doimiy aloqa", font=get_font(11), fill=(148, 163, 184))
+    draw.text((vm_x + 18, m3_y + 117), "Instant Communication & Collaboration", font=get_font(12, bold=True), fill=(56, 189, 248))
+    draw.text((vm_x + 18, m3_y + 137), "Tezkor muloqot va taqdimot hamkorligi", font=get_font(11), fill=(148, 163, 184))
 
     img.save(os.path.join(ASSETS_DIR, "chat_visual.png"))
-    print("Realistic communication mockup updated successfully without glyph bugs!")
+    print("Realistic communication mockup updated successfully with clean typography!")
 
-create_realistic_communication_mockup()
+if __name__ == "__main__":
+    create_realistic_communication_mockup()
