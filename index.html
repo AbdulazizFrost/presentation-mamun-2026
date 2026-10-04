@@ -748,26 +748,27 @@
     <div class="relative w-full max-w-2xl bg-gradient-to-b from-slate-900 via-[#0B132B] to-slate-950 border border-slate-700/80 rounded-2xl shadow-2xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden">
       
       <!-- Top Modal Header -->
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-        <div class="flex items-center space-x-2.5">
-          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-bold text-base">
+      <div class="flex items-center justify-between gap-3 border-b border-slate-800/80 pb-3 mb-4">
+        <div class="flex items-center space-x-3 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-sm font-bold shrink-0">
             ⚡
           </div>
-          <div>
-            <h4 class="text-base sm:text-lg font-bold text-white leading-tight">Fact or Myth? • <span class="text-sky-400 italic font-medium">Rostmi yoki Yolg‘on?</span></h4>
+          <div class="flex items-center space-x-2 min-w-0">
+            <span class="text-sm sm:text-base font-bold text-white tracking-wide whitespace-nowrap">Fact or Myth?</span>
+            <span class="hidden md:inline-block text-[11px] text-sky-400/90 font-medium px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20 whitespace-nowrap">Rostmi yoki Yolg‘on?</span>
           </div>
         </div>
-        <div class="flex items-center space-x-1.5 sm:space-x-2">
+        <div class="flex items-center space-x-2 shrink-0">
           <!-- Voice Narration Toggle & Replay -->
-          <button onclick="toggleQuizVoice()" id="btn-quiz-voice" title="Ovozli o‘qishni yoqish / o‘chirish" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer">
-            <span id="voice-icon">🔊</span>
-            <span id="voice-label" class="hidden sm:inline">Ovoz (ON)</span>
+          <button onclick="toggleQuizVoice()" id="btn-quiz-voice" title="Ovozli o‘qishni yoqish / o‘chirish" class="h-8 px-2.5 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer flex items-center space-x-1.5 whitespace-nowrap shrink-0">
+            <span id="voice-icon" class="text-xs leading-none">🔊</span>
+            <span id="voice-label" class="whitespace-nowrap font-medium text-[11px]">Ovoz</span>
           </button>
-          <button onclick="replayCurrentVoice()" id="btn-replay-voice" title="Hozirgi savolni qayta tinglash" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer flex items-center justify-center">
+          <button onclick="replayCurrentVoice()" id="btn-replay-voice" title="Hozirgi savolni qayta tinglash" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 text-xs transition cursor-pointer flex items-center justify-center shrink-0 active:scale-95">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
           </button>
-          <span id="quiz-progress-badge" class="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-800 text-sky-400 border border-slate-700">Q 1 / 4</span>
-          <button onclick="closeQuizModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition text-sm font-bold">✕</button>
+          <span id="quiz-progress-badge" class="h-8 px-2.5 rounded-lg text-xs font-mono font-bold bg-slate-800/90 text-sky-400 border border-slate-700/80 flex items-center justify-center whitespace-nowrap shrink-0">1 / 4</span>
+          <button onclick="closeQuizModal()" title="Yopish" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-rose-500/20 text-slate-400 hover:text-rose-300 border border-slate-700/80 hover:border-rose-500/40 flex items-center justify-center transition text-sm font-bold shrink-0 active:scale-95">✕</button>
         </div>
       </div>
 
@@ -1259,15 +1260,15 @@
       const label = document.getElementById('voice-label');
 
       if (quizVoiceEnabled) {
-        btn.className = "flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer";
-        icon.innerText = "🔊";
-        if (label) label.innerText = "Ovoz (ON)";
+        btn.className = "h-8 px-2.5 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer flex items-center space-x-1.5 whitespace-nowrap shrink-0";
+        if (icon) icon.innerText = "🔊";
+        if (label) label.innerText = "Ovoz";
         replayCurrentVoice();
       } else {
         stopQuizVoice();
-        btn.className = "flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 text-xs font-semibold hover:bg-slate-700 transition cursor-pointer";
-        icon.innerText = "🔇";
-        if (label) label.innerText = "Ovoz (OFF)";
+        btn.className = "h-8 px-2.5 rounded-lg bg-slate-800/90 text-slate-400 border border-slate-700/80 text-xs font-semibold hover:bg-slate-700 transition cursor-pointer flex items-center space-x-1.5 whitespace-nowrap shrink-0";
+        if (icon) icon.innerText = "🔇";
+        if (label) label.innerText = "Ovoz";
       }
     }
 
@@ -1319,7 +1320,7 @@
       quizAnswered = false;
       quizLastWasCorrect = false;
       const q = quizQuestions[quizCurrentIdx];
-      document.getElementById('quiz-progress-badge').innerText = `Q ${quizCurrentIdx + 1} / ${quizQuestions.length}`;
+      document.getElementById('quiz-progress-badge').innerText = `${quizCurrentIdx + 1} / ${quizQuestions.length}`;
       document.getElementById('quiz-score-badge').innerText = `Score: ${quizScore} / ${quizQuestions.length}`;
       document.getElementById('quiz-q-en').innerText = q.qEn;
       document.getElementById('quiz-q-uz').innerText = q.qUz;
