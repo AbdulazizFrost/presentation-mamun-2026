@@ -26,7 +26,7 @@ ITEMS = [
     ("a4_cor.mp3", "To'g'ri! Barakalla! Bu rost. Garvard tadqiqotchilari isbotlagan, hatto ovozsiz telefon stolda ko'rinib tursa ham, miya unga chalg'ib o'z quvvatini yo'qotadi."),
     ("a4_wrg.mp3", "Afsuski noto'g'ri! Aslida bu rost. Garvard tadqiqotchilari isbotlagan, hatto ovozsiz telefon stolda ko'rinib tursa ham, miya unga chalg'ib o'z quvvatini yo'qotadi."),
 
-    ("finish.mp3", "Tabriklaymiz! Viktorina muvaffaqiyatli yakunlandi. Siz va sizning auditoriyangiz raqamli madaniyatni ajoyib tushunar ekansiz. E'tiboringiz uchun katta rahmat!")
+    ("finish.mp3", "Ajoyib natija! Viktorina yakunlandi. Bekordan-bekorga Ma'mun Universitetining talabasi emasligingizni isbotladingiz. Barchangizga e'tibor uchun katta rahmat!")
 ]
 
 def generate_with_elevenlabs(api_key, voice_id="pNInz6obpgDQGcFmaJgB"):
