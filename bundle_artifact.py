@@ -33,14 +33,37 @@ for asset in premium_assets:
             b64 = base64.b64encode(img_f.read()).decode('utf-8')
             content = content.replace(f'assets_premium/{asset}', f'data:image/png;base64,{b64}')
 
-# Inline base64 for audio assets
-audio_files = ["q1.mp3", "a1.mp3", "q2.mp3", "a2.mp3", "q3.mp3", "a3.mp3", "q4.mp3", "a4.mp3", "finish.mp3"]
+# Inline base64 for audio assets (Sardor & Madina dual voices)
+audio_files = [
+    "q1.mp3", "q2.mp3", "q3.mp3", "q4.mp3",
+    "a1_cor.mp3", "a1_wrg.mp3",
+    "a2_cor.mp3", "a2_wrg.mp3",
+    "a3_cor.mp3", "a3_wrg.mp3",
+    "a4_cor.mp3", "a4_wrg.mp3",
+    "finish.mp3"
+]
+
 for aud in audio_files:
-    p = os.path.join(WORKSPACE_DIR, "assets", "audio", aud)
-    if os.path.exists(p):
-        with open(p, "rb") as af:
-            b64 = base64.b64encode(af.read()).decode('utf-8')
-            content = content.replace(f'assets/audio/{aud}', f'data:audio/mp3;base64,{b64}')
+    # 1. Sardor specific path
+    p_sardor = os.path.join(WORKSPACE_DIR, "assets", "audio", "sardor", aud)
+    if os.path.exists(p_sardor):
+        with open(p_sardor, "rb") as af:
+            b64_s = base64.b64encode(af.read()).decode('utf-8')
+            content = content.replace(f'assets/audio/sardor/{aud}', f'data:audio/mp3;base64,{b64_s}')
+
+    # 2. Madina specific path
+    p_madina = os.path.join(WORKSPACE_DIR, "assets", "audio", "madina", aud)
+    if os.path.exists(p_madina):
+        with open(p_madina, "rb") as af:
+            b64_m = base64.b64encode(af.read()).decode('utf-8')
+            content = content.replace(f'assets/audio/madina/{aud}', f'data:audio/mp3;base64,{b64_m}')
+
+    # 3. Root fallback path
+    p_root = os.path.join(WORKSPACE_DIR, "assets", "audio", aud)
+    if os.path.exists(p_root):
+        with open(p_root, "rb") as af:
+            b64_r = base64.b64encode(af.read()).decode('utf-8')
+            content = content.replace(f'assets/audio/{aud}', f'data:audio/mp3;base64,{b64_r}')
 
 # Inline PPTX for instant download in artifact viewer
 pptx_path = os.path.join(WORKSPACE_DIR, "Social_Networks_in_My_Life.pptx")

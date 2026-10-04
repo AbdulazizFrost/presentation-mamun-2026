@@ -757,7 +757,12 @@
             <h4 class="text-base sm:text-lg font-bold text-white leading-tight">Fact or Myth? • <span class="text-sky-400 italic font-medium">Rostmi yoki Yolg‘on?</span></h4>
           </div>
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-1.5 sm:space-x-2">
+          <!-- Voice Persona Switcher (Sardor Neural / Madina Neural) -->
+          <button onclick="cycleVoice()" id="btn-quiz-speaker" title="Ovozni almashtirish (Sardor / Madina)" class="flex items-center space-x-1 sm:space-x-1.5 px-2 sm:px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition cursor-pointer">
+            <span id="voice-speaker-icon">👨</span>
+            <span id="voice-speaker-name" class="font-mono text-emerald-400">Sardor</span>
+          </button>
           <!-- Voice Narration Toggle & Replay -->
           <button onclick="toggleQuizVoice()" id="btn-quiz-voice" title="Ovozli o‘qishni yoqish / o‘chirish" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer">
             <span id="voice-icon">🔊</span>
@@ -797,32 +802,36 @@
 
         <!-- Interactive Answer Choice Buttons -->
         <div id="quiz-choices" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <button onclick="submitQuizAnswer(true)" id="btn-fact" class="group p-3.5 rounded-xl border-2 border-emerald-500/40 bg-emerald-950/20 hover:bg-emerald-500/20 text-white font-bold text-base flex items-center justify-center space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer">
+          <button onclick="submitQuizAnswer(true)" id="btn-fact" class="group p-3.5 rounded-xl border-2 border-emerald-500/40 bg-emerald-950/20 hover:bg-emerald-500/20 text-white font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer">
             <span class="text-2xl group-hover:scale-125 transition transform">✅</span>
-            <div class="text-left">
+            <div class="text-center sm:text-left">
               <div>FACT</div>
               <div class="text-xs font-normal text-emerald-300 italic">Rost / To‘g‘ri</div>
             </div>
+            <div id="fact-badge" class="hidden sm:ml-auto"></div>
           </button>
-          <button onclick="submitQuizAnswer(false)" id="btn-myth" class="group p-3.5 rounded-xl border-2 border-rose-500/40 bg-rose-950/20 hover:bg-rose-500/20 text-white font-bold text-base flex items-center justify-center space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer">
+          <button onclick="submitQuizAnswer(false)" id="btn-myth" class="group p-3.5 rounded-xl border-2 border-rose-500/40 bg-rose-950/20 hover:bg-rose-500/20 text-white font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer">
             <span class="text-2xl group-hover:scale-125 transition transform">❌</span>
-            <div class="text-left">
+            <div class="text-center sm:text-left">
               <div>MYTH</div>
               <div class="text-xs font-normal text-rose-300 italic">Yolg‘on / Afsona</div>
             </div>
+            <div id="myth-badge" class="hidden sm:ml-auto"></div>
           </button>
         </div>
 
         <!-- Result & Fact Reveal Explanation (Initially Hidden) -->
-        <div id="quiz-explanation-box" class="hidden p-4 rounded-xl border transition-all duration-300 space-y-2">
-          <div class="flex items-center space-x-2 font-bold text-sm" id="quiz-verdict-tag">
-            <!-- Correct / Incorrect tag -->
+        <div id="quiz-explanation-box" class="hidden p-4 sm:p-5 rounded-2xl border-2 transition-all duration-300 space-y-3">
+          <div class="flex items-center space-x-3" id="quiz-verdict-header">
+            <!-- Dynamic icon and verdict text -->
           </div>
-          <p id="quiz-exp-en" class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium"></p>
-          <p id="quiz-exp-uz" class="text-[11px] sm:text-xs text-sky-300/90 italic leading-relaxed"></p>
+          <div class="pt-2 border-t space-y-1.5" id="quiz-verdict-border">
+            <p id="quiz-exp-en" class="text-xs sm:text-sm text-slate-100 font-medium leading-relaxed"></p>
+            <p id="quiz-exp-uz" class="text-xs sm:text-sm italic leading-relaxed"></p>
+          </div>
           
           <div class="pt-2 flex justify-end">
-            <button onclick="nextQuizQuestion()" id="btn-next-q" class="px-5 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white text-xs font-bold transition flex items-center space-x-2 cursor-pointer shadow-lg shadow-sky-500/25">
+            <button onclick="nextQuizQuestion()" id="btn-next-q" class="px-5 py-2.5 rounded-xl text-xs font-bold transition flex items-center space-x-2 cursor-pointer shadow-lg">
               <span>Next Question</span>
               <span>→</span>
             </button>
@@ -1159,8 +1168,9 @@
         isFact: true,
         expEn: "FACT! Global data reveals people spend ~2h 25m daily on social networks, totaling 5 years and 8 months over an average lifetime.",
         expUz: "ROST! Xalqaro statistikaga ko‘ra, har bir inson kuniga o‘rtacha 2 soat 25 daqiqa sarflaydi — bu butun umr davomida deyarli 5 yil-u 8 oyni tashkil etadi.",
-        audioQ: "assets/audio/q1.mp3",
-        audioA: "assets/audio/a1.mp3"
+        qAudio: "q1.mp3",
+        corAudio: "a1_cor.mp3",
+        wrgAudio: "a1_wrg.mp3"
       },
       {
         qEn: "Checking notifications immediately after waking up triggers a rush of dopamine and improves morning productivity.",
@@ -1168,8 +1178,9 @@
         isFact: false,
         expEn: "MYTH! Reaching for your phone first thing in the morning spikes cortisol (stress hormone), overwhelms the brain, and destroys deep focus for the whole day.",
         expUz: "YOLG‘ON! Uyg‘ongach darhol telefonga qarash miyada stress gormoni (kortizol)ni oshirib, butun kunlik diqqatni parokanda qiladi.",
-        audioQ: "assets/audio/q2.mp3",
-        audioA: "assets/audio/a2.mp3"
+        qAudio: "q2.mp3",
+        corAudio: "a2_cor.mp3",
+        wrgAudio: "a2_wrg.mp3"
       },
       {
         qEn: "Watching an educational 3-minute video explanation can boost knowledge retention by up to 60% compared to reading text alone.",
@@ -1177,8 +1188,9 @@
         isFact: true,
         expEn: "FACT! Combining audio narration with dynamic visual motion engages dual-coding neural pathways, boosting understanding and recall.",
         expUz: "ROST! Vizual tasvir va ovozni bir vaqtda qabul qilish (YouTube va mikro-darsliklar) inson xotirasida ma’lumotni saqlanishini keskin yaxshilaydi.",
-        audioQ: "assets/audio/q3.mp3",
-        audioA: "assets/audio/a3.mp3"
+        qAudio: "q3.mp3",
+        corAudio: "a3_cor.mp3",
+        wrgAudio: "a3_wrg.mp3"
       },
       {
         qEn: "Putting your phone in another room or keeping it screen-down while studying increases cognitive performance by up to 25%.",
@@ -1186,17 +1198,27 @@
         isFact: true,
         expEn: "FACT! Harvard studies confirmed the 'Brain Drain' effect: merely having a phone visible on your desk silently drains cognitive bandwidth.",
         expUz: "ROST! Garvard tadqiqotchilari isbotlagan: hatto ovozsiz telefon stolda ko‘rinib tursa ham, miya unga chalg‘ib o‘z quvvatini yo‘qotadi.",
-        audioQ: "assets/audio/q4.mp3",
-        audioA: "assets/audio/a4.mp3"
+        qAudio: "q4.mp3",
+        corAudio: "a4_cor.mp3",
+        wrgAudio: "a4_wrg.mp3"
       }
     ];
 
-    const quizAudioFinish = "assets/audio/finish.mp3";
+    let currentQuizVoice = 'sardor'; // 'sardor' (default) or 'madina'
     let quizAudio = new Audio();
     let quizVoiceEnabled = true;
+    let quizCurrentIdx = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+    let quizLastWasCorrect = false;
 
-    function playQuizVoice(src) {
-      if (!quizVoiceEnabled || !src) return;
+    function getQuizAudioPath(filename) {
+      return `assets/audio/${currentQuizVoice}/${filename}`;
+    }
+
+    function playQuizVoice(filename) {
+      if (!quizVoiceEnabled || !filename) return;
+      const src = getQuizAudioPath(filename);
       try {
         quizAudio.pause();
         quizAudio.currentTime = 0;
@@ -1255,20 +1277,37 @@
       }
     }
 
+    function cycleVoice() {
+      currentQuizVoice = (currentQuizVoice === 'sardor') ? 'madina' : 'sardor';
+      const speakerIcon = document.getElementById('voice-speaker-icon');
+      const speakerName = document.getElementById('voice-speaker-name');
+      if (currentQuizVoice === 'sardor') {
+        if (speakerIcon) speakerIcon.innerText = "👨";
+        if (speakerName) {
+          speakerName.innerText = "Sardor";
+          speakerName.className = "font-mono text-emerald-400";
+        }
+      } else {
+        if (speakerIcon) speakerIcon.innerText = "👩";
+        if (speakerName) {
+          speakerName.innerText = "Madina";
+          speakerName.className = "font-mono text-pink-400";
+        }
+      }
+      replayCurrentVoice();
+    }
+
     function replayCurrentVoice() {
       const resultsScreen = document.getElementById('quiz-results-screen');
       if (resultsScreen && !resultsScreen.classList.contains('hidden')) {
-        playQuizVoice(quizAudioFinish);
+        playQuizVoice('finish.mp3');
       } else if (quizAnswered) {
-        playQuizVoice(quizQuestions[quizCurrentIdx].audioA);
+        const q = quizQuestions[quizCurrentIdx];
+        playQuizVoice(quizLastWasCorrect ? q.corAudio : q.wrgAudio);
       } else {
-        playQuizVoice(quizQuestions[quizCurrentIdx].audioQ);
+        playQuizVoice(quizQuestions[quizCurrentIdx].qAudio);
       }
     }
-
-    let quizCurrentIdx = 0;
-    let quizScore = 0;
-    let quizAnswered = false;
 
     function openQuizModal() {
       const modal = document.getElementById('quiz-modal');
@@ -1296,6 +1335,7 @@
       quizCurrentIdx = 0;
       quizScore = 0;
       quizAnswered = false;
+      quizLastWasCorrect = false;
       document.getElementById('quiz-results-screen').classList.add('hidden');
       document.getElementById('quiz-question-screen').classList.remove('hidden');
       renderQuizQuestion();
@@ -1303,6 +1343,7 @@
 
     function renderQuizQuestion() {
       quizAnswered = false;
+      quizLastWasCorrect = false;
       const q = quizQuestions[quizCurrentIdx];
       document.getElementById('quiz-progress-badge').innerText = `Q ${quizCurrentIdx + 1} / ${quizQuestions.length}`;
       document.getElementById('quiz-score-badge').innerText = `Score: ${quizScore} / ${quizQuestions.length}`;
@@ -1311,15 +1352,27 @@
 
       const btnFact = document.getElementById('btn-fact');
       const btnMyth = document.getElementById('btn-myth');
-      btnFact.className = "group p-3.5 rounded-xl border-2 border-emerald-500/40 bg-emerald-950/20 hover:bg-emerald-500/20 text-white font-bold text-base flex items-center justify-center space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer";
-      btnMyth.className = "group p-3.5 rounded-xl border-2 border-rose-500/40 bg-rose-950/20 hover:bg-rose-500/20 text-white font-bold text-base flex items-center justify-center space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer";
+      const factBadge = document.getElementById('fact-badge');
+      const mythBadge = document.getElementById('myth-badge');
+
+      btnFact.className = "group p-3.5 rounded-xl border-2 border-emerald-500/40 bg-emerald-950/20 hover:bg-emerald-500/20 text-white font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer";
+      btnMyth.className = "group p-3.5 rounded-xl border-2 border-rose-500/40 bg-rose-950/20 hover:bg-rose-500/20 text-white font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 transition transform hover:scale-[1.02] active:scale-95 cursor-pointer";
       btnFact.disabled = false;
       btnMyth.disabled = false;
 
+      if (factBadge) {
+        factBadge.className = "hidden";
+        factBadge.innerHTML = "";
+      }
+      if (mythBadge) {
+        mythBadge.className = "hidden";
+        mythBadge.innerHTML = "";
+      }
+
       document.getElementById('quiz-explanation-box').classList.add('hidden');
 
-      // Play voice narration for the question
-      playQuizVoice(q.audioQ);
+      // Play question narration in chosen Uzbek voice
+      playQuizVoice(q.qAudio);
     }
 
     function submitQuizAnswer(userPickedFact) {
@@ -1328,42 +1381,113 @@
 
       const q = quizQuestions[quizCurrentIdx];
       const isCorrect = (userPickedFact === q.isFact);
+      quizLastWasCorrect = isCorrect;
       if (isCorrect) quizScore++;
+
+      document.getElementById('quiz-score-badge').innerText = `Score: ${quizScore} / ${quizQuestions.length}`;
 
       const btnFact = document.getElementById('btn-fact');
       const btnMyth = document.getElementById('btn-myth');
+      const factBadge = document.getElementById('fact-badge');
+      const mythBadge = document.getElementById('myth-badge');
+
       btnFact.disabled = true;
       btnMyth.disabled = true;
-      btnFact.classList.remove('hover:scale-[1.02]', 'cursor-pointer');
-      btnMyth.classList.remove('hover:scale-[1.02]', 'cursor-pointer');
+      btnFact.classList.remove('hover:scale-[1.02]', 'cursor-pointer', 'active:scale-95');
+      btnMyth.classList.remove('hover:scale-[1.02]', 'cursor-pointer', 'active:scale-95');
 
-      if (q.isFact) {
-        btnFact.className = "p-3.5 rounded-xl border-2 border-emerald-400 bg-emerald-500/30 text-emerald-300 font-bold text-base flex items-center justify-center space-x-3 shadow-lg shadow-emerald-500/30";
-        btnMyth.className = "p-3.5 rounded-xl border border-slate-700/50 bg-slate-800/30 text-slate-500 font-bold text-base flex items-center justify-center space-x-3 opacity-40";
+      if (isCorrect) {
+        // --- AUDIENCE WAS 100% CORRECT ---
+        if (q.isFact) {
+          btnFact.className = "p-3.5 rounded-xl border-2 border-emerald-400 bg-emerald-500/30 text-emerald-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-emerald-400/50 shadow-xl shadow-emerald-500/30 scale-[1.02] transition";
+          if (factBadge) {
+            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
+            factBadge.innerHTML = "✅ SIZNING JAVOB TO‘G‘RI (+1)";
+          }
+          btnMyth.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/30 text-slate-600 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 opacity-30 transition";
+        } else {
+          btnMyth.className = "p-3.5 rounded-xl border-2 border-emerald-400 bg-emerald-500/30 text-emerald-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-emerald-400/50 shadow-xl shadow-emerald-500/30 scale-[1.02] transition";
+          if (mythBadge) {
+            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
+            mythBadge.innerHTML = "✅ SIZNING JAVOB TO‘G‘RI (+1)";
+          }
+          btnFact.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/30 text-slate-600 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 opacity-30 transition";
+        }
       } else {
-        btnMyth.className = "p-3.5 rounded-xl border-2 border-rose-400 bg-rose-500/30 text-rose-300 font-bold text-base flex items-center justify-center space-x-3 shadow-lg shadow-rose-500/30";
-        btnFact.className = "p-3.5 rounded-xl border border-slate-700/50 bg-slate-800/30 text-slate-500 font-bold text-base flex items-center justify-center space-x-3 opacity-40";
+        // --- AUDIENCE WAS INCORRECT ---
+        if (userPickedFact) {
+          btnFact.className = "p-3.5 rounded-xl border-2 border-rose-500 bg-rose-600/30 text-rose-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-rose-500/50 shadow-xl shadow-rose-500/30 transition";
+          if (factBadge) {
+            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-black text-[11px] tracking-wide uppercase shadow";
+            factBadge.innerHTML = "❌ SIZNING JAVOB (NOTO‘G‘RI)";
+          }
+          btnMyth.className = "p-3.5 rounded-xl border-2 border-emerald-400/80 bg-emerald-950/40 text-emerald-300 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-2 ring-emerald-500/40 transition";
+          if (mythBadge) {
+            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
+            mythBadge.innerHTML = "✅ ASLIDA TO‘G‘RI JAVOB";
+          }
+        } else {
+          btnMyth.className = "p-3.5 rounded-xl border-2 border-rose-500 bg-rose-600/30 text-rose-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-rose-500/50 shadow-xl shadow-rose-500/30 transition";
+          if (mythBadge) {
+            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-black text-[11px] tracking-wide uppercase shadow";
+            mythBadge.innerHTML = "❌ SIZNING JAVOB (NOTO‘G‘RI)";
+          }
+          btnFact.className = "p-3.5 rounded-xl border-2 border-emerald-400/80 bg-emerald-950/40 text-emerald-300 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-2 ring-emerald-500/40 transition";
+          if (factBadge) {
+            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
+            factBadge.innerHTML = "✅ ASLIDA TO‘G‘RI JAVOB";
+          }
+        }
       }
 
+      // High-Contrast Explanation Box
       const expBox = document.getElementById('quiz-explanation-box');
-      const tag = document.getElementById('quiz-verdict-tag');
+      const vHeader = document.getElementById('quiz-verdict-header');
+      const vBorder = document.getElementById('quiz-verdict-border');
+      const btnNext = document.getElementById('btn-next-q');
+      const isLast = (quizCurrentIdx === quizQuestions.length - 1);
+
       if (isCorrect) {
-        expBox.className = "p-4 rounded-xl border border-emerald-500/40 bg-emerald-950/40 space-y-2";
-        tag.innerHTML = `<span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-950 text-xs font-black">CORRECT! • TO'G'RI!</span> <span class="text-emerald-400 font-semibold text-xs">Audience nailed it!</span>`;
+        expBox.className = "p-4 sm:p-5 rounded-2xl border-2 border-emerald-400 bg-gradient-to-r from-emerald-950/90 via-slate-900/90 to-emerald-950/90 shadow-2xl shadow-emerald-500/20 space-y-3";
+        vHeader.innerHTML = `
+          <div class="w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center text-2xl font-black shrink-0 shadow-lg shadow-emerald-500/40">✓</div>
+          <div>
+            <div class="text-emerald-300 font-black text-base sm:text-lg flex items-center space-x-2">
+              <span>TO‘G‘RI JAVOB! • CORRECT!</span>
+              <span class="text-xs bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 px-2 py-0.5 rounded-full font-mono font-bold">+1 BALL</span>
+            </div>
+            <div class="text-emerald-400/80 text-xs">Auditoriya ajoyib topdi! Siz mutlaqo haq edingiz.</div>
+          </div>
+        `;
+        vBorder.className = "pt-2 border-t border-emerald-500/30 space-y-1.5";
+        btnNext.className = "px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs transition flex items-center space-x-2 shadow-lg shadow-emerald-500/30 cursor-pointer";
+        btnNext.innerHTML = isLast ? `<span>Finish Quiz 🎉</span>` : `<span>Next Question →</span>`;
       } else {
-        expBox.className = "p-4 rounded-xl border border-amber-500/40 bg-amber-950/40 space-y-2";
-        tag.innerHTML = `<span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-xs font-black">SURPRISE! • KUTILMAGAN JAVOB!</span> <span class="text-amber-400 font-semibold text-xs">It's actually ${q.isFact ? 'FACT' : 'MYTH'}!</span>`;
+        expBox.className = "p-4 sm:p-5 rounded-2xl border-2 border-rose-500 bg-gradient-to-r from-rose-950/90 via-slate-900/90 to-rose-950/90 shadow-2xl shadow-rose-500/20 space-y-3";
+        vHeader.innerHTML = `
+          <div class="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center text-2xl font-black shrink-0 shadow-lg shadow-rose-600/40">✕</div>
+          <div>
+            <div class="text-rose-300 font-black text-base sm:text-lg flex items-center space-x-2">
+              <span>NOTO‘G‘RI JAVOB! • INCORRECT!</span>
+              <span class="text-xs bg-rose-500/25 text-rose-300 border border-rose-500/50 px-2 py-0.5 rounded-full font-mono font-bold">0 BALL</span>
+            </div>
+            <div class="text-rose-400/80 text-xs">Siz belgilagan javob xato bo‘ldi. Haqiqiy fakt quyidagicha:</div>
+          </div>
+        `;
+        vBorder.className = "pt-2 border-t border-rose-500/30 space-y-1.5";
+        btnNext.className = "px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-xs transition flex items-center space-x-2 shadow-lg shadow-sky-500/30 cursor-pointer";
+        btnNext.innerHTML = isLast ? `<span>Finish Quiz 🎉</span>` : `<span>Next Question →</span>`;
       }
 
       document.getElementById('quiz-exp-en').innerText = q.expEn;
-      document.getElementById('quiz-exp-uz').innerText = q.expUz;
-      
-      const isLast = (quizCurrentIdx === quizQuestions.length - 1);
-      document.getElementById('btn-next-q').innerHTML = isLast ? `<span>Finish Quiz 🎉</span>` : `<span>Next Question →</span>`;
+      const uzExp = document.getElementById('quiz-exp-uz');
+      uzExp.innerText = q.expUz;
+      uzExp.className = isCorrect ? "text-xs sm:text-sm text-emerald-200/90 italic leading-relaxed" : "text-xs sm:text-sm text-rose-200/90 italic leading-relaxed";
+
       expBox.classList.remove('hidden');
 
-      // Play voice narration for answer reveal and explanation
-      playQuizVoice(q.audioA);
+      // Play dedicated correct or incorrect voice narration!
+      playQuizVoice(isCorrect ? q.corAudio : q.wrgAudio);
     }
 
     function nextQuizQuestion() {
@@ -1392,7 +1516,7 @@
       document.getElementById('quiz-final-verdict').innerText = verdict;
 
       // Play finish voice
-      playQuizVoice(quizAudioFinish);
+      playQuizVoice('finish.mp3');
     }
 
     window.addEventListener('keydown', (e) => {
