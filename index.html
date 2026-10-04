@@ -758,7 +758,15 @@
             <p class="text-xs text-slate-400">Interactive Social Media Quiz for Class Discussion</p>
           </div>
         </div>
-        <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2">
+          <!-- Voice Narration Toggle & Replay -->
+          <button onclick="toggleQuizVoice()" id="btn-quiz-voice" title="Ovozli o‘qishni yoqish / o‘chirish" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer">
+            <span id="voice-icon">🔊</span>
+            <span id="voice-label" class="hidden sm:inline">Ovoz (ON)</span>
+          </button>
+          <button onclick="replayCurrentVoice()" id="btn-replay-voice" title="Hozirgi savolni qayta tinglash" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-xs transition cursor-pointer flex items-center justify-center">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
           <span id="quiz-progress-badge" class="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-slate-800 text-sky-400 border border-slate-700">Q 1 / 4</span>
           <button onclick="closeQuizModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition text-sm font-bold">✕</button>
         </div>
@@ -768,7 +776,13 @@
       <div id="quiz-question-screen" class="space-y-4">
         <!-- Presenter Prompt -->
         <div class="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
-          <span>🗣️ Ask the Audience / Savol auditoriyaga:</span>
+          <div class="flex items-center space-x-2">
+            <span>🗣️ Ask the Audience / Savol auditoriyaga:</span>
+            <span id="speaking-pulse" class="hidden text-sky-400 animate-pulse text-[11px] font-normal lowercase flex items-center space-x-1">
+              <span>●</span>
+              <span>o‘qilmoqda...</span>
+            </span>
+          </div>
           <span id="quiz-score-badge" class="text-slate-400 font-mono">Score: 0 / 4</span>
         </div>
 
@@ -1144,37 +1158,120 @@
       }, 3000);
     }
 
-    // --- INTERACTIVE FACT OR MYTH QUIZ LOGIC ---
+    // --- INTERACTIVE FACT OR MYTH QUIZ LOGIC WITH UZBEK NEURAL VOICE ---
     const quizQuestions = [
       {
         qEn: "An average person will spend more than 5 whole years of their lifetime browsing social media.",
         qUz: "O‘rtacha inson o‘z umri davomida 5 yildan ortiq vaqtini ijtimoiy tarmoqlarda o‘tkazadi.",
         isFact: true,
         expEn: "FACT! Global data reveals people spend ~2h 25m daily on social networks, totaling 5 years and 8 months over an average lifetime.",
-        expUz: "ROST! Xalqaro statistikaga ko‘ra, har bir inson kuniga o‘rtacha 2 soat 25 daqiqa sarflaydi — bu butun umr davomida deyarli 5 yil-u 8 oyni tashkil etadi."
+        expUz: "ROST! Xalqaro statistikaga ko‘ra, har bir inson kuniga o‘rtacha 2 soat 25 daqiqa sarflaydi — bu butun umr davomida deyarli 5 yil-u 8 oyni tashkil etadi.",
+        audioQ: "assets/audio/q1.mp3",
+        audioA: "assets/audio/a1.mp3"
       },
       {
         qEn: "Checking notifications immediately after waking up triggers a rush of dopamine and improves morning productivity.",
         qUz: "Ertalab uyg‘onish bilanoq yangi xabarlarni tekshirish kishida dopamin ajratib, ishchanlikni oshiradi.",
         isFact: false,
         expEn: "MYTH! Reaching for your phone first thing in the morning spikes cortisol (stress hormone), overwhelms the brain, and destroys deep focus for the whole day.",
-        expUz: "YOLG‘ON! Uyg‘ongach darhol telefonga qarash miyada stress gormoni (kortizol)ni oshirib, butun kunlik diqqatni parokanda qiladi."
+        expUz: "YOLG‘ON! Uyg‘ongach darhol telefonga qarash miyada stress gormoni (kortizol)ni oshirib, butun kunlik diqqatni parokanda qiladi.",
+        audioQ: "assets/audio/q2.mp3",
+        audioA: "assets/audio/a2.mp3"
       },
       {
         qEn: "Watching an educational 3-minute video explanation can boost knowledge retention by up to 60% compared to reading text alone.",
         qUz: "3 daqiqalik ta’limiy video tushuntirishni ko‘rish ma’lumotni eslab qolish darajasini oddiy matnga nisbatan 60% gacha oshiradi.",
         isFact: true,
         expEn: "FACT! Combining audio narration with dynamic visual motion engages dual-coding neural pathways, boosting understanding and recall.",
-        expUz: "ROST! Vizual tasvir va ovozni bir vaqtda qabul qilish (YouTube va mikro-darsliklar) inson xotirasida ma’lumotni saqlanishini keskin yaxshilaydi."
+        expUz: "ROST! Vizual tasvir va ovozni bir vaqtda qabul qilish (YouTube va mikro-darsliklar) inson xotirasida ma’lumotni saqlanishini keskin yaxshilaydi.",
+        audioQ: "assets/audio/q3.mp3",
+        audioA: "assets/audio/a3.mp3"
       },
       {
         qEn: "Putting your phone in another room or keeping it screen-down while studying increases cognitive performance by up to 25%.",
         qUz: "Dars qilish vaqtida telefonni boshqa xonaga qo‘yish yoki ekranini pastga qaratish aqliy diqqatni 25% gacha oshiradi.",
         isFact: true,
         expEn: "FACT! Harvard studies confirmed the 'Brain Drain' effect: merely having a phone visible on your desk silently drains cognitive bandwidth.",
-        expUz: "ROST! Garvard tadqiqotchilari isbotlagan: hatto ovozsiz telefon stolda ko‘rinib tursa ham, miya unga chalg‘ib o‘z quvvatini yo‘qotadi."
+        expUz: "ROST! Garvard tadqiqotchilari isbotlagan: hatto ovozsiz telefon stolda ko‘rinib tursa ham, miya unga chalg‘ib o‘z quvvatini yo‘qotadi.",
+        audioQ: "assets/audio/q4.mp3",
+        audioA: "assets/audio/a4.mp3"
       }
     ];
+
+    const quizAudioFinish = "assets/audio/finish.mp3";
+    let quizAudio = new Audio();
+    let quizVoiceEnabled = true;
+
+    function playQuizVoice(src) {
+      if (!quizVoiceEnabled || !src) return;
+      try {
+        quizAudio.pause();
+        quizAudio.currentTime = 0;
+        quizAudio.src = src;
+        const playPromise = quizAudio.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            setVoiceIndicator(true);
+          }).catch(err => {
+            setVoiceIndicator(false);
+          });
+        }
+        quizAudio.onended = () => {
+          setVoiceIndicator(false);
+        };
+      } catch (err) {
+        setVoiceIndicator(false);
+      }
+    }
+
+    function stopQuizVoice() {
+      try {
+        quizAudio.pause();
+        quizAudio.currentTime = 0;
+      } catch (e) {}
+      setVoiceIndicator(false);
+    }
+
+    function setVoiceIndicator(isSpeaking) {
+      const pulse = document.getElementById('speaking-pulse');
+      if (pulse) {
+        if (isSpeaking && quizVoiceEnabled) {
+          pulse.classList.remove('hidden');
+        } else {
+          pulse.classList.add('hidden');
+        }
+      }
+    }
+
+    function toggleQuizVoice() {
+      quizVoiceEnabled = !quizVoiceEnabled;
+      const btn = document.getElementById('btn-quiz-voice');
+      const icon = document.getElementById('voice-icon');
+      const label = document.getElementById('voice-label');
+
+      if (quizVoiceEnabled) {
+        btn.className = "flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer";
+        icon.innerText = "🔊";
+        if (label) label.innerText = "Ovoz (ON)";
+        replayCurrentVoice();
+      } else {
+        stopQuizVoice();
+        btn.className = "flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-slate-800 text-slate-400 border border-slate-700 text-xs font-semibold hover:bg-slate-700 transition cursor-pointer";
+        icon.innerText = "🔇";
+        if (label) label.innerText = "Ovoz (OFF)";
+      }
+    }
+
+    function replayCurrentVoice() {
+      const resultsScreen = document.getElementById('quiz-results-screen');
+      if (resultsScreen && !resultsScreen.classList.contains('hidden')) {
+        playQuizVoice(quizAudioFinish);
+      } else if (quizAnswered) {
+        playQuizVoice(quizQuestions[quizCurrentIdx].audioA);
+      } else {
+        playQuizVoice(quizQuestions[quizCurrentIdx].audioQ);
+      }
+    }
 
     let quizCurrentIdx = 0;
     let quizScore = 0;
@@ -1187,6 +1284,7 @@
     }
 
     function closeQuizModal() {
+      stopQuizVoice();
       const modal = document.getElementById('quiz-modal');
       modal.classList.add('hidden');
     }
@@ -1201,6 +1299,7 @@
     }
 
     function restartQuiz() {
+      stopQuizVoice();
       quizCurrentIdx = 0;
       quizScore = 0;
       quizAnswered = false;
@@ -1225,6 +1324,9 @@
       btnMyth.disabled = false;
 
       document.getElementById('quiz-explanation-box').classList.add('hidden');
+
+      // Play voice narration for the question
+      playQuizVoice(q.audioQ);
     }
 
     function submitQuizAnswer(userPickedFact) {
@@ -1266,6 +1368,9 @@
       const isLast = (quizCurrentIdx === quizQuestions.length - 1);
       document.getElementById('btn-next-q').innerHTML = isLast ? `<span>Finish Quiz 🎉</span>` : `<span>Next Question →</span>`;
       expBox.classList.remove('hidden');
+
+      // Play voice narration for answer reveal and explanation
+      playQuizVoice(q.audioA);
     }
 
     function nextQuizQuestion() {
@@ -1292,6 +1397,9 @@
         verdict = "💡 Thanks for playing! Social media algorithms are full of surprises! (Qiziqarli tajriba bo'ldi!)";
       }
       document.getElementById('quiz-final-verdict').innerText = verdict;
+
+      // Play finish voice
+      playQuizVoice(quizAudioFinish);
     }
 
     window.addEventListener('keydown', (e) => {
@@ -1307,6 +1415,9 @@
           e.preventDefault();
         } else if (e.key === '2' || e.key.toLowerCase() === 'm') {
           submitQuizAnswer(false);
+          e.preventDefault();
+        } else if (e.key.toLowerCase() === 'r') {
+          replayCurrentVoice();
           e.preventDefault();
         } else if ((e.key === 'Enter' || e.key === ' ') && quizAnswered) {
           nextQuizQuestion();
