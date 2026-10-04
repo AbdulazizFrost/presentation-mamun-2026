@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Networks in My Life • Ijtimoiy tarmoqlar mening hayotimda</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #090E1A;
+      color: #F8FAFC;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    @keyframes slideInNext {
+      0% {
+        opacity: 0;
+        transform: translateX(36px) scale(0.985);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+      }
+    }
+    @keyframes slideInPrev {
+      0% {
+        opacity: 0;
+        transform: translateX(-36px) scale(0.985);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: blur(0);
+      }
+    }
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.975);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+    @keyframes cardEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes visualEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.97);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .slide {
+      display: none;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .slide.active {
+      display: flex;
+      opacity: 1;
+    }
+    .slide.active.anim-next {
+      animation: slideInNext 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .slide.active.anim-prev {
+      animation: slideInPrev 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .slide.active.anim-fade {
+      animation: fadeInScale 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .slide.active .editorial-card-dark,
+    .slide.active [class*="editorial-card"] {
+      animation: cardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.06s backwards;
+    }
+    .slide.active img {
+      animation: visualEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+    }
+    .editorial-card-dark {
+      background: #111827;
+      border: 1px solid #1E293B;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+    }
+    .uz-sub {
+      color: #94A3B8;
+      font-style: italic;
+    }
+    .uz-title {
+      color: #22D3EE;
+      font-style: italic;
+    }
+    .uz-card {
+      color: #38BDF8;
+      font-style: italic;
+    }
+    /* FULLSCREEN AUTO-HIDE HEADER & FOOTER */
+    :fullscreen header,
+    body.is-fullscreen header {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+      z-index: 50;
+    }
+
+    :fullscreen #top-progress-container,
+    body.is-fullscreen #top-progress-container {
+      display: none !important;
+    }
+
+    :fullscreen footer,
+    body.is-fullscreen footer {
+      position: fixed !important;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+      z-index: 50;
+    }
+
+    :fullscreen header.show-controls,
+    body.is-fullscreen header.show-controls {
+      transform: translateY(0) !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    :fullscreen footer.show-controls,
+    body.is-fullscreen footer.show-controls {
+      transform: translateY(0) !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    :fullscreen main,
+    body.is-fullscreen main {
+      height: 100vh !important;
+      max-height: 100vh !important;
+      padding: 1.5rem 2.5rem !important;
+      justify-content: center !important;
+    }
+
+    :fullscreen #speaker-notes-panel,
+    body.is-fullscreen #speaker-notes-panel {
+      bottom: 0 !important;
+    }
+
+    @media print {
+      body {
+        background: #090E1A !important;
+        color: #FFFFFF !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .slide {
+        display: flex !important;
+        opacity: 1 !important;
+        page-break-after: always;
+        height: 100vh !important;
+        width: 100vw !important;
+      }
+      #speaker-notes-panel {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col justify-between overflow-hidden relative bg-[#090E1A]">
+
+  <!-- TOP HEADER / CONTROLS -->
+  <header class="no-print h-14 border-b border-slate-800/80 bg-[#0B132B]/80 backdrop-blur-md px-6 flex items-center justify-between z-40">
+    <div class="flex items-center space-x-3">
+      <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-sky-400 border border-sky-500/30">
+        Bilingual • EN / UZ
+      </span>
+      <h1 class="text-sm font-semibold text-slate-200 hidden sm:inline">
+        Social Networks in My Life <span class="text-sky-400 italic font-normal">| Ijtimoiy tarmoqlar mening hayotimda</span>
+      </h1>
+    </div>
+
+    <!-- Navigation & Controls -->
+    <div class="flex items-center space-x-4">
+      <div class="text-xs font-mono font-medium text-slate-400">
+        <span id="current-slide-num" class="text-sky-400 font-bold">01</span> / 09
+      </div>
+      <div class="flex items-center space-x-1">
+        <button onclick="prevSlide()" title="Previous slide (Left Arrow)" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button onclick="nextSlide()" title="Next slide (Right Arrow)" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="h-4 w-px bg-slate-700"></div>
+      <button onclick="toggleSpeakerNotes()" id="btn-notes" title="Toggle Oral Speech Notes (N)" class="text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700 flex items-center space-x-1.5 transition">
+        <span>🎙️ Speech Notes</span>
+      </button>
+            <button onclick="toggleFullscreen()" title="Fullscreen Mode (F)" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition" id="btn-fullscreen">
+        <svg id="icon-fs-enter" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+        <svg id="icon-fs-exit" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M10 10V4m0 6H4m6 0L3 3m10 7h6m-6 0V4m0 6l7-7"/></svg>
+      </button>
+      <div class="h-4 w-px bg-slate-700"></div>
+      <button onclick="downloadPPTX()" id="btn-download" title="Скачать PowerPoint презентацию (.pptx)" class="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold flex items-center space-x-1.5 transition shadow-lg shadow-sky-500/20 active:scale-95">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        <span>Скачать PPTX</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- TOP PROGRESS BAR -->
+  <div id="top-progress-container" class="no-print w-full bg-slate-800/40 h-1">
+    <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-sky-400 h-1 transition-all duration-300" style="width: 11.11%;"></div>
+  </div>
+
+    <!-- SLIDES MAIN CONTAINER (UNIFIED LUXURY DARK NAVY THEME ACROSS ALL 9 SLIDES) -->
+  <main class="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 flex flex-col justify-center items-center relative overflow-hidden">
+
+    <!-- ========================================== -->
+    <!-- SLIDE 1: HERO                              -->
+    <!-- ========================================== -->
+    <div class="slide active w-full h-full flex-col justify-center text-white" data-slide="1">
+      <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 xl:gap-12">
+        <div class="flex-1 space-y-6 text-left max-w-xl">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-sky-400 text-xs font-bold uppercase tracking-wider">
+            <span>DIGITAL LIFE · UNIVERSITY PRESENTATION</span>
+          </div>
+          <div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-2 leading-none">
+              Social Networks<br><span class="text-white">in My Life</span>
+            </h1>
+            <p class="text-2xl sm:text-3xl font-medium text-sky-400 italic">
+              Ijtimoiy tarmoqlar mening hayotimda
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800">
+            <p class="text-lg sm:text-xl font-semibold text-slate-200 mb-1">
+              How social media shapes the way we communicate, learn and live
+            </p>
+            <p class="text-base sm:text-lg text-slate-400 italic">
+              Ijtimoiy tarmoqlar muloqot, ta’lim va turmush tarzimizni qanday shakllantiradi
+            </p>
+          </div>
+          <div class="pt-2 flex items-center gap-3 text-xs font-mono text-slate-400">
+            <span class="text-sky-400 font-semibold">English · O‘zbekcha</span>
+            <span>•</span>
+            <span>01 / 09</span>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-1/2 flex justify-center items-center relative">
+          <img src="assets_premium/hero_phone.png" alt="Smartphone Social Mockup" class="w-full max-h-[88vh] max-w-md lg:max-w-xl object-contain">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 2: WHAT ARE SOCIAL NETWORKS?         -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="2">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 02 • Core Definition</span>
+        <h2 class="text-3xl font-extrabold text-white">What Are Social Networks?</h2>
+        <p class="text-base uz-title">Ijtimoiy tarmoqlar nima?</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <!-- Left Editorial Text Block -->
+        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+          <div>
+            <div class="mb-6">
+              <p class="text-lg font-bold text-white leading-snug mb-2">
+                Social networks are online platforms where people can communicate, share information and create content. They have become an important part of modern life.
+              </p>
+              <p class="text-sm uz-sub leading-relaxed">
+                Ijtimoiy tarmoqlar — odamlar muloqot qilishi, ma’lumot almashishi va kontent yaratishi mumkin bo‘lgan onlayn platformalardir. Ular zamonaviy hayotning muhim qismiga aylandi.
+              </p>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-slate-800">
+              <div>
+                <p class="text-base font-bold text-sky-400">1. Communication</p>
+                <p class="text-xs uz-sub">Muloqot — connecting instantly with friends and family</p>
+              </div>
+              <div>
+                <p class="text-base font-bold text-cyan-400">2. Information</p>
+                <p class="text-xs uz-sub">Ma’lumot — accessing news, updates and global awareness</p>
+              </div>
+              <div>
+                <p class="text-base font-bold text-purple-400">3. Content sharing</p>
+                <p class="text-xs uz-sub">Kontent almashish — publishing creative photos, videos and ideas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual Graphic -->
+        <div class="lg:col-span-7 flex justify-center items-center">
+          <img src="assets_premium/network_visual.png" alt="Connected Network" class="w-full object-contain drop-shadow">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 3: SOCIAL NETWORKS I USE             -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="3">
+      <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
+        <div>
+          <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 03 • Platforms in Everyday Use</span>
+          <h2 class="text-3xl font-extrabold text-white">Social Networks I Use</h2>
+          <p class="text-base uz-title">Men foydalanadigan ijtimoiy tarmoqlar</p>
+        </div>
+        <p class="text-xs text-slate-400 italic hidden sm:block">Examples commonly used by students / Talabalar hayotidan misollar</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <!-- Left Narrative -->
+        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+          <div>
+            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">POPULAR STUDENT PLATFORMS</span>
+            <h3 class="text-xl font-bold text-white mt-2 mb-1">
+              Commonly used platforms in student life:
+            </h3>
+            <p class="text-xs uz-sub mb-6">
+              Talabalar hayotida keng qo‘llaniladigan platformalar:
+            </p>
+
+            <div class="space-y-4 pt-2">
+              <div class="border-l-2 border-sky-400 pl-3">
+                <p class="text-base font-bold text-white">Telegram</p>
+                <p class="text-xs font-semibold text-sky-400">communication and useful information</p>
+                <p class="text-xs uz-sub">muloqot va foydali ma’lumotlar uchun</p>
+              </div>
+
+              <div class="border-l-2 border-pink-500 pl-3">
+                <p class="text-base font-bold text-white">Instagram</p>
+                <p class="text-xs font-semibold text-pink-400">photos, videos and creative content</p>
+                <p class="text-xs uz-sub">fotosuratlar, videolar va ijodiy kontent uchun</p>
+              </div>
+
+              <div class="border-l-2 border-red-500 pl-3">
+                <p class="text-base font-bold text-white">YouTube</p>
+                <p class="text-xs font-semibold text-red-400">education and entertainment</p>
+                <p class="text-xs uz-sub">ta’lim va ko‘ngilochar kontent uchun</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Ecosystem Mockup -->
+        <div class="lg:col-span-7 flex justify-center items-center">
+          <img src="assets_premium/platforms_visual.png" alt="Platform Ecosystem" class="w-full object-contain drop-shadow">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 4: WHY DO I USE SOCIAL NETWORKS?     -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="4">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 04 • Infographic Overview</span>
+        <h2 class="text-3xl font-extrabold text-white">Why Do I Use Social Networks?</h2>
+        <p class="text-base uz-title">Nega ijtimoiy tarmoqlardan foydalanaman?</p>
+      </div>
+
+      <!-- Main statement -->
+      <div class="editorial-card-dark rounded-xl p-5 border-l-4 border-l-sky-400">
+        <p class="text-base sm:text-lg font-bold text-white mb-1">
+          I use social networks for several reasons. They help me communicate with other people, find useful information, learn new things and relax in my free time.
+        </p>
+        <p class="text-sm uz-sub">
+          Men ijtimoiy tarmoqlardan bir nechta sabablar tufayli foydalanaman. Ular menga boshqa odamlar bilan muloqot qilish, foydali ma’lumot topish, yangi narsalarni o‘rganish va bo‘sh vaqtimda dam olishga yordam beradi.
+        </p>
+      </div>
+
+      <!-- 4 Distinct Infographic Columns -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-blue-500 hover:border-blue-400 transition">
+          <div class="text-2xl font-black text-sky-400 mb-3">01</div>
+          <h3 class="text-xl font-bold text-white mb-0.5">Communication</h3>
+          <p class="text-xs font-semibold text-sky-400 italic mb-2">Muloqot</p>
+          <p class="text-xs text-slate-300 mb-1">Staying in close touch with friends, family, and classmates seamlessly.</p>
+          <p class="text-[11px] uz-sub">Do‘stlar, oila va kursdoshlar bilan muntazam aloqada bo‘lish.</p>
+        </div>
+
+        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-cyan-500 hover:border-cyan-400 transition">
+          <div class="text-2xl font-black text-cyan-400 mb-3">02</div>
+          <h3 class="text-xl font-bold text-white mb-0.5">Information</h3>
+          <p class="text-xs font-semibold text-cyan-400 italic mb-2">Ma’lumot</p>
+          <p class="text-xs text-slate-300 mb-1">Discovering latest news, campus alerts, and world events.</p>
+          <p class="text-[11px] uz-sub">Yangiliklar, universitet e’lonlari va jahon voqealarini bilish.</p>
+        </div>
+
+        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-purple-500 hover:border-purple-400 transition">
+          <div class="text-2xl font-black text-purple-400 mb-3">03</div>
+          <h3 class="text-xl font-bold text-white mb-0.5">Learning</h3>
+          <p class="text-xs font-semibold text-purple-400 italic mb-2">O‘rganish</p>
+          <p class="text-xs text-slate-300 mb-1">Acquiring practical skills, foreign languages, and study advice.</p>
+          <p class="text-[11px] uz-sub">Amaliy ko‘nikmalar, chet tillari va yangi bilimlarni o‘rganish.</p>
+        </div>
+
+        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-emerald-500 hover:border-emerald-400 transition">
+          <div class="text-2xl font-black text-emerald-400 mb-3">04</div>
+          <h3 class="text-xl font-bold text-white mb-0.5">Entertainment</h3>
+          <p class="text-xs font-semibold text-emerald-400 italic mb-2">Ko‘ngilochar</p>
+          <p class="text-xs text-slate-300 mb-1">Listening to favorite music, watching videos, and resting peacefully.</p>
+          <p class="text-[11px] uz-sub">Sevimli musiqa tinglash, videolar ko‘rish va maroqli dam olish.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 5: COMMUNICATION                     -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="5">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 05 • Digital Storytelling</span>
+        <h2 class="text-3xl font-extrabold text-white">Communication with People</h2>
+        <p class="text-base uz-title">Odamlar bilan muloqot</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <!-- Left Narrative -->
+        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+          <div>
+            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">SPEED & CONNECTION</span>
+            <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
+              Social networks make communication faster and easier. I can send messages, share photos and talk to friends and family even when they are far away.
+            </p>
+            <p class="text-sm uz-sub mb-6 leading-relaxed">
+              Ijtimoiy tarmoqlar muloqotni tezroq va osonroq qiladi. Men do‘stlarim va oilam uzoqda bo‘lsa ham, xabar yuborishim, fotosurat ulashishim va ular bilan suhbatlashishim mumkin.
+            </p>
+
+            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-sky-400 font-bold">✔</span>
+                <span class="font-semibold text-slate-200">Instant Messaging across continents</span>
+                <span class="text-slate-400 italic">• Tezkor xabarlar</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sky-400 font-bold">✔</span>
+                <span class="font-semibold text-slate-200">Sharing memories & photos in seconds</span>
+                <span class="text-slate-400 italic">• Fotosuratlar ulashish</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sky-400 font-bold">✔</span>
+                <span class="font-semibold text-slate-200">High-Definition Video Conversations</span>
+                <span class="text-slate-400 italic">• Jonli video muloqot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Realistic Chat UI -->
+        <div class="lg:col-span-7 flex justify-center items-center">
+          <img src="assets_premium/chat_visual.png" alt="Digital Chat UI" class="w-full object-contain drop-shadow">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 6: LEARNING AND EDUCATION            -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="6">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 06 • Digital Learning</span>
+        <h2 class="text-3xl font-extrabold text-white">Learning and Education</h2>
+        <p class="text-base uz-title">O‘rganish va ta’lim</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <!-- Left Narrative -->
+        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+          <div>
+            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">ACADEMIC & EDUCATIONAL POWER</span>
+            <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
+              Social networks can also be useful for education. I can watch educational videos, follow useful channels and find new information about different topics.
+            </p>
+            <p class="text-sm uz-sub mb-6 leading-relaxed">
+              Ijtimoiy tarmoqlar ta’lim uchun ham foydali bo‘lishi mumkin. Men ta’limiy videolar ko‘rishim, foydali kanallarni kuzatishim va turli mavzular haqida yangi ma’lumot topishim mumkin.
+            </p>
+
+            <div class="space-y-3 pt-3 border-t border-slate-800">
+              <div class="border-l-2 border-sky-400 pl-3">
+                <p class="text-sm font-bold text-white">Video lessons</p>
+                <p class="text-xs uz-sub">Video darslar — visual tutorials and step-by-step guides</p>
+              </div>
+              <div class="border-l-2 border-cyan-400 pl-3">
+                <p class="text-sm font-bold text-white">Online courses</p>
+                <p class="text-xs uz-sub">Onlayn kurslar — structured modules for languages and skills</p>
+              </div>
+              <div class="border-l-2 border-purple-400 pl-3">
+                <p class="text-sm font-bold text-white">Educational channels</p>
+                <p class="text-xs uz-sub">Ta’limiy kanallar — expert insights and quizzes</p>
+              </div>
+              <div class="border-l-2 border-emerald-400 pl-3">
+                <p class="text-sm font-bold text-white">Useful information</p>
+                <p class="text-xs uz-sub">Foydali ma’lumotlar — research articles and e-books</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Video Player Mockup -->
+        <div class="lg:col-span-7 flex justify-center items-center">
+          <img src="assets_premium/education_player.png" alt="Educational Player UI" class="w-full object-contain drop-shadow">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 7: ENTERTAINMENT & BALANCE           -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="7">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 07 • Recreation & Balance</span>
+        <h2 class="text-3xl font-extrabold text-white">Entertainment and Free Time</h2>
+        <p class="text-base uz-title">Ko‘ngilochar va bo‘sh vaqt</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <!-- Left Narrative -->
+        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+          <div>
+            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">RECREATION & DIGITAL WELLBEING</span>
+            <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
+              Social networks are also a way to relax. I can watch videos, listen to music, see interesting content and discover new ideas. However, I try not to spend too much time online.
+            </p>
+            <p class="text-sm uz-sub mb-6 leading-relaxed">
+              Ijtimoiy tarmoqlar dam olish usuli hamdir. Men videolar ko‘rishim, musiqa tinglashim, qiziqarli kontent tomosha qilishim va yangi g‘oyalarni kashf qilishim mumkin. Biroq internetda juda ko‘p vaqt sarflamaslikka harakat qilaman.
+            </p>
+
+            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-sky-400 font-bold">✔</span>
+                <span class="font-semibold text-slate-200">Relaxation & Music</span>
+                <span class="text-slate-400 italic">• Dam olish va musiqa</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sky-400 font-bold">✔</span>
+                <span class="font-semibold text-slate-200">Inspiration & Creative Ideas</span>
+                <span class="text-slate-400 italic">• Yangi ijodiy g‘oyalar</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sky-400 font-bold">✔</span>
+                <span class="font-semibold text-slate-200">Conscious Screen Time Limits</span>
+                <span class="text-slate-400 italic">• Sog‘lom ekran vaqti nazorati</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Wellbeing Widget UI -->
+        <div class="lg:col-span-7 flex justify-center items-center">
+          <img src="assets_premium/balance_wellbeing.png" alt="Digital Balance UI" class="w-full object-contain drop-shadow">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 8: ADVANTAGES VS DISADVANTAGES       -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="8">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 08 • Objective Comparison</span>
+        <h2 class="text-3xl font-extrabold text-white">Advantages and Disadvantages</h2>
+        <p class="text-base uz-title">Afzalliklari va kamchiliklari</p>
+      </div>
+
+      <!-- Sophisticated Two-Column Comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        <!-- ADVANTAGES -->
+        <div class="editorial-card-dark rounded-2xl p-7 border-l-4 border-l-emerald-500 flex flex-col justify-between">
+          <div>
+            <div class="mb-6 pb-3 border-b border-slate-800">
+              <h3 class="text-2xl font-extrabold text-emerald-400 tracking-wide">ADVANTAGES</h3>
+              <p class="text-sm font-semibold text-emerald-300/80 italic">AFZALLIKLARI</p>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border-l-2 border-emerald-400 pl-3">
+                <p class="text-base font-bold text-white">Easy communication</p>
+                <p class="text-sm uz-sub">Oson muloqot</p>
+              </div>
+              <div class="border-l-2 border-emerald-400 pl-3">
+                <p class="text-base font-bold text-white">Quick access to information</p>
+                <p class="text-sm uz-sub">Ma’lumotga tezkor kirish</p>
+              </div>
+              <div class="border-l-2 border-emerald-400 pl-3">
+                <p class="text-base font-bold text-white">Educational opportunities</p>
+                <p class="text-sm uz-sub">Ta’lim imkoniyatlari</p>
+              </div>
+              <div class="border-l-2 border-emerald-400 pl-3">
+                <p class="text-base font-bold text-white">Entertainment</p>
+                <p class="text-sm uz-sub">Ko‘ngilochar imkoniyatlar</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-slate-400">
+            Positive aspects that empower modern university students.
+          </div>
+        </div>
+
+        <!-- DISADVANTAGES -->
+        <div class="editorial-card-dark rounded-2xl p-7 border-l-4 border-l-rose-500 flex flex-col justify-between">
+          <div>
+            <div class="mb-6 pb-3 border-b border-slate-800">
+              <h3 class="text-2xl font-extrabold text-rose-400 tracking-wide">DISADVANTAGES</h3>
+              <p class="text-sm font-semibold text-rose-300/80 italic">KAMCHILIKLARI</p>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border-l-2 border-rose-400 pl-3">
+                <p class="text-base font-bold text-white">Too much screen time</p>
+                <p class="text-sm uz-sub">Ekran qarshisida ortiqcha vaqt</p>
+              </div>
+              <div class="border-l-2 border-rose-400 pl-3">
+                <p class="text-base font-bold text-white">Distraction</p>
+                <p class="text-sm uz-sub">Diqqatni chalg‘itishi</p>
+              </div>
+              <div class="border-l-2 border-rose-400 pl-3">
+                <p class="text-base font-bold text-white">False information</p>
+                <p class="text-sm uz-sub">Noto‘g‘ri ma’lumotlar</p>
+              </div>
+              <div class="border-l-2 border-rose-400 pl-3">
+                <p class="text-base font-bold text-white">Privacy problems</p>
+                <p class="text-sm uz-sub">Maxfiylik muammolari</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-slate-400">
+            Digital challenges requiring conscious self-control and awareness.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- SLIDE 9: CONCLUSION                        -->
+    <!-- ========================================== -->
+    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="9">
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 09 • Final Takeaway</span>
+        <h2 class="text-3xl font-extrabold text-white">Conclusion</h2>
+        <p class="text-base uz-title">Xulosa</p>
+      </div>
+
+      <!-- Big Key Takeaway Statement -->
+      <div class="editorial-card-dark rounded-2xl p-6 sm:p-8 border-l-4 border-l-blue-500">
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-tight">
+          “Social networks are useful when we use them wisely.”
+        </h3>
+        <p class="text-lg sm:text-xl font-medium text-sky-400 italic mb-6">
+          “Ijtimoiy tarmoqlardan oqilona foydalansak, ular foydali vositaga aylanishi mumkin.”
+        </p>
+
+        <div class="pt-4 border-t border-slate-800 space-y-2">
+          <p class="text-base sm:text-lg font-semibold text-slate-200">
+            Social networks are an important part of modern life. They help me communicate, learn and relax. However, I believe it is important to use them responsibly and keep a healthy balance between online and real life.
+          </p>
+          <p class="text-sm sm:text-base uz-sub">
+            Ijtimoiy tarmoqlar zamonaviy hayotning muhim qismidir. Ular menga muloqot qilish, o‘rganish va dam olishga yordam beradi. Biroq ulardan mas’uliyat bilan foydalanish va onlayn hamda real hayot o‘rtasida sog‘lom muvozanatni saqlash muhim deb hisoblayman.
+          </p>
+        </div>
+      </div>
+
+      <!-- Memorable Closing Box -->
+      <div class="editorial-card-dark rounded-2xl p-6 text-center border border-blue-500/30 bg-gradient-to-r from-blue-950/40 via-slate-900 to-blue-950/40">
+        <h3 class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
+          Thank you for your attention!
+        </h3>
+        <p class="text-xl sm:text-2xl font-semibold text-sky-400 italic mb-2">
+          E’tiboringiz uchun rahmat!
+        </p>
+        <p class="text-xs text-slate-400 italic">
+          Questions & Discussion • Savollar va muhokama
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SPEAKER NOTES DRAWER -->
+  <div id="speaker-notes-panel" class="hidden no-print fixed bottom-14 left-0 right-0 max-h-72 bg-slate-900/95 backdrop-blur-lg border-t border-slate-700/80 p-5 z-50 overflow-y-auto shadow-2xl">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-700 mb-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-sky-400 font-bold text-sm">🎙️ University Oral Presentation Script (A2–B1 Level)</span>
+          <span class="text-xs text-slate-400 font-mono" id="notes-slide-indicator">Slide 01</span>
+        </div>
+        <button onclick="toggleSpeakerNotes()" class="text-slate-400 hover:text-white text-xs px-2 py-1 bg-slate-800 rounded">Close (N)</button>
+      </div>
+      <div id="notes-content" class="space-y-3 text-sm">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER CONTROLS -->
+  <footer class="no-print h-14 border-t border-slate-800/80 bg-[#0B132B]/80 backdrop-blur-md px-6 flex items-center justify-between text-xs text-slate-400 z-40">
+    <div class="flex items-center space-x-2">
+      <span class="hidden md:inline">Use <kbd class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700">←</kbd> <kbd class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700">→</kbd> or <kbd class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700">Space</kbd> to navigate</span>
+      <span class="md:hidden">Swipe or use arrows</span>
+    </div>
+
+    <!-- Quick Jump Dots -->
+    <div class="flex items-center space-x-1.5" id="slide-dots"></div>
+
+    <div class="flex items-center space-x-2">
+      <button onclick="downloadPPTX()" class="text-slate-200 hover:text-white px-2.5 py-1 bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 rounded transition flex items-center space-x-1 font-medium text-xs">
+        <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        <span>Скачать .PPTX</span>
+      </button>
+      <button onclick="window.print()" class="text-slate-300 hover:text-white px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded transition flex items-center space-x-1 border border-slate-700">
+        <span>🖨️ Export PDF</span>
+      </button>
+    </div>
+  </footer>
+
+  <script>
+    const totalSlides = 9;
+    let currentSlide = 1;
+
+    const speakerNotes = {
+      1: {
+        en: "Good morning / afternoon, respected teacher and classmates! Today, I am pleased to present my topic: 'Social Networks in My Life'. In this presentation, I will discuss how social platforms influence how we communicate, learn, and spend our free time in the digital era.",
+        uz: "Assalomu alaykum, hurmatli ustoz va qadrli guruhdoshlar! Bugun men 'Ijtimoiy tarmoqlar mening hayotimda' mavzusida taqdimot qilmoqchiman. Ushbu taqdimotda ijtimoiy tarmoqlar muloqotimiz, ta’lim olishimiz va kundalik hayotimizga qanday ta’sir ko‘rsatishi haqida so‘z yuritamiz."
+      },
+      2: {
+        en: "To begin with, what exactly are social networks? Basically, they are online digital platforms that enable people around the world to communicate, share knowledge, and create diverse content. Today, they have become an integral pillar of our everyday routines.",
+        uz: "Avvalo, ijtimoiy tarmoqlar o‘zi nima? Qisqa qilib aytganda, ular odamlar o‘zaro muloqot qilishi, ma’lumot almashishi va yangi kontent yaratishi mumkin bo‘lgan platformalardir. Bugungi kunda ular hayotimizning ajralmas qismiga aylandi."
+      },
+      3: {
+        en: "Here are common examples of platforms widely used by university students: First, Telegram, which is essential for fast communication, group studies, and downloading books. Second, Instagram, popular for sharing creative visual stories and reels. And third, YouTube, which serves as a massive educational library and entertainment hub.",
+        uz: "Talabalar hayotida eng ko‘p qo‘llaniladigan tarmoqlarga to‘xtalsak: Birinchidan, Telegram — tezkor muloqot, o‘quv guruhlari va kitoblar almashish uchun juda qulay. Ikkinchidan, Instagram — vizual ijodiy kontent va xotiralar uchun. Uchinchidan esa YouTube — ta’limiy videolar va maroqli hordiq uchun xizmat qiladi."
+      },
+      4: {
+        en: "Why do I personally use social networks? As you can see, there are four key reasons: staying connected with family and friends, staying informed about current affairs, expanding my academic horizons, and relaxing after intensive study hours.",
+        uz: "Nima uchun men ijtimoiy tarmoqlardan foydalanaman? Ko‘rib turganingizdek, to‘rtta asosiy sabab bor: yaqinlar bilan aloqada bo‘lish, yangiliklardan xabardor bo‘lish, yangi bilimlarni o‘rganish va o‘qishdan so‘ng maroqli dam olish."
+      },
+      5: {
+        en: "Let us focus on communication. Social networks have made communication effortless and instantaneous. Even when our friends and family live in different cities or abroad, we can send messages, share pictures, and make video calls within seconds.",
+        uz: "Muloqot masalasiga e’tibor qarataylik. Ijtimoiy tarmoqlar aloqani nihoyatda tez va oson qildi. Do‘stlarimiz yoki oila a’zolarimiz uzoqda bo‘lsa ham, soniyalar ichida xabar almashishimiz, fotosuratlar ulashishimiz va yuzma-yuz gaplashishimiz mumkin."
+      },
+      6: {
+        en: "Moving on to learning and education. Many people view social networks only as entertainment, but for students, they are incredible educational tools. We can follow expert video tutorials, join online language groups, and access lecture materials anytime.",
+        uz: "Keyingi muhim yo‘nalish — bu ta’lim. Ko‘pchilik ijtimoiy tarmoqlarni faqat ko‘ngilochar vosita deb o‘ylaydi, ammo talabalar uchun ular beqiyos bilim manbaidir. Video darslar, onlayn kurslar va foydali kanallar orqali mustaqil ta’lim olish juda oson."
+      },
+      7: {
+        en: "Next is entertainment and leisure. Social media offers wonderful opportunities to relax, listen to good music, and discover creative ideas. However, as students, it is vital to practice digital self-discipline and not spend too many hours scrolling endlessly.",
+        uz: "Navbatdagi jihat — ko‘ngilochar va bo‘sh vaqt. Ijtimoiy tarmoqlar dam olish, musiqa tinglash va yangi g‘oyalarni kashf qilish uchun yaxshi imkoniyat beradi. Biroq internetda keragidan ortiqcha vaqt yo‘qotmaslik uchun o‘zimizni nazorat qila bilishimiz kerak."
+      },
+      8: {
+        en: "Now, let us examine both sides of the coin: Advantages versus Disadvantages. The advantages are obvious: easy communication, instant knowledge access, study benefits, and entertainment. But we must beware of the disadvantages: excessive screen time, distraction from studies, misinformation, and privacy risks.",
+        uz: "Endi esa tangaining ikki tomonini — afzallik va kamchiliklarni taqqoslaymiz. Afzalliklari: oson muloqot, tezkor ma’lumot, ta’lim va hordiq. Ammo kamchiliklari ham jiddiy: ortiqcha ekran vaqti, chalg‘ish, yolg‘on ma’lumotlar va shaxsiy maxfiylik muammolari."
+      },
+      9: {
+        en: "To conclude our presentation today, let us remember one key truth: 'Social networks are useful when we use them wisely.' Social networks have become an essential part of modern university life. They help me communicate with family and friends, learn new skills, and relax in my free time. However, the secret to success is conscious responsibility: we must maintain a healthy balance between our online world and our real life. Thank you very much for your kind attention!",
+        uz: "Taqdimotimiz yakunida bitta asosiy haqiqatni ta’kidlamoqchiman: 'Ijtimoiy tarmoqlardan oqilona foydalansak, ular foydali vositaga aylanishi mumkin.' Ijtimoiy tarmoqlar zamonaviy talaba hayotining muhim qismidir. Ular yaqinlar bilan muloqot qilish, yangi bilimlarni o‘rganish va darslardan so‘ng dam olishga xizmat qiladi. Biroq muvaffaqiyat garovi — ongli mas’uliyatdir: virtual olam va real hayotimiz o‘rtasidagi sog‘lom muvozanatni saqlashimiz zarur. E’tiboringiz uchun katta rahmat!"
+      }
+    };
+
+    function initDots() {
+      const container = document.getElementById('slide-dots');
+      container.innerHTML = '';
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-200 ${i === currentSlide ? 'bg-sky-400 w-6' : 'bg-slate-700 hover:bg-slate-500'}`;
+        dot.title = `Jump to slide ${i}`;
+        dot.onclick = () => goToSlide(i);
+        container.appendChild(dot);
+      }
+    }
+
+    function updateSlide(direction = 'next') {
+      document.querySelectorAll('.slide').forEach(s => {
+        s.classList.remove('active', 'anim-next', 'anim-prev', 'anim-fade');
+        if (parseInt(s.getAttribute('data-slide')) === currentSlide) {
+          s.classList.add('active');
+          if (direction === 'next') {
+            s.classList.add('anim-next');
+          } else if (direction === 'prev') {
+            s.classList.add('anim-prev');
+          } else {
+            s.classList.add('anim-fade');
+          }
+        }
+      });
+
+      document.getElementById('current-slide-num').innerText = String(currentSlide).padStart(2, '0');
+      document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+      
+      initDots();
+      updateSpeakerNotes();
+    }
+
+    function goToSlide(n) {
+      if (n >= 1 && n <= totalSlides && n !== currentSlide) {
+        const dir = n > currentSlide ? 'next' : 'prev';
+        currentSlide = n;
+        updateSlide(dir);
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide('next');
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide('prev');
+      }
+    }
+
+    function toggleSpeakerNotes() {
+      const panel = document.getElementById('speaker-notes-panel');
+      panel.classList.toggle('hidden');
+    }
+
+    function updateSpeakerNotes() {
+      const notes = speakerNotes[currentSlide];
+      document.getElementById('notes-slide-indicator').innerText = `Slide ${String(currentSlide).padStart(2, '0')} of 09`;
+      document.getElementById('notes-content').innerHTML = `
+        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+          <p class="text-xs uppercase font-bold text-sky-400 mb-1">🇬🇧 English Speech (Say this to the class):</p>
+          <p class="text-slate-100 font-medium leading-relaxed">${notes.en}</p>
+        </div>
+        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+          <p class="text-xs uppercase font-bold text-cyan-400 mb-1">🇺🇿 Uzbek Translation (O‘zbekcha nutq matni):</p>
+          <p class="text-slate-300 italic leading-relaxed">${notes.uz}</p>
+        </div>
+      `;
+    }
+
+
+    let fsHideTimer = null;
+
+    function updateFullscreenUI() {
+      const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) || document.body.classList.contains('is-fullscreen');
+      document.body.classList.toggle('is-fullscreen', isFs);
+
+      const header = document.querySelector('header');
+      const footer = document.querySelector('footer');
+      const iconEnter = document.getElementById('icon-fs-enter');
+      const iconExit = document.getElementById('icon-fs-exit');
+
+      if (iconEnter && iconExit) {
+        if (isFs) {
+          iconEnter.classList.add('hidden');
+          iconExit.classList.remove('hidden');
+        } else {
+          iconEnter.classList.remove('hidden');
+          iconExit.classList.add('hidden');
+        }
+      }
+
+      if (!isFs) {
+        if (header) header.classList.remove('show-controls');
+        if (footer) footer.classList.remove('show-controls');
+        clearTimeout(fsHideTimer);
+      } else {
+        // Show controls momentarily upon entering fullscreen, then smoothly auto-hide
+        if (header) header.classList.add('show-controls');
+        if (footer) footer.classList.add('show-controls');
+        clearTimeout(fsHideTimer);
+        fsHideTimer = setTimeout(() => {
+          if (header && !header.matches(':hover')) header.classList.remove('show-controls');
+          if (footer && !footer.matches(':hover')) footer.classList.remove('show-controls');
+        }, 1800);
+      }
+    }
+
+    function toggleFullscreen() {
+      const isFs = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+      if (!isFs && !document.body.classList.contains('is-fullscreen')) {
+        const root = document.documentElement;
+        const req = root.requestFullscreen || root.webkitRequestFullscreen || root.mozRequestFullScreen || root.msRequestFullscreen;
+        if (req) {
+          req.call(root).catch(() => {
+            // Fallback for iframe or restricted permissions
+            document.body.classList.add('is-fullscreen');
+            updateFullscreenUI();
+          });
+        } else {
+          document.body.classList.add('is-fullscreen');
+          updateFullscreenUI();
+        }
+      } else {
+        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        if (exit && (document.fullscreenElement || document.webkitFullscreenElement)) {
+          exit.call(document).catch(() => {});
+        }
+        document.body.classList.remove('is-fullscreen');
+        updateFullscreenUI();
+      }
+    }
+
+    ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(evt => {
+      document.addEventListener(evt, updateFullscreenUI);
+    });
+
+    // Proximity hover: reveal header when cursor is near top edge, reveal footer when cursor is near bottom edge
+    document.addEventListener('mousemove', (e) => {
+      const isFs = document.body.classList.contains('is-fullscreen') || !!document.fullscreenElement;
+      if (!isFs) return;
+
+      const header = document.querySelector('header');
+      const footer = document.querySelector('footer');
+
+      // Top edge proximity (within 55px)
+      if (e.clientY <= 55) {
+        if (header) header.classList.add('show-controls');
+      } else if (header && !header.matches(':hover')) {
+        header.classList.remove('show-controls');
+      }
+
+      // Bottom edge proximity (within 55px of window bottom)
+      if (e.clientY >= window.innerHeight - 55) {
+        if (footer) footer.classList.add('show-controls');
+      } else if (footer && !footer.matches(':hover')) {
+        footer.classList.remove('show-controls');
+      }
+
+      // If hovering directly over header or footer, keep visible
+      if (header && header.matches(':hover')) header.classList.add('show-controls');
+      if (footer && footer.matches(':hover')) footer.classList.add('show-controls');
+
+      // Auto-hide when cursor stops moving in middle area
+      clearTimeout(fsHideTimer);
+      fsHideTimer = setTimeout(() => {
+        if (header && !header.matches(':hover')) header.classList.remove('show-controls');
+        if (footer && !footer.matches(':hover')) footer.classList.remove('show-controls');
+      }, 2200);
+    });
+
+    function downloadPPTX() {
+      const filename = 'Social_Networks_in_My_Life.pptx';
+      if (window.EMBEDDED_PPTX_BASE64) {
+        try {
+          const binaryString = atob(window.EMBEDDED_PPTX_BASE64);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          const blob = new Blob([bytes], {
+            type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+          });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = filename;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(url), 1500);
+          showDownloadToast('Презентация PowerPoint скачивается!');
+          return;
+        } catch (err) {
+          console.error('Error in blob download:', err);
+        }
+      }
+
+      // Standard fallback for local browser viewing
+      const link = document.createElement('a');
+      link.href = filename;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showDownloadToast('Презентация PowerPoint скачивается!');
+    }
+
+    function showDownloadToast(msg) {
+      let toast = document.getElementById('download-toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'download-toast';
+        toast.className = 'fixed bottom-16 right-6 z-50 bg-sky-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl shadow-2xl flex items-center space-x-2 transition-all duration-300 transform translate-y-0 opacity-100 border border-sky-300';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<svg class="w-5 h-5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg><span>${msg}</span>`;
+      toast.style.opacity = '1';
+      toast.style.pointerEvents = 'auto';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.pointerEvents = 'none';
+      }, 3000);
+    }
+
+        window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'n') {
+        toggleSpeakerNotes();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      } else if (e.key === 'Escape' || e.key === 'Esc') {
+        if (document.body.classList.contains('is-fullscreen')) {
+          document.body.classList.remove('is-fullscreen');
+          if (document.fullscreenElement && document.exitFullscreen) {
+            document.exitFullscreen().catch(() => {});
+          }
+          updateFullscreenUI();
+        }
+      } else if (e.key >= '1' && e.key <= '9') {
+        goToSlide(parseInt(e.key));
+      }
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    window.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    window.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    });
+
+    initDots();
+    updateSlide();
+  </script>
+</body>
+</html>
