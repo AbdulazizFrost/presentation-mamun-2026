@@ -49,13 +49,13 @@ def create_realistic_communication_mockup():
         draw.ellipse([card_x1 + 23, card_y1 + 14, card_x1 + 68, card_y1 + 59], outline=(56, 189, 248), width=1)
     else:
         draw.ellipse([card_x1 + 25, card_y1 + 16, card_x1 + 67, card_y1 + 58], fill=(37, 99, 235))
-        draw.text((card_x1 + 37, card_y1 + 23), "X", font=get_font(20, bold=True), fill=(255, 255, 255))
+        draw.text((card_x1 + 37, card_y1 + 23), "H", font=get_font(20, bold=True), fill=(255, 255, 255))
     
     # Active online dot
     draw.ellipse([card_x1 + 55, card_y1 + 46, card_x1 + 67, card_y1 + 58], fill=(34, 197, 94), outline=(15, 23, 42), width=2)
 
-    # Name: Xumoyil
-    draw.text((card_x1 + 80, card_y1 + 19), "Xumoyil", font=get_font(18, bold=True), fill=(255, 255, 255))
+    # Name: Humoyun
+    draw.text((card_x1 + 80, card_y1 + 19), "Humoyun", font=get_font(18, bold=True), fill=(255, 255, 255))
     draw.text((card_x1 + 80, card_y1 + 44), "online", font=get_font(12), fill=(56, 189, 248))
 
     # Sleek Call Buttons on Top Right (Audio call + Video call icons)
