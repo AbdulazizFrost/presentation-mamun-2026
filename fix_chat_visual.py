@@ -29,29 +29,54 @@ def create_realistic_communication_mockup():
         draw.rounded_rectangle([card_x1 - s, card_y1 + s, card_x2 + s, card_y2 + s], radius=24, fill=(0, 0, 0, int(18 - s)))
     draw.rounded_rectangle([card_x1, card_y1, card_x2, card_y2], radius=24, fill=(17, 24, 39), outline=(30, 41, 59), width=2)
 
-    # Header bar (ORIGINAL RESTORED)
+    # Header bar
     draw.rounded_rectangle([card_x1, card_y1, card_x2, card_y1 + 75], radius=24, fill=(15, 23, 42))
     draw.rectangle([card_x1, card_y1 + 50, card_x2, card_y1 + 75], fill=(15, 23, 42))
     draw.line([(card_x1, card_y1 + 75), (card_x2, card_y1 + 75)], fill=(30, 41, 59), width=1)
 
-    # Avatar circle (User initials: D)
-    draw.ellipse([card_x1 + 25, card_y1 + 16, card_x1 + 67, card_y1 + 58], fill=(37, 99, 235))
-    draw.text((card_x1 + 37, card_y1 + 23), "D", font=get_font(20, bold=True), fill=(255, 255, 255))
-    # Active online indicator
+    # Real photo avatar for Humoyun
+    avatar_src_path = r"C:\Users\Abdulaziz\.gemini\antigravity\brain\acab1f40-302f-44eb-b996-e481750ad49f\.user_uploaded\media_1791110927209.png"
+    if os.path.exists(avatar_src_path):
+        phone_img = Image.open(avatar_src_path)
+        face = phone_img.crop((320, 137, 362, 179)).resize((88, 88), Image.Resampling.LANCZOS)
+        mask = Image.new('L', (88, 88), 0)
+        draw_m = ImageDraw.Draw(mask)
+        draw_m.ellipse([0, 0, 87, 87], fill=255)
+        av_cir = Image.new('RGBA', (88, 88), (0, 0, 0, 0))
+        av_cir.paste(face, (0, 0), mask)
+        av_cir = av_cir.resize((44, 44), Image.Resampling.LANCZOS)
+        img.paste(av_cir, (card_x1 + 24, card_y1 + 15), av_cir)
+        draw.ellipse([card_x1 + 23, card_y1 + 14, card_x1 + 68, card_y1 + 59], outline=(56, 189, 248), width=1)
+    else:
+        draw.ellipse([card_x1 + 25, card_y1 + 16, card_x1 + 67, card_y1 + 58], fill=(37, 99, 235))
+        draw.text((card_x1 + 37, card_y1 + 23), "H", font=get_font(20, bold=True), fill=(255, 255, 255))
+    
+    # Active online dot
     draw.ellipse([card_x1 + 55, card_y1 + 46, card_x1 + 67, card_y1 + 58], fill=(34, 197, 94), outline=(15, 23, 42), width=2)
 
-    draw.text((card_x1 + 80, card_y1 + 20), "Family & Friends Chat", font=get_font(16, bold=True), fill=(255, 255, 255))
-    draw.text((card_x1 + 80, card_y1 + 44), "Online • Distance: 2,500 km away", font=get_font(12), fill=(56, 189, 248))
+    # Name: Humoyun
+    draw.text((card_x1 + 80, card_y1 + 19), "Humoyun", font=get_font(18, bold=True), fill=(255, 255, 255))
+    draw.text((card_x1 + 80, card_y1 + 44), "online", font=get_font(12), fill=(56, 189, 248))
 
-    # Video call icon badge in header (Right)
-    vx = card_x2 - 110
-    draw.rounded_rectangle([vx, card_y1 + 22, vx + 85, card_y1 + 54], radius=10, fill=(30, 41, 59), outline=(56, 189, 248), width=1)
-    # camera shape
-    draw.rounded_rectangle([vx + 14, card_y1 + 31, vx + 46, card_y1 + 45], radius=3, fill=(56, 189, 248))
-    draw.polygon([(vx + 46, card_y1 + 35), (vx + 58, card_y1 + 30), (vx + 58, card_y1 + 46), (vx + 46, card_y1 + 41)], fill=(56, 189, 248))
-    draw.text((vx + 64, card_y1 + 31), "Call", font=get_font(11, bold=True), fill=(255, 255, 255))
+    # Sleek Call Buttons on Top Right (Audio call + Video call icons)
+    btn_audio_x = card_x2 - 100
+    btn_y = card_y1 + 19
+    draw.ellipse([btn_audio_x, btn_y, btn_audio_x + 36, btn_y + 36], fill=(30, 41, 59), outline=(51, 65, 85), width=1)
+    # Phone handset icon
+    ph_x, ph_y = btn_audio_x + 11, btn_y + 11
+    draw.arc([ph_x, ph_y, ph_x + 14, ph_y + 14], 190, 350, fill=(56, 189, 248), width=3)
+    draw.ellipse([ph_x, ph_y + 7, ph_x + 5, ph_y + 13], fill=(56, 189, 248))
+    draw.ellipse([ph_x + 9, ph_y + 7, ph_x + 14, ph_y + 13], fill=(56, 189, 248))
 
-    # --- Message 1 (Incoming: Question about presentation) ---
+    # Video call button (circle 36x36 with cyan accent)
+    btn_video_x = card_x2 - 54
+    draw.ellipse([btn_video_x, btn_y, btn_video_x + 36, btn_y + 36], fill=(23, 37, 84), outline=(56, 189, 248), width=1)
+    # Video camera icon
+    vx, vy = btn_video_x + 9, btn_y + 11
+    draw.rounded_rectangle([vx, vy + 2, vx + 12, vy + 12], radius=2, fill=(56, 189, 248))
+    draw.polygon([(vx + 12, vy + 5), (vx + 18, vy + 2), (vx + 18, vy + 12), (vx + 12, vy + 9)], fill=(56, 189, 248))
+
+    # --- Message 1 (Incoming from Humoyun: Question about presentation) ---
     m1_y = card_y1 + 95
     m1_w = 515
     draw.rounded_rectangle([card_x1 + 25, m1_y, card_x1 + 25 + m1_w, m1_y + 70], radius=16, fill=(30, 41, 59))
@@ -59,7 +84,7 @@ def create_realistic_communication_mockup():
     draw.text((card_x1 + 42, m1_y + 38), "Salom! Taqdimotni tayyorlab bo'ldingmi? Qanday chiqdi?", font=get_font(11), fill=(148, 163, 184))
     draw.text((card_x1 + 25 + m1_w - 45, m1_y + 44), "10:14", font=get_font(10), fill=(100, 116, 139))
 
-    # --- Message 2 (Outgoing: Answer about presentation) ---
+    # --- Message 2 (Outgoing reply to Humoyun) ---
     m2_y = m1_y + 85
     m2_w = 525
     draw.rounded_rectangle([card_x2 - 25 - m2_w, m2_y, card_x2 - 25, m2_y + 70], radius=16, fill=(37, 99, 235))
@@ -70,7 +95,7 @@ def create_realistic_communication_mockup():
     draw.line([(cx_mark, m2_y + 48), (cx_mark + 5, m2_y + 53), (cx_mark + 12, m2_y + 42)], fill=(147, 197, 253), width=2)
     draw.line([(cx_mark + 6, m2_y + 48), (cx_mark + 11, m2_y + 53), (cx_mark + 18, m2_y + 42)], fill=(147, 197, 253), width=2)
 
-    # --- Message 3 (Shared photo / moment - ORIGINAL RESTORED) ---
+    # --- Message 3 (Shared photo / moment) ---
     m3_y = m2_y + 85
     pw = 280
     draw.rounded_rectangle([card_x1 + 25, m3_y, card_x1 + 25 + pw, m3_y + 160], radius=16, fill=(30, 41, 59))
@@ -84,7 +109,7 @@ def create_realistic_communication_mockup():
     draw.text((card_x1 + 45, m3_y + 126), "Photo: University Campus & Library", font=get_font(12, bold=True), fill=(255, 255, 255))
     draw.text((card_x1 + 45, m3_y + 142), "Talabalar shaharchasidan fotosurat", font=get_font(10), fill=(148, 163, 184))
 
-    # --- Audio Voice Message Card (Right side of photo - ORIGINAL RESTORED) ---
+    # --- Audio Voice Message Card (Right side of photo) ---
     vm_x = card_x1 + 25 + pw + 25
     vm_w = card_x2 - 25 - vm_x
     draw.rounded_rectangle([vm_x, m3_y + 15, vm_x + vm_w, m3_y + 90], radius=16, fill=(23, 37, 84), outline=(56, 189, 248), width=1)
@@ -99,13 +124,13 @@ def create_realistic_communication_mockup():
         draw.rounded_rectangle([wx, m3_y + 52 - wh//2, wx + 4, m3_y + 52 + wh//2], radius=2, fill=(147, 197, 253))
     draw.text((vm_x + 72, m3_y + 24), "Voice Message (0:38) • Ovozli xabar", font=get_font(11, bold=True), fill=(255, 255, 255))
 
-    # Connectivity banner below voice message (ORIGINAL RESTORED)
+    # Connectivity banner below voice message
     draw.rounded_rectangle([vm_x, m3_y + 105, vm_x + vm_w, m3_y + 160], radius=14, fill=(30, 41, 59))
     draw.text((vm_x + 18, m3_y + 117), "Distance is no longer a barrier", font=get_font(12, bold=True), fill=(56, 189, 248))
     draw.text((vm_x + 18, m3_y + 137), "Masofa endi to'siq emas — doimiy aloqa", font=get_font(11), fill=(148, 163, 184))
 
     img.save(os.path.join(ASSETS_DIR, "chat_visual.png"))
-    print("Realistic communication mockup updated with original header & photo restored!")
+    print("Communication mockup with Humoyun, online status, and presentation dialogue updated!")
 
 if __name__ == "__main__":
     create_realistic_communication_mockup()
