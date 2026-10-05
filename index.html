@@ -204,45 +204,44 @@
 <body class="h-screen w-screen flex flex-col justify-between overflow-hidden relative bg-[#090E1A]">
 
   <!-- TOP HEADER / CONTROLS -->
-  <header class="no-print h-14 border-b border-slate-800/80 bg-[#0B132B]/80 backdrop-blur-md px-6 flex items-center justify-between z-40">
-    <div class="flex items-center space-x-3">
-      <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-sky-400 border border-sky-500/30">
+  <header class="no-print h-14 border-b border-slate-800/80 bg-[#0B132B]/80 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between z-40 shrink-0">
+    <div class="flex items-center space-x-2 sm:space-x-3 min-w-0">
+      <span class="hidden md:inline-flex px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/10 text-sky-400 border border-sky-500/30 whitespace-nowrap">
         Bilingual • EN / UZ
       </span>
-      <h1 class="text-sm font-semibold text-slate-200 hidden sm:inline">
-        Social Networks in My Life <span class="text-sky-400 italic font-normal">| Ijtimoiy tarmoqlar mening hayotimda</span>
+      <h1 class="text-xs sm:text-sm font-semibold text-slate-200 truncate hidden lg:inline">
+        Social Networks in My Life <span class="text-sky-400 italic font-normal">| Ijtimoiy tarmoqlar</span>
       </h1>
+      <div class="flex items-center space-x-1.5 font-mono text-xs font-bold text-sky-400">
+        <span id="current-slide-num">01</span> / 09
+      </div>
+      <div class="flex items-center space-x-0.5 ml-1">
+        <button onclick="prevSlide()" title="Previous slide (Left Arrow)" class="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition active:scale-95">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button onclick="nextSlide()" title="Next slide (Right Arrow)" class="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition active:scale-95">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
     </div>
 
     <!-- Navigation & Controls -->
-    <div class="flex items-center space-x-4">
-      <div class="text-xs font-mono font-medium text-slate-400">
-        <span id="current-slide-num" class="text-sky-400 font-bold">01</span> / 09
-      </div>
-      <div class="flex items-center space-x-1">
-        <button onclick="prevSlide()" title="Previous slide (Left Arrow)" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        </button>
-        <button onclick="nextSlide()" title="Next slide (Right Arrow)" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-      <div class="h-4 w-px bg-slate-700"></div>
-      <button onclick="toggleSpeakerNotes()" id="btn-notes" title="Toggle Oral Speech Notes (N)" class="text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700 flex items-center space-x-1.5 transition">
-        <span>🎙️ Speech Notes</span>
+    <div class="flex items-center space-x-1.5 sm:space-x-2.5 shrink-0">
+      <button onclick="toggleSpeakerNotes()" id="btn-notes" title="Oral Speech Notes (N)" class="h-8 px-2 sm:px-2.5 rounded-lg bg-slate-800/90 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700/80 flex items-center space-x-1.5 transition text-xs font-medium active:scale-95">
+        <span>🎙️</span>
+        <span class="hidden sm:inline">Speech Notes</span>
       </button>
-      <button onclick="openQuizModal()" id="btn-quiz" title="Play Interactive Quiz: Fact or Myth? (Q)" class="text-xs px-2.5 py-1 rounded bg-gradient-to-r from-emerald-500/15 to-teal-500/15 hover:from-emerald-500/25 hover:to-teal-500/25 text-emerald-400 hover:text-emerald-300 border border-emerald-500/35 flex items-center space-x-1.5 transition shadow-sm font-semibold active:scale-95">
+      <button onclick="openQuizModal()" id="btn-quiz" title="Interactive Quiz: Fact or Myth? (Q)" class="h-8 px-2 sm:px-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/35 flex items-center space-x-1.5 transition text-xs font-bold shadow-sm active:scale-95">
         <span class="text-amber-400">⚡</span>
-        <span>Fact or Myth?</span>
+        <span class="hidden sm:inline">Fact or Myth?</span>
       </button>
-      <button onclick="toggleFullscreen()" title="Fullscreen Mode (F)" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition" id="btn-fullscreen">
-        <svg id="icon-fs-enter" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-        <svg id="icon-fs-exit" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M10 10V4m0 6H4m6 0L3 3m10 7h6m-6 0V4m0 6l7-7"/></svg>
+      <button onclick="toggleFullscreen()" title="Fullscreen Mode (F)" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 flex items-center justify-center transition active:scale-95" id="btn-fullscreen">
+        <svg id="icon-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+        <svg id="icon-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M10 10V4m0 6H4m6 0L3 3m10 7h6m-6 0V4m0 6l7-7"/></svg>
       </button>
-      <div class="h-4 w-px bg-slate-700"></div>
-      <button onclick="downloadPPTX()" id="btn-download" title="Скачать PowerPoint презентацию (.pptx)" class="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold flex items-center space-x-1.5 transition shadow-lg shadow-sky-500/20 active:scale-95">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        <span>Скачать PPTX</span>
+      <button onclick="downloadPPTX()" id="btn-download" title="Скачать PowerPoint презентацию (.pptx)" class="h-8 px-2 sm:px-3 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold flex items-center space-x-1.5 transition shadow-md shadow-sky-500/20 text-xs active:scale-95">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        <span class="hidden sm:inline">Скачать PPTX</span>
       </button>
     </div>
   </header>
@@ -252,31 +251,33 @@
     <div id="progress-bar" class="bg-gradient-to-r from-blue-500 to-sky-400 h-1 transition-all duration-300" style="width: 11.11%;"></div>
   </div>
 
-    <!-- SLIDES MAIN CONTAINER (UNIFIED LUXURY DARK NAVY THEME ACROSS ALL 9 SLIDES) -->
-  <main class="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 md:p-8 flex flex-col justify-center items-center relative overflow-hidden">
+    <!-- SLIDES MAIN CONTAINER -->
+  <main class="flex-1 w-full h-full flex flex-col justify-center items-center relative overflow-hidden p-0">
+    <div id="slide-stage-wrapper" class="relative w-full h-full flex flex-col items-center justify-center overflow-hidden">
+      <div id="slide-stage" class="overflow-hidden flex flex-col justify-center select-none" style="width: 1200px; height: 675px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(1); transform-origin: center center; padding: 2.25rem 3.5rem;">
 
     <!-- ========================================== -->
     <!-- SLIDE 1: HERO                              -->
     <!-- ========================================== -->
     <div class="slide active w-full h-full flex-col justify-center text-white" data-slide="1">
-      <div class="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8 xl:gap-12">
+      <div class="w-full flex flex-row items-center justify-between gap-10">
         <div class="flex-1 space-y-6 text-left max-w-xl">
           <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-sky-400 text-xs font-bold uppercase tracking-wider">
             <span>DIGITAL LIFE · UNIVERSITY PRESENTATION</span>
           </div>
           <div>
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-2 leading-none">
+            <h1 class="text-5xl font-extrabold tracking-tight text-white mb-2 leading-none">
               Social Networks<br><span class="text-white">in My Life</span>
             </h1>
-            <p class="text-2xl sm:text-3xl font-medium text-sky-400 italic">
+            <p class="text-2xl font-medium text-sky-400 italic">
               Ijtimoiy tarmoqlar mening hayotimda
             </p>
           </div>
           <div class="pt-3 border-t border-slate-800">
-            <p class="text-lg sm:text-xl font-semibold text-slate-200 mb-1">
+            <p class="text-xl font-semibold text-slate-200 mb-1">
               How social media shapes the way we communicate, learn and live
             </p>
-            <p class="text-base sm:text-lg text-slate-400 italic">
+            <p class="text-base text-slate-400 italic">
               Ijtimoiy tarmoqlar muloqot, ta’lim va turmush tarzimizni qanday shakllantiradi
             </p>
           </div>
@@ -287,8 +288,8 @@
           </div>
         </div>
 
-        <div class="w-full lg:w-1/2 flex justify-center items-center relative">
-          <img src="assets_premium/hero_phone.png" alt="Smartphone Social Mockup" class="w-full max-h-[88vh] max-w-md lg:max-w-xl object-contain">
+        <div class="w-1/2 flex justify-center items-center relative">
+          <img src="assets_premium/hero_phone.png" alt="Smartphone Social Mockup" class="w-full max-h-[570px] max-w-md object-contain">
         </div>
       </div>
     </div>
@@ -303,9 +304,9 @@
         <p class="text-base uz-title">Ijtimoiy tarmoqlar nima?</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div class="grid grid-cols-12 gap-8 items-stretch">
         <!-- Left Editorial Text Block -->
-        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
           <div>
             <div class="mb-6">
               <p class="text-lg font-bold text-white leading-snug mb-2">
@@ -334,7 +335,7 @@
         </div>
 
         <!-- Right Visual Graphic -->
-        <div class="lg:col-span-7 flex justify-center items-center">
+        <div class="col-span-7 flex justify-center items-center">
           <img src="assets_premium/network_visual.png" alt="Connected Network" class="w-full object-contain drop-shadow">
         </div>
       </div>
@@ -353,9 +354,9 @@
         <p class="text-xs text-slate-400 italic hidden sm:block">Examples commonly used by students / Talabalar hayotidan misollar</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div class="grid grid-cols-12 gap-8 items-stretch">
         <!-- Left Narrative -->
-        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
           <div>
             <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">POPULAR STUDENT PLATFORMS</span>
             <h3 class="text-xl font-bold text-white mt-2 mb-1">
@@ -388,7 +389,7 @@
         </div>
 
         <!-- Right Ecosystem Mockup -->
-        <div class="lg:col-span-7 flex justify-center items-center">
+        <div class="col-span-7 flex justify-center items-center">
           <img src="assets_premium/platforms_visual.png" alt="Platform Ecosystem" class="w-full object-contain drop-shadow">
         </div>
       </div>
@@ -415,7 +416,7 @@
       </div>
 
       <!-- 4 Distinct Infographic Columns -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="grid grid-cols-4 gap-5">
         <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-blue-500 hover:border-blue-400 transition">
           <div class="text-2xl font-black text-sky-400 mb-3">01</div>
           <h3 class="text-xl font-bold text-white mb-0.5">Communication</h3>
@@ -460,9 +461,9 @@
         <p class="text-base uz-title">Odamlar bilan muloqot</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div class="grid grid-cols-12 gap-8 items-stretch">
         <!-- Left Narrative -->
-        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
           <div>
             <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">SPEED & CONNECTION</span>
             <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
@@ -493,7 +494,7 @@
         </div>
 
         <!-- Right Realistic Chat UI -->
-        <div class="lg:col-span-7 flex justify-center items-center">
+        <div class="col-span-7 flex justify-center items-center">
           <img src="assets_premium/chat_visual.png" alt="Digital Chat UI" class="w-full object-contain drop-shadow">
         </div>
       </div>
@@ -509,9 +510,9 @@
         <p class="text-base uz-title">O‘rganish va ta’lim</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div class="grid grid-cols-12 gap-8 items-stretch">
         <!-- Left Narrative -->
-        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
           <div>
             <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">ACADEMIC & EDUCATIONAL POWER</span>
             <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
@@ -543,7 +544,7 @@
         </div>
 
         <!-- Right Video Player Mockup -->
-        <div class="lg:col-span-7 flex justify-center items-center">
+        <div class="col-span-7 flex justify-center items-center">
           <img src="assets_premium/education_player.png" alt="Educational Player UI" class="w-full object-contain drop-shadow">
         </div>
       </div>
@@ -559,9 +560,9 @@
         <p class="text-base uz-title">Ko‘ngilochar va bo‘sh vaqt</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      <div class="grid grid-cols-12 gap-8 items-stretch">
         <!-- Left Narrative -->
-        <div class="lg:col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
+        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
           <div>
             <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">RECREATION & DIGITAL WELLBEING</span>
             <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
@@ -592,7 +593,7 @@
         </div>
 
         <!-- Right Wellbeing Widget UI -->
-        <div class="lg:col-span-7 flex justify-center items-center">
+        <div class="col-span-7 flex justify-center items-center">
           <img src="assets_premium/balance_wellbeing.png" alt="Digital Balance UI" class="w-full object-contain drop-shadow">
         </div>
       </div>
@@ -609,7 +610,7 @@
       </div>
 
       <!-- Sophisticated Two-Column Comparison -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      <div class="grid grid-cols-2 gap-8 items-stretch">
         <!-- ADVANTAGES -->
         <div class="editorial-card-dark rounded-2xl p-7 border-l-4 border-l-emerald-500 flex flex-col justify-between">
           <div>
@@ -725,6 +726,13 @@
       </div>
     </div>
 
+      </div>
+      <!-- Mobile Portrait Tip / Controls (Visible only on portrait phone screens) -->
+      <div id="mobile-portrait-tip" class="hidden absolute bottom-3 z-30 items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-sky-500/40 text-[11px] text-sky-300 shadow-xl backdrop-blur-md pointer-events-none">
+        <span class="animate-spin text-sky-400">🔄</span>
+        <span class="font-medium">Telefonni yonbosh qilib to‘liq ekranda ko‘ring (Rotate)</span>
+      </div>
+    </div>
   </main>
 
   <!-- SPEAKER NOTES DRAWER -->
@@ -732,10 +740,10 @@
     <div class="max-w-4xl mx-auto">
       <div class="flex items-center justify-between pb-2 border-b border-slate-700 mb-3">
         <div class="flex items-center space-x-2">
-          <span class="text-sky-400 font-bold text-sm">🎙️ University Oral Presentation Script (A2–B1 Level)</span>
+          <span class="text-sky-400 font-bold text-xs sm:text-sm truncate">🎙️ Presentation Script (A2–B1)</span>
           <span class="text-xs text-slate-400 font-mono" id="notes-slide-indicator">Slide 01</span>
         </div>
-        <button onclick="toggleSpeakerNotes()" class="text-slate-400 hover:text-white text-xs px-2 py-1 bg-slate-800 rounded">Close (N)</button>
+        <button onclick="toggleSpeakerNotes()" class="text-slate-400 hover:text-white text-xs px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg shrink-0 transition">✕ Yopish</button>
       </div>
       <div id="notes-content" class="space-y-3 text-sm">
         <!-- Injected via JavaScript -->
@@ -754,15 +762,15 @@
             ⚡
           </div>
           <div class="flex items-center space-x-2 min-w-0">
-            <span class="text-sm sm:text-base font-bold text-white tracking-wide whitespace-nowrap">Fact or Myth?</span>
+            <span class="text-xs sm:text-base font-bold text-white tracking-wide whitespace-nowrap">Fact or Myth?</span>
             <span class="hidden md:inline-block text-[11px] text-sky-400/90 font-medium px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20 whitespace-nowrap">Rostmi yoki Yolg‘on?</span>
           </div>
         </div>
         <div class="flex items-center space-x-2 shrink-0">
           <!-- Voice Narration Toggle & Replay -->
-          <button onclick="toggleQuizVoice()" id="btn-quiz-voice" title="Ovozli o‘qishni yoqish / o‘chirish" class="h-8 px-2.5 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer flex items-center space-x-1.5 whitespace-nowrap shrink-0">
+          <button onclick="toggleQuizVoice()" id="btn-quiz-voice" title="Ovozli o‘qishni yoqish / o‘chirish" class="h-8 px-2 sm:px-2.5 rounded-lg bg-sky-500/20 text-sky-400 border border-sky-500/40 text-xs font-semibold hover:bg-sky-500/30 transition cursor-pointer flex items-center space-x-1 whitespace-nowrap shrink-0">
             <span id="voice-icon" class="text-xs leading-none">🔊</span>
-            <span id="voice-label" class="whitespace-nowrap font-medium text-[11px]">Ovoz</span>
+            <span id="voice-label" class="hidden sm:inline whitespace-nowrap font-medium text-[11px]">Ovoz</span>
           </button>
           <button onclick="replayCurrentVoice()" id="btn-replay-voice" title="Hozirgi savolni qayta tinglash" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 text-xs transition cursor-pointer flex items-center justify-center shrink-0 active:scale-95">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
@@ -777,7 +785,7 @@
         <!-- Presenter Prompt -->
         <div class="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
           <div class="flex items-center space-x-2">
-            <span>🗣️ Ask the Audience / Savol auditoriyaga:</span>
+            <span>🗣️ Ask the Audience<span class="hidden sm:inline"> / Savol auditoriyaga</span>:</span>
             <span id="speaking-pulse" class="hidden text-sky-400 animate-pulse text-[11px] font-normal lowercase flex items-center space-x-1">
               <span>●</span>
               <span>o‘qilmoqda...</span>
@@ -862,22 +870,23 @@
   </div>
 
   <!-- FOOTER CONTROLS -->
-  <footer class="no-print h-14 border-t border-slate-800/80 bg-[#0B132B]/80 backdrop-blur-md px-6 flex items-center justify-between text-xs text-slate-400 z-40">
+  <footer class="no-print h-14 border-t border-slate-800/80 bg-[#0B132B]/80 backdrop-blur-md px-3 sm:px-6 flex items-center justify-between text-xs text-slate-400 z-40 shrink-0">
     <div class="flex items-center space-x-2">
       <span class="hidden md:inline">Use <kbd class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700">←</kbd> <kbd class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700">→</kbd> or <kbd class="px-1.5 py-0.5 bg-slate-800 text-slate-300 rounded border border-slate-700">Space</kbd> to navigate</span>
-      <span class="md:hidden">Swipe or use arrows</span>
+      <span class="hidden sm:inline md:hidden text-[11px]">Swipe or use arrows</span>
     </div>
 
     <!-- Quick Jump Dots -->
     <div class="flex items-center space-x-1.5" id="slide-dots"></div>
 
     <div class="flex items-center space-x-2">
-      <button onclick="downloadPPTX()" class="text-slate-200 hover:text-white px-2.5 py-1 bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 rounded transition flex items-center space-x-1 font-medium text-xs">
+      <button onclick="downloadPPTX()" class="hidden sm:inline-flex text-slate-200 hover:text-white px-2.5 py-1 bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 rounded transition items-center space-x-1 font-medium text-xs">
         <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
         <span>Скачать .PPTX</span>
       </button>
-      <button onclick="window.print()" class="text-slate-300 hover:text-white px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded transition flex items-center space-x-1 border border-slate-700">
-        <span>🖨️ Export PDF</span>
+      <button onclick="window.print()" class="text-slate-300 hover:text-white px-2 sm:px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg transition flex items-center space-x-1 border border-slate-700 text-xs">
+        <span>🖨️</span>
+        <span class="hidden sm:inline">Export PDF</span>
       </button>
     </div>
   </footer>
@@ -1552,7 +1561,39 @@
       if (touchEndX > touchStartX + 50) prevSlide();
     });
 
+
+    function updateSlideStageScale() {
+      const wrapper = document.getElementById('slide-stage-wrapper');
+      const stage = document.getElementById('slide-stage');
+      if (!wrapper || !stage) return;
+
+      const baseW = 1200;
+      const baseH = 675;
+
+      const availW = wrapper.clientWidth;
+      const availH = wrapper.clientHeight;
+      if (availW <= 0 || availH <= 0) return;
+
+      const isPortraitPhone = window.innerWidth < 768 && window.innerHeight > window.innerWidth;
+      const tip = document.getElementById('mobile-portrait-tip');
+      if (tip) {
+        tip.style.display = isPortraitPhone ? 'flex' : 'none';
+      }
+
+      const padX = availW < 640 ? 12 : 28;
+      const padY = isPortraitPhone ? 50 : (availW < 640 ? 12 : 28);
+      const scale = Math.min((availW - padX) / baseW, (availH - padY) / baseH);
+
+      const yOffset = isPortraitPhone ? '-53%' : '-50%';
+      stage.style.transform = `translate(-50%, ${yOffset}) scale(${scale})`;
+    }
+
+    window.addEventListener('resize', updateSlideStageScale);
+    window.addEventListener('orientationchange', () => setTimeout(updateSlideStageScale, 150));
+    window.addEventListener('load', updateSlideStageScale);
+
     initDots();
+    updateSlideStageScale();
     updateSlide();
   </script>
 </body>
