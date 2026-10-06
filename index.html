@@ -878,13 +878,13 @@
         <p class="text-xs text-sky-400 italic">Telefondan boshqarish</p>
       </div>
       <div id="remote-qr" class="mx-auto w-56 h-56 bg-white rounded-xl p-2 flex items-center justify-center"></div>
-      <p class="text-xs text-slate-300">Scan with the phone camera. The phone must be on the <b>same Wi-Fi</b> as this laptop.</p>
-      <p class="text-[11px] text-slate-400 italic">Telefon kamerasi bilan skanerlang. Telefon va noutbuk bitta Wi-Fi tarmog‘ida bo‘lishi kerak.</p>
+      <p id="remote-hint-en" class="text-xs text-slate-300">Scan with the phone camera. The phone must be on the <b>same Wi-Fi</b> as this laptop.</p>
+      <p id="remote-hint-uz" class="text-[11px] text-slate-400 italic">Telefon kamerasi bilan skanerlang. Telefon va noutbuk bitta Wi-Fi tarmog‘ida bo‘lishi kerak.</p>
       <div class="rounded-xl bg-slate-800/70 border border-slate-700 p-3 space-y-1 text-left">
         <div class="text-[11px] uppercase font-bold text-slate-400">Link</div>
         <select id="remote-url-select" class="w-full bg-slate-900 border border-slate-700 rounded-lg text-xs font-mono text-sky-300 p-1.5" onchange="renderRemoteQR()"></select>
         <div class="flex justify-between items-center pt-1">
-          <span class="text-[11px] uppercase font-bold text-slate-400">PIN</span>
+          <span id="remote-pin-label" class="text-[11px] uppercase font-bold text-slate-400">PIN</span>
           <span id="remote-pin" class="font-mono font-black text-xl tracking-[0.3em] text-white"></span>
         </div>
       </div>
@@ -1898,8 +1898,14 @@
     });
 
 
-    // --- PHONE REMOTE (works when the deck is served by remote_server.py) ---
+    // --- PHONE REMOTE ---
+    // Local mode: deck served by remote_server.py, phone on the same Wi-Fi (PIN).
+    // Online mode: everywhere else (GitHub Pages, a university PC, file://). Phone and deck talk
+    // through the public ntfy.sh relay over HTTPS, on two topics derived from a random room code.
+    const REMOTE_RELAY = 'https://ntfy.sh/';
+    const REMOTE_PAGES_BASE = 'https://abdulazizfrost.github.io/presentation-mamun-2026/';
     let remoteInfo = null;
+    let onlinePhoneSeen = false;
     let remoteCount = 0;
     let remotePublishTimer = null;
 
@@ -1935,11 +1941,17 @@
             expEn: quizAnswered ? q.expEn : ''
           }
         };
-        fetch('/api/state', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(state)
-        }).catch(() => {});
+        if (remoteInfo.mode === 'online') {
+          // Only send to the relay once a phone has joined: the free relay rate-limits requests
+          if (!onlinePhoneSeen) return;
+          fetch(REMOTE_RELAY + remoteInfo.stateTopic, { method: 'POST', body: JSON.stringify(state) }).catch(() => {});
+        } else {
+          fetch('/api/state', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(state)
+          }).catch(() => {});
+        }
       }, 30);
     }
 
@@ -1955,6 +1967,7 @@
         case 'quiz_next': if (isQuizOpen() && quizAnswered) nextQuizQuestion(); break;
         case 'quiz_restart': if (isQuizOpen()) restartQuiz(); break;
         case 'replay': if (isQuizOpen()) replayCurrentVoice(); break;
+        case 'hello': break; // phone just joined: only send it the current state
         default: return; // 'ping' and unknown commands
       }
       publishRemoteState();
@@ -1999,6 +2012,11 @@
         select.appendChild(opt);
       });
       document.getElementById('remote-pin').textContent = remoteInfo.pin;
+      if (remoteInfo.mode === 'online') {
+        document.getElementById('remote-pin-label').textContent = 'Code';
+        document.getElementById('remote-hint-en').innerHTML = 'Scan with the phone camera. <b>Internet</b> is needed on the phone and on this computer — Wi-Fi or mobile data.';
+        document.getElementById('remote-hint-uz').textContent = 'Telefon kamerasi bilan skanerlang. Telefonda va shu kompyuterda internet bo‘lishi kerak (Wi-Fi yoki mobil internet).';
+      }
       renderRemoteQR();
       document.getElementById('remote-modal').classList.remove('hidden');
     }
@@ -2007,18 +2025,68 @@
       document.getElementById('remote-modal').classList.add('hidden');
     }
 
-    async function initRemote() {
-      if (!location.protocol.startsWith('http')) return;
-      try {
-        const res = await fetch('/api/info', { cache: 'no-store' });
-        if (!res.ok) return;
-        remoteInfo = await res.json();
-      } catch (e) {
-        return; // opened via a plain static server: no remote
-      }
+    function showRemoteButton() {
       const btn = document.getElementById('btn-remote');
       btn.classList.remove('hidden');
       btn.classList.add('flex');
+    }
+
+    function getOnlineRoom() {
+      // Keep the same room across reloads so a paired phone stays connected
+      let room = '';
+      try { room = localStorage.getItem('remote-room') || ''; } catch (e) {}
+      if (!/^[a-z0-9]{16}$/.test(room)) {
+        const bytes = crypto.getRandomValues(new Uint8Array(16));
+        room = Array.from(bytes, b => 'abcdefghijklmnopqrstuvwxyz0123456789'[b % 36]).join('');
+        try { localStorage.setItem('remote-room', room); } catch (e) {}
+      }
+      return room;
+    }
+
+    function initOnlineRemote() {
+      const room = getOnlineRoom();
+      const base = location.hostname.endsWith('github.io') ? new URL('./', location.href).href : REMOTE_PAGES_BASE;
+      remoteInfo = {
+        mode: 'online',
+        pin: room.slice(0, 4).toUpperCase() + '-' + room.slice(4, 8).toUpperCase(),
+        urls: [`${base}remote.html?room=${room}`],
+        cmdTopic: `snp-${room}-c`,
+        stateTopic: `snp-${room}-s`
+      };
+      showRemoteButton();
+
+      const events = new EventSource(REMOTE_RELAY + remoteInfo.cmdTopic + '/sse');
+      events.onmessage = (e) => {
+        let cmd;
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.event !== 'message') return; // 'open' / 'keepalive'
+          cmd = JSON.parse(msg.message);
+        } catch (err) {
+          return;
+        }
+        if (!onlinePhoneSeen) {
+          onlinePhoneSeen = true;
+          updateRemoteCount(1);
+        }
+        handleRemoteCommand(cmd || {});
+      };
+    }
+
+    async function initRemote() {
+      if (location.protocol.startsWith('http')) {
+        try {
+          const res = await fetch('/api/info', { cache: 'no-store' });
+          if (res.ok) {
+            remoteInfo = { mode: 'local', ...(await res.json()) };
+          }
+        } catch (e) {}
+      }
+      if (!remoteInfo) {
+        initOnlineRemote();
+        return;
+      }
+      showRemoteButton();
 
       const events = new EventSource('/api/deck-events');
       events.onopen = () => publishRemoteState();

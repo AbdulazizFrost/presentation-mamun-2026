@@ -15,6 +15,7 @@
 - 🎙️ **Interactive Speech Notes (Подсказки для защиты):** Built-in drawer with the speech for each slide (`N`).
 - 🖥️ **Presenter View (`P`):** Separate window with notes, next slide title and a timer — keep it on the laptop while the projector shows the slides.
 - 📱 **Phone remote:** Run `python remote_server.py` (or double-click `start.bat`), click **📱 Remote** and scan the QR code. The phone switches slides, shows the speech notes and timer, and runs the quiz (Fact / Myth, next question, replay voice). Phone and laptop must be on the same Wi-Fi — or connect the laptop to the phone's hotspot. Protected by a 6-digit PIN; no extra Python packages needed.
+- 🌐 **Online remote (no laptop needed):** Open the deck from GitHub Pages (or any computer, even as a file) and click **📱 Remote** — the phone connects over the internet through the public [ntfy.sh](https://ntfy.sh) relay using a random room code from the QR. Both devices need internet; test it in the room beforehand, since some networks block the relay.
 - ✨ **Animations:** staggered entrances, floating hero phone, confetti for correct quiz answers, shake for wrong ones (turned off automatically when the OS asks for reduced motion).
 - 📴 **Works offline:** Tailwind is prebuilt into `styles.css` (rebuild: `npx tailwindcss@3 -c tailwind.config.js -i tailwind.input.css -o styles.css --minify`).
 - 🖥️ **Presentation & Fullscreen Mode:**

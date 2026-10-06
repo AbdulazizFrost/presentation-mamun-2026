@@ -173,6 +173,9 @@
 
   <script>
     const params = new URLSearchParams(location.search);
+    // Online mode (?room=...): talk to the deck through the public ntfy.sh relay instead of the laptop server
+    const RELAY = 'https://ntfy.sh/';
+    const room = /^[a-z0-9]{16}$/.test(params.get('room') || '') ? params.get('room') : '';
     let pin = params.get('k') || '';
     try { if (!pin) pin = localStorage.getItem('remote-pin') || ''; } catch (e) {}
 
@@ -196,8 +199,18 @@
       toast.timer = setTimeout(() => t.classList.add('hidden'), 2500);
     }
 
-    async function send(cmd) {
-      if (navigator.vibrate) navigator.vibrate(15);
+    async function send(cmd, silent) {
+      if (navigator.vibrate && !silent) navigator.vibrate(15);
+      if (room) {
+        try {
+          const res = await fetch(`${RELAY}snp-${room}-c`, { method: 'POST', body: JSON.stringify(cmd) });
+          if (res.status === 429) toast('Too fast — wait a few seconds');
+          else if (!res.ok) toast('Error ' + res.status);
+        } catch (e) {
+          toast('No internet connection');
+        }
+        return;
+      }
       try {
         const res = await fetch(`/api/cmd?k=${encodeURIComponent(pin)}`, {
           method: 'POST',
@@ -280,7 +293,26 @@
       }
     }
 
+    function startOnline() {
+      $('view-pin').classList.add('hidden');
+      $('app').classList.remove('hidden');
+      if (events) events.close();
+      events = new EventSource(`${RELAY}snp-${room}-s/sse`);
+      events.onopen = () => {
+        setOnline(true);
+        send({ action: 'hello' }, true); // ask the deck for its current state
+      };
+      events.onerror = () => setOnline(false);
+      events.onmessage = (e) => {
+        try {
+          const msg = JSON.parse(e.data);
+          if (msg.event === 'message') render(JSON.parse(msg.message));
+        } catch (err) {}
+      };
+    }
+
     function start() {
+      if (room) return startOnline();
       if (!pin) return showPin();
       $('view-pin').classList.add('hidden');
       $('app').classList.remove('hidden');
