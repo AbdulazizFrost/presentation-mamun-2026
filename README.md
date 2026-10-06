@@ -12,7 +12,11 @@
 ## ✨ Features / Особенности
 
 - 🌐 **Bilingual (English / O'zbekcha):** Every slide includes English headlines & body with clear Uzbek translations.
-- 🎙️ **Interactive Speech Notes (Подсказки для защиты):** Built-in modal window with structured speech templates and pronunciation hints for each slide.
+- 🎙️ **Interactive Speech Notes (Подсказки для защиты):** Built-in drawer with the speech for each slide (`N`).
+- 🖥️ **Presenter View (`P`):** Separate window with notes, next slide title and a timer — keep it on the laptop while the projector shows the slides.
+- 📱 **Phone remote:** Run `python remote_server.py` (or double-click `start.bat`), click **📱 Remote** and scan the QR code. The phone switches slides, shows the speech notes and timer, and runs the quiz (Fact / Myth, next question, replay voice). Phone and laptop must be on the same Wi-Fi — or connect the laptop to the phone's hotspot. Protected by a 6-digit PIN; no extra Python packages needed.
+- ✨ **Animations:** staggered entrances, floating hero phone, confetti for correct quiz answers, shake for wrong ones (turned off automatically when the OS asks for reduced motion).
+- 📴 **Works offline:** Tailwind is prebuilt into `styles.css` (rebuild: `npx tailwindcss@3 -c tailwind.config.js -i tailwind.input.css -o styles.css --minify`).
 - 🖥️ **Presentation & Fullscreen Mode:**
   - One-click fullscreen toggle (`F` or button);
   - Auto-hiding control panels for distraction-free presentation;
@@ -26,15 +30,15 @@
 
 ## 📑 Slide Deck Overview / Структура слайдов
 
-1. **Title Slide:** *Social Networks in My Life* — Hero phone preview & theme introduction.
-2. **Introduction:** Digital era reality, average daily usage (~2.5 hours), communication transformation.
-3. **Daily Routine & Habits:** How social media integrates into morning, study, and evening routines.
-4. **My Favorite Platforms:** Deep dive into Telegram (channels & study), YouTube (tutorials & tech), and Instagram (creative inspiration).
-5. **Connecting with Friends & Community:** Group projects, networking, and staying connected with friends & classmates.
-6. **Social Media in Education:** Micro-learning, educational channels, quick tutorials, and collaborative study groups.
-7. **The Dark Side & Challenges:** Screen fatigue, procrastination, algorithm rabbit holes, and comparison trap.
-8. **Digital Wellbeing & Finding Balance:** Practical rules (app limits, notification filters, offline hobbies, screen-free bedtime).
-9. **Conclusion & Q&A:** Key takeaways, mindful media usage message, and thank you / questions invitation.
+1. **Title:** *Social Networks in My Life* — author, university and hero phone mockup.
+2. **What Are Social Networks?** Definition and three functions: communication, information, content sharing.
+3. **Social Networks I Use:** Telegram, Instagram and YouTube and what each is used for.
+4. **Why Do I Use Social Networks?** Four reasons: communication, information, learning, entertainment.
+5. **Communication with People:** Messages, photos and video calls with friends far away.
+6. **Learning and Education:** Video lessons, online courses, educational channels.
+7. **Entertainment and Free Time:** Music, videos and keeping screen time under control.
+8. **Advantages and Disadvantages:** Pros and cons side by side.
+9. **Conclusion:** Key takeaway, thank you, and the "Fact or Myth?" audience quiz.
 
 ---
 
@@ -75,6 +79,10 @@ Then visit `http://localhost:8000`.
 
 ```text
 ├── index.html                       # Main interactive presentation
+├── styles.css                       # Prebuilt Tailwind CSS (offline)
+├── remote_server.py / start.bat     # Local server + phone remote
+├── remote.html                      # Phone remote control page
+├── vendor/qrcode.js                 # QR code generator (MIT)
 ├── Social_Networks_in_My_Life.pptx   # PowerPoint presentation file
 ├── SPEECH_GUIDE.md                  # Detailed speech guide for presentation
 ├── assets/                          # Core slide icons and graphics

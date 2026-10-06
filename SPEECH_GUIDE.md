@@ -16,10 +16,10 @@ Bu qo‘llanma universitet talabalari uchun ingliz tilida erkin, qisqa va tushun
 > **Slide:** Social Networks in My Life / *Ijtimoiy tarmoqlar mening hayotimda*
 
 ### 🇬🇧 English Speech:
-> "Hello everyone! Today I will talk about **Social Networks in My Life**. We use social media every day to communicate, study, and relax. Let's see how they affect our lives."
+> "Hello everyone! My name is Abdulaziz. Today I will talk about **Social Networks in My Life**. We use social media every day to communicate, study, and relax. Let's see how they affect our lives."
 
 ### 🇺🇿 O‘zbekcha nutq matni:
-> "Assalomu alaykum! Bugun men **'Ijtimoiy tarmoqlar mening hayotimda'** mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."
+> "Assalomu alaykum! Mening ismim Abdulaziz. Bugun men **'Ijtimoiy tarmoqlar mening hayotimda'** mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."
 
 ---
 
@@ -93,10 +93,10 @@ Bu qo‘llanma universitet talabalari uchun ingliz tilida erkin, qisqa va tushun
 > **Slide:** Advantages and Disadvantages / *Afzalliklari va kamchiliklari*
 
 ### 🇬🇧 English Speech:
-> "Let's compare the pros and cons. The advantages are: easy communication, fast knowledge, and study help. The disadvantages are: losing time, getting distracted from homework, and eye tiredness."
+> "Let's compare the pros and cons. The advantages are: easy communication, quick access to information, education, and entertainment. The disadvantages are: too much screen time, distraction, false information, and privacy problems."
 
 ### 🇺🇿 O‘zbekcha nutq matni:
-> "Foyda va zararlarini solishtirsak: Foydasi — tezkor aloqa, yangi bilimlar va o‘qishdagi yordam. Zarari esa — ko‘p vaqt yo‘qotish, darslardan chalg‘ish va ko‘rish qobiliyatining toliqishi."
+> "Afzalliklari va kamchiliklarini solishtiraylik. Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari."
 
 ---
 

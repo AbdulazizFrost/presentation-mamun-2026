@@ -9,11 +9,12 @@ html_source = os.path.join(WORKSPACE_DIR, "index.html")
 with open(html_source, "r", encoding="utf-8") as f:
     content = f.read()
 
-# Replace Tailwind CDN with the approved gstatic version for artifact viewer
-content = content.replace(
-    '<script src="https://cdn.tailwindcss.com"></script>',
-    '<script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>'
-)
+# Inline the prebuilt Tailwind stylesheet so the bundle is a single self-contained file
+with open(os.path.join(WORKSPACE_DIR, "styles.css"), "r", encoding="utf-8") as css_f:
+    content = content.replace(
+        '<link rel="stylesheet" href="styles.css">',
+        f'<style>{css_f.read()}</style>'
+    )
 
 # Inline base64 for assets_premium
 premium_assets = [

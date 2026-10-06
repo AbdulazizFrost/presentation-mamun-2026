@@ -9,24 +9,21 @@ AUDIO_DIR = os.path.join(WORKSPACE_DIR, "assets", "audio")
 os.makedirs(AUDIO_DIR, exist_ok=True)
 
 # 13 items for the Fact or Myth quiz with natural human phrasing
+# Corrected quiz texts. Files with the "_v2" suffix are the ones index.html now plays;
+# q1/a1 are unchanged and keep their existing recordings.
 ITEMS = [
-    ("q1.mp3", "Birinchi savol. O'rtacha inson o'z umri davomida besh yildan ortiq vaqtini ijtimoiy tarmoqlarda o'tkazadi. Bu rostmi yoki yolg'on?"),
-    ("a1_cor.mp3", "To'g'ri! Barakalla! Bu rost. Xalqaro statistikaga ko'ra, har bir inson kuniga o'rtacha ikki soat yigirma besh daqiqa sarflaydi. Bu butun umr davomida deyarli besh yil-u sakkiz oyni tashkil etadi."),
-    ("a1_wrg.mp3", "Afsuski noto'g'ri! Aslida bu rost. Xalqaro statistikaga ko'ra, har bir inson kuniga o'rtacha ikki soat yigirma besh daqiqa sarflaydi. Bu butun umr davomida deyarli besh yil-u sakkiz oyni tashkil etadi."),
-    
-    ("q2.mp3", "Ikkinchi savol. Ertalab uyg'onish bilanoq yangi xabarlarni tekshirish kishida dopamin ajratib, ishchanlikni oshiradi. Bu rostmi yoki yolg'on?"),
-    ("a2_cor.mp3", "To'g'ri! Barakalla! Bu yolg'on. Ertalab uyg'ongach darhol telefonga qarash miyada stress gormoni, ya'ni kortizolni oshirib, butun kunlik diqqatni buzadi."),
-    ("a2_wrg.mp3", "Afsuski noto'g'ri! Aslida bu yolg'on. Ertalab uyg'ongach darhol telefonga qarash miyada stress gormoni, ya'ni kortizolni oshirib, butun kunlik diqqatni buzadi."),
+    ("a2_cor_v2.mp3", "To'g'ri! Barakalla! Bu yolg'on. Xabarnomalar diqqatni oshirmaydi, balki chalg'itadi. Tadqiqotlarga ko'ra, chalg'igandan keyin ishga to'liq qaytish uchun taxminan yigirma uch daqiqa kerak bo'ladi."),
+    ("a2_wrg_v2.mp3", "Afsuski noto'g'ri! Aslida bu yolg'on. Xabarnomalar diqqatni oshirmaydi, balki chalg'itadi. Tadqiqotlarga ko'ra, chalg'igandan keyin ishga to'liq qaytish uchun taxminan yigirma uch daqiqa kerak bo'ladi."),
 
-    ("q3.mp3", "Uchinchi savol. Uch daqiqalik ta'limiy video tushuntirish ma'lumotni eslab qolish darajasini oddiy matnga nisbatan oltmish foizgacha oshiradi. Bu rostmi yoki yolg'on?"),
-    ("a3_cor.mp3", "To'g'ri! Barakalla! Bu rost. Vizual tasvir va ovozni bir vaqtda qabul qilish inson xotirasida ma'lumotning saqlanishini keskin yaxshilaydi."),
-    ("a3_wrg.mp3", "Afsuski noto'g'ri! Aslida bu rost. Vizual tasvir va ovozni bir vaqtda qabul qilish inson xotirasida ma'lumotning saqlanishini keskin yaxshilaydi."),
+    ("q3_v2.mp3", "Uchinchi savol. Birinchi ijtimoiy tarmoqlar faqat ikki ming o'ninchi yillarda paydo bo'lgan. Bu rostmi yoki yolg'on?"),
+    ("a3_cor_v2.mp3", "To'g'ri! Barakalla! Bu yolg'on. Birinchi ijtimoiy tarmoqlardan biri, SixDegrees, bir ming to'qqiz yuz to'qson yettinchi yilda ishga tushgan. Facebook ikki ming to'rtinchi yilda, YouTube esa ikki ming beshinchi yilda paydo bo'lgan."),
+    ("a3_wrg_v2.mp3", "Afsuski noto'g'ri! Aslida bu yolg'on. Birinchi ijtimoiy tarmoqlardan biri, SixDegrees, bir ming to'qqiz yuz to'qson yettinchi yilda ishga tushgan. Facebook ikki ming to'rtinchi yilda, YouTube esa ikki ming beshinchi yilda paydo bo'lgan."),
 
-    ("q4.mp3", "To'rtinchi savol. Dars qilish vaqtida telefonni boshqa xonaga qo'yish yoki ekranini pastga qaratish aqliy diqqatni yigirma besh foizgacha oshiradi. Bu rostmi yoki yolg'on?"),
-    ("a4_cor.mp3", "To'g'ri! Barakalla! Bu rost. Garvard tadqiqotchilari isbotlagan, hatto ovozsiz telefon stolda ko'rinib tursa ham, miya unga chalg'ib o'z quvvatini yo'qotadi."),
-    ("a4_wrg.mp3", "Afsuski noto'g'ri! Aslida bu rost. Garvard tadqiqotchilari isbotlagan, hatto ovozsiz telefon stolda ko'rinib tursa ham, miya unga chalg'ib o'z quvvatini yo'qotadi."),
+    ("q4_v2.mp3", "To'rtinchi savol. Telefon stol ustida turishining o'zi, hatto ovozsiz bo'lsa ham, diqqatni jamlashni qiyinlashtirishi mumkin. Bu rostmi yoki yolg'on?"),
+    ("a4_cor_v2.mp3", "To'g'ri! Barakalla! Bu rost. Texas universiteti tadqiqotida telefoni boshqa xonada bo'lgan talabalar diqqat va xotira testlarini yaxshiroq bajargan."),
+    ("a4_wrg_v2.mp3", "Afsuski noto'g'ri! Aslida bu rost. Texas universiteti tadqiqotida telefoni boshqa xonada bo'lgan talabalar diqqat va xotira testlarini yaxshiroq bajargan."),
 
-    ("finish.mp3", "Ajoyib natija! Viktorina yakunlandi. Bekordan-bekorga Ma'mun Universitetining talabasi emasligingizni isbotladingiz. Barchangizga e'tibor uchun katta rahmat!")
+    ("finish_v2.mp3", "Ajoyib natija! Viktorina yakunlandi. Ma'mun Universiteti talabalari bugun o'z bilimini ko'rsatishdi. Barchangizga e'tibor uchun katta rahmat!")
 ]
 
 def generate_with_elevenlabs(api_key, voice_id="pNInz6obpgDQGcFmaJgB"):

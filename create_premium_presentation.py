@@ -133,7 +133,7 @@ def build_presentation():
     p4.space_after = Pt(36)
 
     p5 = tf1.add_paragraph()
-    p5.text = "English · O‘zbekcha   •   01 / 09"
+    p5.text = "Abdulaziz   •   Ma’mun University   •   2026"
     p5.font.name = FONT_FAMILY
     p5.font.size = Pt(11)
     p5.font.color.rgb = RGBColor(100, 116, 139)
@@ -802,8 +802,8 @@ def build_presentation():
     p_tyu.alignment = PP_ALIGN.CENTER
 
     speech_notes = {
-        1: ("Hello everyone! Today I will talk about 'Social Networks in My Life'. We use social media every day to communicate, study, and relax. Let's see how they affect our lives.",
-            "Assalomu alaykum! Bugun men 'Ijtimoiy tarmoqlar mening hayotimda' mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."),
+        1: ("Hello everyone! My name is Abdulaziz. Today I will talk about 'Social Networks in My Life'. We use social media every day to communicate, study, and relax. Let's see how they affect our lives.",
+            "Assalomu alaykum! Mening ismim Abdulaziz. Bugun men 'Ijtimoiy tarmoqlar mening hayotimda' mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."),
         2: ("First, what are social networks? They are websites and apps where people connect, share information, and post content. Today, they are an important part of our daily life.",
             "Avvalo, ijtimoiy tarmoqlar nima? Bu odamlar muloqot qiladigan, ma’lumot va kontent ulashadigan saytlar hamda ilovalardir. Bugun ular kundalik hayotimizning muhim qismiga aylandi."),
         3: ("Here are the main apps I use: First, Telegram — for quick messaging and study groups. Second, Instagram — for photos and creative reels. And third, YouTube — for learning video tutorials and relaxing.",
@@ -816,8 +816,8 @@ def build_presentation():
             "Keyingisi — ta’lim. Ijtimoiy tarmoqlar faqat o‘yin-kulgi uchun emas, balki o‘qish uchun ham juda foydali. Biz bepul video darslarni ko‘rishimiz, ingliz tilini o‘rganishimiz va kursdoshlar bilan materiallar almashishimiz mumkin."),
         7: ("Now about entertainment. In our free time, we listen to music and watch interesting videos to rest. But it is important to control our screen time and not scroll for too many hours.",
             "Endi esa dam olish haqida. Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim."),
-        8: ("Let's compare the pros and cons. The advantages are: easy communication, fast knowledge, and study help. The disadvantages are: losing time, getting distracted from homework, and eye tiredness.",
-            "Foyda va zararlarini solishtirsak: Foydasi — tezkor aloqa, yangi bilimlar va o‘qishdagi yordam. Zarari esa — ko‘p vaqt yo‘qotish, darslardan chalg‘ish va ko‘rish qobiliyatining toliqishi."),
+        8: ("Let's compare the pros and cons. The advantages are: easy communication, quick access to information, education, and entertainment. The disadvantages are: too much screen time, distraction, false information, and privacy problems.",
+            "Afzalliklari va kamchiliklarini solishtiraylik. Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari."),
         9: ("To conclude: social networks are powerful tools if we use them wisely. They help us connect, learn, and relax. The key is to keep a healthy balance between our screens and real life. Thank you for your attention!",
             "Xulosa qilib aytganda: ijtimoiy tarmoqlar to‘g‘ri foydalanilsa, katta foyda keltiradi. Ular muloqot qilish, o‘rganish va dam olishga yordam beradi. Eng asosiysi — virtual olam va real hayot o‘rtasida muvozanatni saqlashdir. E’tiboringiz uchun rahmat!")
     }

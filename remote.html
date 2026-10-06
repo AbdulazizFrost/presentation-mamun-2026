@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#090E1A">
+  <title>Presentation Remote</title>
+  <style>
+    :root {
+      --bg: #090E1A;
+      --card: #111827;
+      --line: #1E293B;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --sky: #38BDF8;
+      --cyan: #22D3EE;
+      --green: #10B981;
+      --red: #F43F5E;
+      --blue: #2563EB;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      padding: max(14px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      user-select: none;
+      -webkit-user-select: none;
+      overscroll-behavior: none;
+    }
+    button { font: inherit; color: inherit; border: 0; cursor: pointer; touch-action: manipulation; }
+    button:active { transform: scale(0.97); }
+    button:disabled { opacity: .35; }
+    .hidden { display: none !important; }
+
+    .top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .status { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 3px rgba(244,63,94,.18); }
+    .dot.on { background: var(--green); box-shadow: 0 0 0 3px rgba(16,185,129,.2); }
+    .timer { font: 700 18px ui-monospace, 'SF Mono', Consolas, monospace; background: var(--card); border: 1px solid var(--line); padding: 6px 12px; border-radius: 10px; }
+
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+    .label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sky); margin-bottom: 6px; }
+    .num { font: 800 34px ui-monospace, Consolas, monospace; color: var(--sky); line-height: 1; }
+    .title { font-size: 18px; font-weight: 700; margin-top: 6px; }
+    .next-title { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+    .nav { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+    .btn { border-radius: 16px; padding: 18px 12px; font-weight: 800; font-size: 18px; background: #1E293B; border: 1px solid #334155; }
+    .btn-next { background: linear-gradient(135deg, #0EA5E9, var(--blue)); border: 0; font-size: 22px; padding: 26px 12px; box-shadow: 0 10px 24px -8px rgba(37,99,235,.6); }
+    .dots { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; }
+    .dots button { aspect-ratio: 1; border-radius: 10px; background: #1E293B; border: 1px solid #334155; font-weight: 700; font-size: 14px; }
+    .dots button.cur { background: var(--sky); color: #04131F; border-color: var(--sky); }
+
+    .notes { flex: 1; min-height: 120px; overflow-y: auto; -webkit-overflow-scrolling: touch; user-select: text; -webkit-user-select: text; }
+    .notes .en { font-size: 17px; line-height: 1.55; font-weight: 500; }
+    .notes .uz { font-size: 15px; line-height: 1.5; color: var(--muted); font-style: italic; margin-top: 10px; }
+    .row { display: flex; gap: 10px; }
+    .row > * { flex: 1; }
+    .btn-small { border-radius: 12px; padding: 12px; font-weight: 700; font-size: 14px; background: #1E293B; border: 1px solid #334155; }
+    .btn-quiz { background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.45); color: #6EE7B7; }
+
+    .q-en { font-size: 18px; font-weight: 700; line-height: 1.4; }
+    .q-uz { font-size: 14px; color: #7DD3FC; font-style: italic; margin-top: 6px; }
+    .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .ans { border-radius: 18px; padding: 28px 8px; font-weight: 900; font-size: 22px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .ans small { font-size: 12px; font-weight: 500; font-style: italic; opacity: .85; }
+    .ans-fact { background: rgba(16,185,129,.16); border: 2px solid rgba(16,185,129,.6); color: #A7F3D0; }
+    .ans-myth { background: rgba(244,63,94,.14); border: 2px solid rgba(244,63,94,.6); color: #FECDD3; }
+    .result { border-radius: 16px; padding: 14px 16px; font-weight: 800; font-size: 17px; }
+    .result.ok { background: rgba(16,185,129,.18); border: 2px solid var(--green); color: #A7F3D0; }
+    .result.bad { background: rgba(244,63,94,.16); border: 2px solid var(--red); color: #FECDD3; }
+    .result p { margin: 6px 0 0; font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.45; }
+    .score { font: 800 44px ui-monospace, Consolas, monospace; color: var(--green); text-align: center; }
+
+    .pin { display: flex; flex-direction: column; gap: 12px; margin-top: 20vh; text-align: center; }
+    .pin input { font: 800 30px ui-monospace, Consolas, monospace; letter-spacing: .3em; text-align: center; padding: 14px; border-radius: 14px; border: 1px solid #334155; background: var(--card); color: var(--text); width: 100%; }
+    .toast { position: fixed; left: 16px; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); background: #7F1D1D; border: 1px solid var(--red); padding: 12px 14px; border-radius: 12px; font-size: 14px; font-weight: 600; text-align: center; transition: opacity .3s; }
+
+    @keyframes pop { 0% { transform: scale(.92); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .pop { animation: pop .28s cubic-bezier(.16,1,.3,1); }
+  </style>
+</head>
+<body>
+  <!-- PIN entry (only when the page was opened without the QR link) -->
+  <section id="view-pin" class="pin hidden">
+    <div style="font-size:40px">📱</div>
+    <div style="font-size:18px;font-weight:700">Enter the PIN from the laptop</div>
+    <div style="color:var(--muted);font-size:14px">Noutbukdagi PIN kodni kiriting</div>
+    <input id="pin-input" inputmode="numeric" maxlength="6" autocomplete="off" placeholder="••••••">
+    <button class="btn btn-next" onclick="savePin()">Connect</button>
+  </section>
+
+  <div id="app" class="hidden" style="display:contents">
+    <div class="top">
+      <div class="status"><span class="dot" id="dot"></span><span id="status-text">Connecting…</span></div>
+      <button class="timer" id="timer" title="Tap to reset">00:00</button>
+    </div>
+
+    <!-- SLIDES MODE -->
+    <section id="view-slides" style="display:contents">
+      <div class="card">
+        <div class="num" id="slide-num">--</div>
+        <div class="title" id="slide-title">Waiting for the presentation…</div>
+        <div class="next-title" id="slide-next"></div>
+      </div>
+
+      <div class="nav">
+        <button class="btn" onclick="send({action:'prev'})">←</button>
+        <button class="btn btn-next" onclick="send({action:'next'})">Next →</button>
+      </div>
+
+      <div class="dots" id="dots"></div>
+
+      <div class="card notes">
+        <div class="label">🗣️ Say this</div>
+        <div class="en" id="notes-en"></div>
+        <div class="uz" id="notes-uz"></div>
+      </div>
+
+      <div class="row">
+        <button class="btn-small" onclick="send({action:'notes'})">🎙️ Notes on screen</button>
+        <button class="btn-small btn-quiz" onclick="send({action:'quiz_open'})">⚡ Start quiz</button>
+      </div>
+    </section>
+
+    <!-- QUIZ MODE -->
+    <section id="view-quiz" class="hidden" style="display:contents">
+      <div class="top">
+        <div class="label" style="margin:0">⚡ Fact or Myth? <span id="quiz-progress" style="color:var(--muted)"></span></div>
+        <div class="label" style="margin:0;color:var(--green)" id="quiz-score"></div>
+      </div>
+
+      <div class="card">
+        <div class="q-en" id="q-en"></div>
+        <div class="q-uz" id="q-uz"></div>
+      </div>
+
+      <div class="answers" id="answers">
+        <button class="ans ans-fact" onclick="send({action:'answer', fact:true})">✅ FACT<small>Rost</small></button>
+        <button class="ans ans-myth" onclick="send({action:'answer', fact:false})">❌ MYTH<small>Yolg‘on</small></button>
+      </div>
+
+      <div id="result" class="result hidden"></div>
+
+      <button id="btn-quiz-next" class="btn btn-next hidden" onclick="send({action:'quiz_next'})">Next question →</button>
+
+      <div class="row" style="margin-top:auto">
+        <button class="btn-small" onclick="send({action:'replay'})">🔊 Replay voice</button>
+        <button class="btn-small" onclick="send({action:'quiz_close'})">✕ Close quiz</button>
+      </div>
+    </section>
+
+    <!-- QUIZ FINISHED -->
+    <section id="view-finish" class="hidden" style="display:contents">
+      <div class="card" style="text-align:center">
+        <div style="font-size:44px">🏆</div>
+        <div class="title">Quiz completed! · Viktorina yakunlandi!</div>
+        <div class="score" id="final-score"></div>
+      </div>
+      <div class="row">
+        <button class="btn-small" onclick="send({action:'quiz_restart'})">🔄 Play again</button>
+        <button class="btn-small" onclick="send({action:'quiz_close'})">← Back to slides</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    let pin = params.get('k') || '';
+    try { if (!pin) pin = localStorage.getItem('remote-pin') || ''; } catch (e) {}
+
+    let lastState = null;
+    let timerStart = Date.now();
+    let events = null;
+
+    function $(id) { return document.getElementById(id); }
+
+    function savePin() {
+      pin = $('pin-input').value.trim();
+      try { localStorage.setItem('remote-pin', pin); } catch (e) {}
+      start();
+    }
+
+    function toast(msg) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.remove('hidden');
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => t.classList.add('hidden'), 2500);
+    }
+
+    async function send(cmd) {
+      if (navigator.vibrate) navigator.vibrate(15);
+      try {
+        const res = await fetch(`/api/cmd?k=${encodeURIComponent(pin)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cmd)
+        });
+        if (res.status === 409) toast('Presentation is not open on the laptop');
+        else if (res.status === 403) showPin('Wrong PIN');
+        else if (!res.ok) toast('Error ' + res.status);
+      } catch (e) {
+        toast('No connection to the laptop');
+      }
+    }
+
+    function showPin(msg) {
+      if (events) events.close();
+      $('app').classList.add('hidden');
+      $('view-pin').classList.remove('hidden');
+      if (msg) toast(msg);
+    }
+
+    function setOnline(on) {
+      $('dot').classList.toggle('on', on);
+      $('status-text').textContent = on ? 'Connected' : 'Reconnecting…';
+    }
+
+    function render(s) {
+      if (!s || !s.slide) return;
+      const prev = lastState;
+      lastState = s;
+      const pad = n => String(n).padStart(2, '0');
+      const quiz = s.quiz || {};
+
+      $('view-slides').classList.toggle('hidden', !!quiz.open);
+      $('view-quiz').classList.toggle('hidden', !quiz.open || quiz.finished);
+      $('view-finish').classList.toggle('hidden', !(quiz.open && quiz.finished));
+
+      // Slides
+      $('slide-num').textContent = `${pad(s.slide)} / ${pad(s.total)}`;
+      $('slide-title').textContent = s.title || '';
+      $('slide-next').textContent = s.nextTitle ? `Next ▸ ${s.nextTitle}` : 'Last slide — Q&A';
+      $('notes-en').textContent = s.notesEn || '';
+      $('notes-uz').textContent = s.notesUz || '';
+      const dots = $('dots');
+      if (dots.children.length !== s.total) {
+        dots.innerHTML = '';
+        for (let i = 1; i <= s.total; i++) {
+          const b = document.createElement('button');
+          b.textContent = i;
+          b.onclick = () => send({ action: 'goto', n: i });
+          dots.appendChild(b);
+        }
+      }
+      [...dots.children].forEach((b, i) => b.classList.toggle('cur', i + 1 === s.slide));
+      if (!prev || prev.slide !== s.slide) $('slide-num').classList.remove('pop'), void $('slide-num').offsetWidth, $('slide-num').classList.add('pop');
+
+      // Quiz
+      if (quiz.open && !quiz.finished) {
+        $('quiz-progress').textContent = `${quiz.idx + 1} / ${quiz.total}`;
+        $('quiz-score').textContent = `Score ${quiz.score} / ${quiz.total}`;
+        $('q-en').textContent = quiz.qEn || '';
+        $('q-uz').textContent = quiz.qUz || '';
+        $('answers').classList.toggle('hidden', !!quiz.answered);
+        $('btn-quiz-next').classList.toggle('hidden', !quiz.answered);
+        $('btn-quiz-next').textContent = quiz.idx + 1 >= quiz.total ? 'Finish quiz 🎉' : 'Next question →';
+        const r = $('result');
+        r.classList.toggle('hidden', !quiz.answered);
+        if (quiz.answered) {
+          r.className = 'result pop ' + (quiz.correct ? 'ok' : 'bad');
+          r.innerHTML = '';
+          r.append(quiz.correct ? '✓ Correct! · To‘g‘ri!' : '✕ Incorrect · Noto‘g‘ri');
+          const p = document.createElement('p');
+          p.textContent = quiz.expEn || '';
+          r.appendChild(p);
+          if (navigator.vibrate && !(prev && prev.quiz && prev.quiz.answered)) navigator.vibrate(quiz.correct ? [30, 40, 30] : 120);
+        }
+      }
+      if (quiz.open && quiz.finished) {
+        $('final-score').textContent = `${quiz.score} / ${quiz.total}`;
+      }
+    }
+
+    function start() {
+      if (!pin) return showPin();
+      $('view-pin').classList.add('hidden');
+      $('app').classList.remove('hidden');
+      if (events) events.close();
+      events = new EventSource(`/api/remote-events?k=${encodeURIComponent(pin)}`);
+      events.onopen = () => setOnline(true);
+      events.onerror = () => setOnline(false);
+      events.onmessage = (e) => {
+        const msg = JSON.parse(e.data);
+        if (msg.type === 'state') render(msg.state);
+      };
+      // Validate the PIN explicitly (EventSource hides HTTP status codes)
+      fetch(`/api/cmd?k=${encodeURIComponent(pin)}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"action":"ping"}' })
+        .then(r => { if (r.status === 403) showPin('Wrong PIN'); else try { localStorage.setItem('remote-pin', pin); } catch (e) {} })
+        .catch(() => {});
+    }
+
+    // Timer (tap to reset)
+    $('timer').onclick = () => { timerStart = Date.now(); };
+    setInterval(() => {
+      const sec = Math.floor((Date.now() - timerStart) / 1000);
+      $('timer').textContent = `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
+    }, 1000);
+
+    // Swipe anywhere on the slides view: left = next, right = previous
+    let sx = 0, sy = 0;
+    document.addEventListener('touchstart', e => { sx = e.changedTouches[0].clientX; sy = e.changedTouches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', e => {
+      if (!lastState || (lastState.quiz && lastState.quiz.open)) return;
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) send({ action: dx < 0 ? 'next' : 'prev' });
+    }, { passive: true });
+
+    // Keep the phone screen on while presenting (where supported)
+    async function keepAwake() {
+      try { if ('wakeLock' in navigator) await navigator.wakeLock.request('screen'); } catch (e) {}
+    }
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') keepAwake(); });
+    keepAwake();
+
+    start();
+  </script>
+</body>
+</html>

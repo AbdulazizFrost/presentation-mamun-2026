@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Social Networks in My Life • Ijtimoiy tarmoqlar mening hayotimda</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind is prebuilt locally (styles.css) so the deck works without internet -->
+  <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
@@ -100,6 +101,77 @@
     .slide.active img {
       animation: visualEntrance 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
     }
+    /* --- Extra motion --- */
+    @keyframes headingIn {
+      0% { opacity: 0; transform: translateY(10px); letter-spacing: -0.01em; }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes ambientDrift {
+      0% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(-4%, 3%, 0) scale(1.08); }
+      100% { transform: translate3d(0, 0, 0) scale(1); }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(7px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(3px); }
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.94) translateY(6px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.25); }
+      50% { box-shadow: 0 10px 40px -2px rgba(16, 185, 129, 0.55); }
+    }
+
+    /* Slow ambient glow behind the slides */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(40% 35% at 20% 25%, rgba(56, 189, 248, 0.07), transparent 70%),
+        radial-gradient(35% 30% at 80% 75%, rgba(99, 102, 241, 0.07), transparent 70%);
+      animation: ambientDrift 24s ease-in-out infinite;
+    }
+
+    .slide.active h2 {
+      animation: headingIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.04s backwards;
+    }
+    /* Children of .stagger appear one after another */
+    .slide.active .stagger > * {
+      animation: cardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    }
+    .slide.active .stagger > *:nth-child(1) { animation-delay: 0.12s; }
+    .slide.active .stagger > *:nth-child(2) { animation-delay: 0.20s; }
+    .slide.active .stagger > *:nth-child(3) { animation-delay: 0.28s; }
+    .slide.active .stagger > *:nth-child(4) { animation-delay: 0.36s; }
+    .slide.active .stagger > *:nth-child(5) { animation-delay: 0.44s; }
+
+    .float-y { animation: floatY 6s ease-in-out 0.8s infinite; }
+    .lift { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s; }
+    .lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.6); }
+    .shake { animation: shake 0.45s ease-in-out; }
+    .modal-pop { animation: popIn 0.32s cubic-bezier(0.16, 1, 0.3, 1); }
+    .pulse-glow { animation: glowPulse 2.4s ease-in-out infinite; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     .editorial-card-dark {
       background: #111827;
       border: 1px solid #1E293B;
@@ -178,22 +250,61 @@
       bottom: 0 !important;
     }
 
+    @page {
+      size: 1200px 675px;
+      margin: 0;
+    }
     @media print {
-      body {
+      html, body {
+        height: auto !important;
+        width: auto !important;
+        overflow: visible !important;
+        display: block !important;
         background: #090E1A !important;
         color: #FFFFFF !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .no-print {
+      .no-print,
+      #mobile-portrait-tip {
         display: none !important;
+      }
+      main, #slide-stage-wrapper {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      /* Undo the on-screen scaling so every slide prints as its own 1200x675 page */
+      #slide-stage {
+        position: static !important;
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 0 !important;
+        display: block !important;
       }
       .slide {
         display: flex !important;
         opacity: 1 !important;
+        width: 1200px !important;
+        height: 675px !important;
+        padding: 2.25rem 3.5rem;
+        box-sizing: border-box;
+        overflow: hidden;
+        break-after: page;
         page-break-after: always;
-        height: 100vh !important;
-        width: 100vw !important;
+        animation: none !important;
+      }
+      .slide:last-child {
+        break-after: auto;
+        page-break-after: auto;
+      }
+      .slide *, .slide img {
+        animation: none !important;
+      }
+      body::before {
+        display: none !important;
       }
       #speaker-notes-panel {
         display: none !important;
@@ -212,14 +323,14 @@
       <h1 class="text-xs sm:text-sm font-semibold text-slate-200 truncate hidden lg:inline">
         Social Networks in My Life <span class="text-sky-400 italic font-normal">| Ijtimoiy tarmoqlar</span>
       </h1>
-      <div class="flex items-center space-x-1.5 font-mono text-xs font-bold text-sky-400">
+      <div class="flex items-center space-x-1.5 font-mono text-xs font-bold text-sky-400 whitespace-nowrap shrink-0">
         <span id="current-slide-num">01</span> / 09
       </div>
       <div class="flex items-center space-x-0.5 ml-1">
-        <button onclick="prevSlide()" title="Previous slide (Left Arrow)" class="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition active:scale-95">
+        <button onclick="prevSlide()" title="Previous slide (Left Arrow)" aria-label="Previous slide" class="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition active:scale-95">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
         </button>
-        <button onclick="nextSlide()" title="Next slide (Right Arrow)" class="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition active:scale-95">
+        <button onclick="nextSlide()" title="Next slide (Right Arrow)" aria-label="Next slide" class="p-1 rounded hover:bg-slate-800 text-slate-300 hover:text-white transition active:scale-95">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </button>
       </div>
@@ -231,17 +342,25 @@
         <span>🎙️</span>
         <span class="hidden sm:inline">Speech Notes</span>
       </button>
+      <button onclick="openPresenterView()" id="btn-presenter" title="Presenter view: notes, next slide and timer in a separate window (P)" aria-label="Open presenter view" class="h-8 px-2 sm:px-2.5 rounded-lg bg-slate-800/90 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700/80 flex items-center space-x-1.5 transition text-xs font-medium active:scale-95">
+        <span>🖥️</span>
+        <span class="hidden lg:inline">Presenter</span>
+      </button>
+      <button onclick="openRemoteModal()" id="btn-remote" title="Control the presentation from your phone" aria-label="Phone remote" class="hidden h-8 px-2 sm:px-2.5 rounded-lg bg-slate-800/90 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700/80 items-center space-x-1.5 transition text-xs font-medium active:scale-95">
+        <span class="relative">📱<span id="remote-dot" class="hidden absolute -top-0.5 -right-1 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-slate-900"></span></span>
+        <span class="hidden lg:inline">Remote</span>
+      </button>
       <button onclick="openQuizModal()" id="btn-quiz" title="Interactive Quiz: Fact or Myth? (Q)" class="h-8 px-2 sm:px-2.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-400 border border-emerald-500/35 flex items-center space-x-1.5 transition text-xs font-bold shadow-sm active:scale-95">
         <span class="text-amber-400">⚡</span>
         <span class="hidden sm:inline">Fact or Myth?</span>
       </button>
-      <button onclick="toggleFullscreen()" title="Fullscreen Mode (F)" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 flex items-center justify-center transition active:scale-95" id="btn-fullscreen">
+      <button onclick="toggleFullscreen()" title="Fullscreen Mode (F)" aria-label="Toggle fullscreen" class="w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700/80 flex items-center justify-center transition active:scale-95" id="btn-fullscreen">
         <svg id="icon-fs-enter" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
         <svg id="icon-fs-exit" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M10 10V4m0 6H4m6 0L3 3m10 7h6m-6 0V4m0 6l7-7"/></svg>
       </button>
-      <button onclick="downloadPPTX()" id="btn-download" title="Скачать PowerPoint презентацию (.pptx)" class="h-8 px-2 sm:px-3 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold flex items-center space-x-1.5 transition shadow-md shadow-sky-500/20 text-xs active:scale-95">
+      <button onclick="downloadPPTX()" id="btn-download" title="Download PowerPoint (.pptx) / PowerPoint faylini yuklab olish" aria-label="Download PPTX" class="h-8 px-2 sm:px-3 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold flex items-center space-x-1.5 transition shadow-md shadow-sky-500/20 text-xs active:scale-95">
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        <span class="hidden sm:inline">Скачать PPTX</span>
+        <span class="hidden sm:inline">Download PPTX</span>
       </button>
     </div>
   </header>
@@ -261,7 +380,7 @@
     <!-- ========================================== -->
     <div class="slide active w-full h-full flex-col justify-center text-white" data-slide="1">
       <div class="w-full flex flex-row items-center justify-between gap-10">
-        <div class="flex-1 space-y-6 text-left max-w-xl">
+        <div class="flex-1 space-y-6 text-left max-w-xl stagger">
           <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-sky-400 text-xs font-bold uppercase tracking-wider">
             <span>DIGITAL LIFE · UNIVERSITY PRESENTATION</span>
           </div>
@@ -281,14 +400,13 @@
               Ijtimoiy tarmoqlar muloqot, ta’lim va turmush tarzimizni qanday shakllantiradi
             </p>
           </div>
-          <div class="pt-2 flex items-center gap-3 text-xs font-mono text-slate-400">
-            <span class="text-sky-400 font-semibold">English · O‘zbekcha</span>
-            <span>•</span>
-            <span>01 / 09</span>
+          <div class="pt-2 space-y-1">
+            <p class="text-lg font-bold text-white">Abdulaziz</p>
+            <p class="text-sm text-slate-400">Ma’mun University · 2026</p>
           </div>
         </div>
 
-        <div class="w-1/2 flex justify-center items-center relative">
+        <div class="w-1/2 flex justify-center items-center relative float-y">
           <img src="assets_premium/hero_phone.png" alt="Smartphone Social Mockup" class="w-full max-h-[570px] max-w-md object-contain">
         </div>
       </div>
@@ -299,7 +417,7 @@
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="2">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 02 • Core Definition</span>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 02 • Definition</span>
         <h2 class="text-3xl font-extrabold text-white">What Are Social Networks?</h2>
         <p class="text-base uz-title">Ijtimoiy tarmoqlar nima?</p>
       </div>
@@ -317,7 +435,7 @@
               </p>
             </div>
 
-            <div class="space-y-4 pt-4 border-t border-slate-800">
+            <div class="space-y-4 pt-4 border-t border-slate-800 stagger">
               <div>
                 <p class="text-base font-bold text-sky-400">1. Communication</p>
                 <p class="text-xs uz-sub">Muloqot — connecting instantly with friends and family</p>
@@ -347,7 +465,7 @@
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="3">
       <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
         <div>
-          <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 03 • Platforms in Everyday Use</span>
+          <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 03 • My Apps</span>
           <h2 class="text-3xl font-extrabold text-white">Social Networks I Use</h2>
           <p class="text-base uz-title">Men foydalanadigan ijtimoiy tarmoqlar</p>
         </div>
@@ -366,7 +484,7 @@
               Talabalar hayotida keng qo‘llaniladigan platformalar:
             </p>
 
-            <div class="space-y-4 pt-2">
+            <div class="space-y-4 pt-2 stagger">
               <div class="border-l-2 border-sky-400 pl-3">
                 <p class="text-base font-bold text-white">Telegram</p>
                 <p class="text-xs font-semibold text-sky-400">communication and useful information</p>
@@ -400,7 +518,7 @@
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="4">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 04 • Infographic Overview</span>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 04 • Reasons</span>
         <h2 class="text-3xl font-extrabold text-white">Why Do I Use Social Networks?</h2>
         <p class="text-base uz-title">Nega ijtimoiy tarmoqlardan foydalanaman?</p>
       </div>
@@ -416,37 +534,37 @@
       </div>
 
       <!-- 4 Distinct Infographic Columns -->
-      <div class="grid grid-cols-4 gap-5">
-        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-blue-500 hover:border-blue-400 transition">
+      <div class="grid grid-cols-4 gap-5 stagger">
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-blue-500 hover:border-blue-400 transition">
           <div class="text-2xl font-black text-sky-400 mb-3">01</div>
           <h3 class="text-xl font-bold text-white mb-0.5">Communication</h3>
           <p class="text-xs font-semibold text-sky-400 italic mb-2">Muloqot</p>
-          <p class="text-xs text-slate-300 mb-1">Staying in close touch with friends, family, and classmates seamlessly.</p>
-          <p class="text-[11px] uz-sub">Do‘stlar, oila va kursdoshlar bilan muntazam aloqada bo‘lish.</p>
+          <p class="text-sm text-slate-300 mb-1">Staying in touch with friends, family and classmates.</p>
+          <p class="text-xs uz-sub">Do‘stlar, oila va kursdoshlar bilan muntazam aloqada bo‘lish.</p>
         </div>
 
-        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-cyan-500 hover:border-cyan-400 transition">
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-cyan-500 hover:border-cyan-400 transition">
           <div class="text-2xl font-black text-cyan-400 mb-3">02</div>
           <h3 class="text-xl font-bold text-white mb-0.5">Information</h3>
           <p class="text-xs font-semibold text-cyan-400 italic mb-2">Ma’lumot</p>
-          <p class="text-xs text-slate-300 mb-1">Discovering latest news, campus alerts, and world events.</p>
-          <p class="text-[11px] uz-sub">Yangiliklar, universitet e’lonlari va jahon voqealarini bilish.</p>
+          <p class="text-sm text-slate-300 mb-1">Reading the news and university updates.</p>
+          <p class="text-xs uz-sub">Yangiliklar, universitet e’lonlari va jahon voqealarini bilish.</p>
         </div>
 
-        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-purple-500 hover:border-purple-400 transition">
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-purple-500 hover:border-purple-400 transition">
           <div class="text-2xl font-black text-purple-400 mb-3">03</div>
           <h3 class="text-xl font-bold text-white mb-0.5">Learning</h3>
           <p class="text-xs font-semibold text-purple-400 italic mb-2">O‘rganish</p>
-          <p class="text-xs text-slate-300 mb-1">Acquiring practical skills, foreign languages, and study advice.</p>
-          <p class="text-[11px] uz-sub">Amaliy ko‘nikmalar, chet tillari va yangi bilimlarni o‘rganish.</p>
+          <p class="text-sm text-slate-300 mb-1">Learning new skills and foreign languages.</p>
+          <p class="text-xs uz-sub">Amaliy ko‘nikmalar, chet tillari va yangi bilimlarni o‘rganish.</p>
         </div>
 
-        <div class="editorial-card-dark rounded-2xl p-6 border-t-4 border-t-emerald-500 hover:border-emerald-400 transition">
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-emerald-500 hover:border-emerald-400 transition">
           <div class="text-2xl font-black text-emerald-400 mb-3">04</div>
           <h3 class="text-xl font-bold text-white mb-0.5">Entertainment</h3>
           <p class="text-xs font-semibold text-emerald-400 italic mb-2">Ko‘ngilochar</p>
-          <p class="text-xs text-slate-300 mb-1">Listening to favorite music, watching videos, and resting peacefully.</p>
-          <p class="text-[11px] uz-sub">Sevimli musiqa tinglash, videolar ko‘rish va maroqli dam olish.</p>
+          <p class="text-sm text-slate-300 mb-1">Listening to music, watching videos and resting.</p>
+          <p class="text-xs uz-sub">Sevimli musiqa tinglash, videolar ko‘rish va maroqli dam olish.</p>
         </div>
       </div>
     </div>
@@ -456,7 +574,7 @@
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="5">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 05 • Digital Storytelling</span>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 05 • Communication</span>
         <h2 class="text-3xl font-extrabold text-white">Communication with People</h2>
         <p class="text-base uz-title">Odamlar bilan muloqot</p>
       </div>
@@ -473,20 +591,20 @@
               Ijtimoiy tarmoqlar muloqotni tezroq va osonroq qiladi. Men do‘stlarim va oilam uzoqda bo‘lsa ham, xabar yuborishim, fotosurat ulashishim va ular bilan suhbatlashishim mumkin.
             </p>
 
-            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs">
+            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs stagger">
               <div class="flex items-center gap-2">
                 <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Instant Messaging across continents</span>
+                <span class="font-semibold text-slate-200">Instant messages</span>
                 <span class="text-slate-400 italic">• Tezkor xabarlar</span>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Sharing memories & photos in seconds</span>
+                <span class="font-semibold text-slate-200">Sharing photos in seconds</span>
                 <span class="text-slate-400 italic">• Fotosuratlar ulashish</span>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">High-Definition Video Conversations</span>
+                <span class="font-semibold text-slate-200">Video calls</span>
                 <span class="text-slate-400 italic">• Jonli video muloqot</span>
               </div>
             </div>
@@ -505,7 +623,7 @@
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="6">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 06 • Digital Learning</span>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 06 • Education</span>
         <h2 class="text-3xl font-extrabold text-white">Learning and Education</h2>
         <p class="text-base uz-title">O‘rganish va ta’lim</p>
       </div>
@@ -522,7 +640,7 @@
               Ijtimoiy tarmoqlar ta’lim uchun ham foydali bo‘lishi mumkin. Men ta’limiy videolar ko‘rishim, foydali kanallarni kuzatishim va turli mavzular haqida yangi ma’lumot topishim mumkin.
             </p>
 
-            <div class="space-y-3 pt-3 border-t border-slate-800">
+            <div class="space-y-3 pt-3 border-t border-slate-800 stagger">
               <div class="border-l-2 border-sky-400 pl-3">
                 <p class="text-sm font-bold text-white">Video lessons</p>
                 <p class="text-xs uz-sub">Video darslar — visual tutorials and step-by-step guides</p>
@@ -555,7 +673,7 @@
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="7">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 07 • Recreation & Balance</span>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 07 • Free Time</span>
         <h2 class="text-3xl font-extrabold text-white">Entertainment and Free Time</h2>
         <p class="text-base uz-title">Ko‘ngilochar va bo‘sh vaqt</p>
       </div>
@@ -572,7 +690,7 @@
               Ijtimoiy tarmoqlar dam olish usuli hamdir. Men videolar ko‘rishim, musiqa tinglashim, qiziqarli kontent tomosha qilishim va yangi g‘oyalarni kashf qilishim mumkin. Biroq internetda juda ko‘p vaqt sarflamaslikka harakat qilaman.
             </p>
 
-            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs">
+            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs stagger">
               <div class="flex items-center gap-2">
                 <span class="text-sky-400 font-bold">✔</span>
                 <span class="font-semibold text-slate-200">Relaxation & Music</span>
@@ -580,12 +698,12 @@
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Inspiration & Creative Ideas</span>
+                <span class="font-semibold text-slate-200">New creative ideas</span>
                 <span class="text-slate-400 italic">• Yangi ijodiy g‘oyalar</span>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Conscious Screen Time Limits</span>
+                <span class="font-semibold text-slate-200">Limiting screen time</span>
                 <span class="text-slate-400 italic">• Sog‘lom ekran vaqti nazorati</span>
               </div>
             </div>
@@ -604,7 +722,7 @@
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="8">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 08 • Objective Comparison</span>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 08 • Pros & Cons</span>
         <h2 class="text-3xl font-extrabold text-white">Advantages and Disadvantages</h2>
         <p class="text-base uz-title">Afzalliklari va kamchiliklari</p>
       </div>
@@ -619,7 +737,7 @@
               <p class="text-sm font-semibold text-emerald-300/80 italic">AFZALLIKLARI</p>
             </div>
 
-            <div class="space-y-4">
+            <div class="space-y-4 stagger">
               <div class="border-l-2 border-emerald-400 pl-3">
                 <p class="text-base font-bold text-white">Easy communication</p>
                 <p class="text-sm uz-sub">Oson muloqot</p>
@@ -639,7 +757,7 @@
             </div>
           </div>
           <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-slate-400">
-            Positive aspects that empower modern university students.
+            Good sides for students / Talabalar uchun foydali tomonlari
           </div>
         </div>
 
@@ -651,7 +769,7 @@
               <p class="text-sm font-semibold text-rose-300/80 italic">KAMCHILIKLARI</p>
             </div>
 
-            <div class="space-y-4">
+            <div class="space-y-4 stagger">
               <div class="border-l-2 border-rose-400 pl-3">
                 <p class="text-base font-bold text-white">Too much screen time</p>
                 <p class="text-sm uz-sub">Ekran qarshisida ortiqcha vaqt</p>
@@ -671,7 +789,7 @@
             </div>
           </div>
           <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-slate-400">
-            Digital challenges requiring conscious self-control and awareness.
+            Needs self-control / O‘zini nazorat qilishni talab qiladi
           </div>
         </div>
       </div>
@@ -682,7 +800,7 @@
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="9">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 09 • Final Takeaway</span>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 09 • Conclusion</span>
         <h2 class="text-3xl font-extrabold text-white">Conclusion</h2>
         <p class="text-base uz-title">Xulosa</p>
       </div>
@@ -719,7 +837,7 @@
         </p>
 
         <!-- Interactive Quiz Button on Slide 9 -->
-        <button onclick="openQuizModal()" class="inline-flex items-center space-x-2 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition transform hover:scale-105 active:scale-95 cursor-pointer">
+        <button onclick="openQuizModal()" class="inline-flex items-center space-x-2 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition transform hover:scale-105 active:scale-95 cursor-pointer pulse-glow">
           <span>⚡ Play "Fact or Myth?" with the Audience</span>
           <span>🎮</span>
         </button>
@@ -729,8 +847,8 @@
       </div>
       <!-- Mobile Portrait Tip / Controls (Visible only on portrait phone screens) -->
       <div id="mobile-portrait-tip" class="hidden absolute bottom-3 z-30 items-center justify-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-sky-500/40 text-[11px] text-sky-300 shadow-xl backdrop-blur-md pointer-events-none">
-        <span class="animate-spin text-sky-400">🔄</span>
-        <span class="font-medium">Telefonni yonbosh qilib to‘liq ekranda ko‘ring (Rotate)</span>
+        <span class="text-sky-400">🔄</span>
+        <span class="font-medium">Telefonni yonboshiga burib ko‘ring (Rotate)</span>
       </div>
     </div>
   </main>
@@ -751,9 +869,32 @@
     </div>
   </div>
 
+  <!-- PHONE REMOTE MODAL (QR code to connect a phone) -->
+  <div id="remote-modal" class="hidden no-print fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-4" onclick="if (event.target === this) closeRemoteModal()">
+    <div class="relative w-full max-w-md bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-700/80 rounded-2xl shadow-2xl p-6 text-center space-y-4 modal-pop">
+      <button onclick="closeRemoteModal()" aria-label="Close" class="absolute top-3 right-3 w-8 h-8 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-700/80 flex items-center justify-center text-sm font-bold">✕</button>
+      <div>
+        <h3 class="text-lg font-extrabold text-white">📱 Phone Remote</h3>
+        <p class="text-xs text-sky-400 italic">Telefondan boshqarish</p>
+      </div>
+      <div id="remote-qr" class="mx-auto w-56 h-56 bg-white rounded-xl p-2 flex items-center justify-center"></div>
+      <p class="text-xs text-slate-300">Scan with the phone camera. The phone must be on the <b>same Wi-Fi</b> as this laptop.</p>
+      <p class="text-[11px] text-slate-400 italic">Telefon kamerasi bilan skanerlang. Telefon va noutbuk bitta Wi-Fi tarmog‘ida bo‘lishi kerak.</p>
+      <div class="rounded-xl bg-slate-800/70 border border-slate-700 p-3 space-y-1 text-left">
+        <div class="text-[11px] uppercase font-bold text-slate-400">Link</div>
+        <select id="remote-url-select" class="w-full bg-slate-900 border border-slate-700 rounded-lg text-xs font-mono text-sky-300 p-1.5" onchange="renderRemoteQR()"></select>
+        <div class="flex justify-between items-center pt-1">
+          <span class="text-[11px] uppercase font-bold text-slate-400">PIN</span>
+          <span id="remote-pin" class="font-mono font-black text-xl tracking-[0.3em] text-white"></span>
+        </div>
+      </div>
+      <p id="remote-count" class="text-xs font-semibold text-slate-400">No phone connected yet</p>
+    </div>
+  </div>
+
   <!-- INTERACTIVE QUIZ MODAL: FACT OR MYTH -->
   <div id="quiz-modal" class="hidden no-print fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-md p-4 sm:p-6 transition-all duration-300">
-    <div class="relative w-full max-w-2xl bg-gradient-to-b from-slate-900 via-[#0B132B] to-slate-950 border border-slate-700/80 rounded-2xl shadow-2xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden">
+    <div class="relative w-full max-w-2xl modal-pop bg-gradient-to-b from-slate-900 via-[#0B132B] to-slate-950 border border-slate-700/80 rounded-2xl shadow-2xl p-5 sm:p-7 flex flex-col justify-between overflow-hidden">
       
       <!-- Top Modal Header -->
       <div class="flex items-center justify-between gap-3 border-b border-slate-800/80 pb-3 mb-4">
@@ -882,7 +1023,7 @@
     <div class="flex items-center space-x-2">
       <button onclick="downloadPPTX()" class="hidden sm:inline-flex text-slate-200 hover:text-white px-2.5 py-1 bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 rounded transition items-center space-x-1 font-medium text-xs">
         <svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        <span>Скачать .PPTX</span>
+        <span>Download .PPTX</span>
       </button>
       <button onclick="window.print()" class="text-slate-300 hover:text-white px-2 sm:px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg transition flex items-center space-x-1 border border-slate-700 text-xs">
         <span>🖨️</span>
@@ -891,14 +1032,15 @@
     </div>
   </footer>
 
+  <script src="vendor/qrcode.js"></script>
   <script>
     const totalSlides = 9;
     let currentSlide = 1;
 
     const speakerNotes = {
       1: {
-        en: "Hello everyone! Today I will talk about 'Social Networks in My Life'. We use social media every day to communicate, study, and relax. Let's see how they affect our lives.",
-        uz: "Assalomu alaykum! Bugun men 'Ijtimoiy tarmoqlar mening hayotimda' mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."
+        en: "Hello everyone! My name is Abdulaziz. Today I will talk about 'Social Networks in My Life'. We use social media every day to communicate, study, and relax. Let's see how they affect our lives.",
+        uz: "Assalomu alaykum! Mening ismim Abdulaziz. Bugun men 'Ijtimoiy tarmoqlar mening hayotimda' mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."
       },
       2: {
         en: "First, what are social networks? They are websites and apps where people connect, share information, and post content. Today, they are an important part of our daily life.",
@@ -925,8 +1067,8 @@
         uz: "Endi esa dam olish haqida. Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim."
       },
       8: {
-        en: "Let's compare the pros and cons. The advantages are: easy communication, fast knowledge, and study help. The disadvantages are: losing time, getting distracted from homework, and eye tiredness.",
-        uz: "Foyda va zararlarini solishtirsak: Foydasi — tezkor aloqa, yangi bilimlar va o‘qishdagi yordam. Zarari esa — ko‘p vaqt yo‘qotish, darslardan chalg‘ish va ko‘rish qobiliyatining toliqishi."
+        en: "Let's compare the pros and cons. The advantages are: easy communication, quick access to information, education, and entertainment. The disadvantages are: too much screen time, distraction, false information, and privacy problems.",
+        uz: "Afzalliklari va kamchiliklarini solishtiraylik. Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari."
       },
       9: {
         en: "To conclude: social networks are powerful tools if we use them wisely. They help us connect, learn, and relax. The key is to keep a healthy balance between our screens and real life. Thank you for your attention!",
@@ -941,6 +1083,8 @@
         const dot = document.createElement('button');
         dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-200 ${i === currentSlide ? 'bg-sky-400 w-6' : 'bg-slate-700 hover:bg-slate-500'}`;
         dot.title = `Jump to slide ${i}`;
+        dot.setAttribute('aria-label', `Slide ${i}`);
+        if (i === currentSlide) dot.setAttribute('aria-current', 'step');
         dot.onclick = () => goToSlide(i);
         container.appendChild(dot);
       }
@@ -966,6 +1110,7 @@
       
       initDots();
       updateSpeakerNotes();
+      publishRemoteState();
     }
 
     function goToSlide(n) {
@@ -1008,6 +1153,111 @@
           <p class="text-slate-300 italic leading-relaxed">${notes.uz}</p>
         </div>
       `;
+      updatePresenterView();
+    }
+
+    // --- PRESENTER VIEW: notes, next slide and timer in a separate window (for the laptop screen) ---
+    let presenterWin = null;
+    let presenterStart = null;
+    let presenterTick = null;
+
+    function getSlideTitle(n) {
+      const slide = document.querySelector(`.slide[data-slide="${n}"]`);
+      const heading = slide && slide.querySelector('h2, h1');
+      if (!heading) return '';
+      // <br> inside a heading would otherwise glue words together ("Networksin")
+      const copy = heading.cloneNode(true);
+      copy.querySelectorAll('br').forEach(br => br.replaceWith(' '));
+      return copy.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    function openPresenterView() {
+      if (presenterWin && !presenterWin.closed) {
+        presenterWin.focus();
+        return;
+      }
+      presenterWin = window.open('', 'presenter-view', 'width=900,height=640');
+      if (!presenterWin) {
+        showDownloadToast('Pop-up blocked — allow pop-ups for this page');
+        return;
+      }
+      presenterWin.document.open();
+      presenterWin.document.write(`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Presenter View</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: #090E1A; color: #F8FAFC; display: flex; flex-direction: column; gap: 16px; height: 100vh; }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .num { font: 700 20px ui-monospace, monospace; color: #38BDF8; }
+  .timer { font: 700 32px ui-monospace, monospace; }
+  .card { background: #111827; border: 1px solid #1E293B; border-radius: 14px; padding: 16px 20px; }
+  .label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #38BDF8; margin-bottom: 6px; }
+  .now { font-size: 18px; font-weight: 700; }
+  .en { font-size: 22px; line-height: 1.5; font-weight: 500; }
+  .uz { font-size: 16px; line-height: 1.5; color: #94A3B8; font-style: italic; }
+  .next { color: #CBD5E1; }
+  .notes { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+  button { font: inherit; font-weight: 600; padding: 10px 18px; border-radius: 10px; border: 1px solid #334155; background: #1E293B; color: #F8FAFC; cursor: pointer; }
+  button:hover { background: #334155; }
+  .row { display: flex; gap: 8px; }
+</style></head>
+<body>
+  <div class="top">
+    <div><div class="num" id="pv-num"></div><div class="now" id="pv-title"></div></div>
+    <div class="row" style="align-items:center">
+      <div class="timer" id="pv-timer">00:00</div>
+      <button id="pv-reset" title="Reset timer">↺</button>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="card"><div class="label">🇬🇧 Say this</div><div class="en" id="pv-en"></div></div>
+    <div class="card"><div class="label" style="color:#22D3EE">🇺🇿 O‘zbekcha</div><div class="uz" id="pv-uz"></div></div>
+  </div>
+  <div class="top">
+    <div class="card next" style="flex:1"><span class="label">Next ▸ </span><span id="pv-next"></span></div>
+    <div class="row">
+      <button id="pv-prev">← Prev</button>
+      <button id="pv-nextbtn">Next →</button>
+    </div>
+  </div>
+</body></html>`);
+      presenterWin.document.close();
+
+      const d = presenterWin.document;
+      d.getElementById('pv-prev').onclick = () => prevSlide();
+      d.getElementById('pv-nextbtn').onclick = () => nextSlide();
+      d.getElementById('pv-reset').onclick = () => { presenterStart = Date.now(); renderPresenterTimer(); };
+      presenterWin.addEventListener('keydown', (e) => {
+        if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); nextSlide(); }
+        else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); prevSlide(); }
+      });
+
+      presenterStart = Date.now();
+      clearInterval(presenterTick);
+      presenterTick = setInterval(renderPresenterTimer, 1000);
+      updatePresenterView();
+    }
+
+    function renderPresenterTimer() {
+      if (!presenterWin || presenterWin.closed) {
+        clearInterval(presenterTick);
+        return;
+      }
+      const sec = Math.floor((Date.now() - presenterStart) / 1000);
+      const el = presenterWin.document.getElementById('pv-timer');
+      if (el) el.textContent = `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
+    }
+
+    function updatePresenterView() {
+      if (!presenterWin || presenterWin.closed) return;
+      const d = presenterWin.document;
+      const notes = speakerNotes[currentSlide];
+      const set = (id, text) => { const el = d.getElementById(id); if (el) el.textContent = text; };
+      set('pv-num', `${String(currentSlide).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`);
+      set('pv-title', getSlideTitle(currentSlide));
+      set('pv-en', notes.en);
+      set('pv-uz', notes.uz);
+      set('pv-next', currentSlide < totalSlides ? getSlideTitle(currentSlide + 1) : 'End — Q&A / Quiz');
     }
 
 
@@ -1131,7 +1381,7 @@
           link.click();
           document.body.removeChild(link);
           setTimeout(() => URL.revokeObjectURL(url), 1500);
-          showDownloadToast('Презентация PowerPoint скачивается!');
+          showDownloadToast('PowerPoint is downloading… / Yuklab olinmoqda…');
           return;
         } catch (err) {
           console.error('Error in blob download:', err);
@@ -1145,7 +1395,7 @@
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      showDownloadToast('Презентация PowerPoint скачивается!');
+      showDownloadToast('PowerPoint is downloading… / Yuklab olinmoqda…');
     }
 
     function showDownloadToast(msg) {
@@ -1166,13 +1416,15 @@
     }
 
     // --- INTERACTIVE FACT OR MYTH QUIZ LOGIC WITH UZBEK NEURAL VOICE ---
+    // Audio files with a "_v2" suffix belong to the corrected texts. Until they are generated
+    // (python generate_elevenlabs.py), play() fails silently and the quiz simply runs without voice.
     const quizQuestions = [
       {
         qEn: "An average person will spend more than 5 whole years of their lifetime browsing social media.",
         qUz: "O‘rtacha inson o‘z umri davomida 5 yildan ortiq vaqtini ijtimoiy tarmoqlarda o‘tkazadi.",
         isFact: true,
-        expEn: "FACT! Global data reveals people spend ~2h 25m daily on social networks, totaling 5 years and 8 months over an average lifetime.",
-        expUz: "ROST! Xalqaro statistikaga ko‘ra, har bir inson kuniga o‘rtacha 2 soat 25 daqiqa sarflaydi — bu butun umr davomida deyarli 5 yil-u 8 oyni tashkil etadi.",
+        expEn: "FACT! People spend about 2.5 hours a day on social media (DataReportal / GWI). Over a lifetime, that adds up to more than 5 years.",
+        expUz: "ROST! Odamlar kuniga o‘rtacha 2,5 soatga yaqin vaqtni ijtimoiy tarmoqlarda o‘tkazadi (DataReportal / GWI). Butun umr davomida bu 5 yildan ortiq vaqtni tashkil etadi.",
         qAudio: "q1.mp3",
         corAudio: "a1_cor.mp3",
         wrgAudio: "a1_wrg.mp3"
@@ -1181,31 +1433,31 @@
         qEn: "Checking notifications immediately after waking up triggers a rush of dopamine and improves morning productivity.",
         qUz: "Ertalab uyg‘onish bilanoq yangi xabarlarni tekshirish kishida dopamin ajratib, ishchanlikni oshiradi.",
         isFact: false,
-        expEn: "MYTH! Reaching for your phone first thing in the morning spikes cortisol (stress hormone), overwhelms the brain, and destroys deep focus for the whole day.",
-        expUz: "YOLG‘ON! Uyg‘ongach darhol telefonga qarash miyada stress gormoni (kortizol)ni oshirib, butun kunlik diqqatni parokanda qiladi.",
+        expEn: "MYTH! Notifications break your focus instead of improving it. Research by Gloria Mark (UC Irvine) shows that after an interruption it takes about 23 minutes to fully return to a task.",
+        expUz: "YOLG‘ON! Xabarnomalar diqqatni oshirmaydi, balki chalg‘itadi. Gloria Mark (UC Irvine) tadqiqotiga ko‘ra, chalg‘igandan keyin ishga to‘liq qaytish uchun taxminan 23 daqiqa kerak bo‘ladi.",
         qAudio: "q2.mp3",
-        corAudio: "a2_cor.mp3",
-        wrgAudio: "a2_wrg.mp3"
+        corAudio: "a2_cor_v2.mp3",
+        wrgAudio: "a2_wrg_v2.mp3"
       },
       {
-        qEn: "Watching an educational 3-minute video explanation can boost knowledge retention by up to 60% compared to reading text alone.",
-        qUz: "3 daqiqalik ta’limiy video tushuntirishni ko‘rish ma’lumotni eslab qolish darajasini oddiy matnga nisbatan 60% gacha oshiradi.",
-        isFact: true,
-        expEn: "FACT! Combining audio narration with dynamic visual motion engages dual-coding neural pathways, boosting understanding and recall.",
-        expUz: "ROST! Vizual tasvir va ovozni bir vaqtda qabul qilish (YouTube va mikro-darsliklar) inson xotirasida ma’lumotni saqlanishini keskin yaxshilaydi.",
-        qAudio: "q3.mp3",
-        corAudio: "a3_cor.mp3",
-        wrgAudio: "a3_wrg.mp3"
+        qEn: "The first social networks appeared only in the 2010s.",
+        qUz: "Birinchi ijtimoiy tarmoqlar faqat 2010-yillarda paydo bo‘lgan.",
+        isFact: false,
+        expEn: "MYTH! One of the first social networks, SixDegrees.com, started in 1997. Facebook appeared in 2004 and YouTube in 2005.",
+        expUz: "YOLG‘ON! Birinchi ijtimoiy tarmoqlardan biri — SixDegrees.com — 1997-yilda ishga tushgan. Facebook 2004-yilda, YouTube esa 2005-yilda paydo bo‘lgan.",
+        qAudio: "q3_v2.mp3",
+        corAudio: "a3_cor_v2.mp3",
+        wrgAudio: "a3_wrg_v2.mp3"
       },
       {
-        qEn: "Putting your phone in another room or keeping it screen-down while studying increases cognitive performance by up to 25%.",
-        qUz: "Dars qilish vaqtida telefonni boshqa xonaga qo‘yish yoki ekranini pastga qaratish aqliy diqqatni 25% gacha oshiradi.",
+        qEn: "Just having your phone on the desk — even when it is silent — can make it harder to concentrate.",
+        qUz: "Telefon stol ustida turishining o‘zi — hatto ovozsiz bo‘lsa ham — diqqatni jamlashni qiyinlashtirishi mumkin.",
         isFact: true,
-        expEn: "FACT! Harvard studies confirmed the 'Brain Drain' effect: merely having a phone visible on your desk silently drains cognitive bandwidth.",
-        expUz: "ROST! Garvard tadqiqotchilari isbotlagan: hatto ovozsiz telefon stolda ko‘rinib tursa ham, miya unga chalg‘ib o‘z quvvatini yo‘qotadi.",
-        qAudio: "q4.mp3",
-        corAudio: "a4_cor.mp3",
-        wrgAudio: "a4_wrg.mp3"
+        expEn: "FACT! In the 'Brain Drain' study (University of Texas at Austin, 2017), students did better on attention and memory tests when their phone was in another room.",
+        expUz: "ROST! Texas universiteti (Ostin, 2017) o‘tkazgan 'Brain Drain' tadqiqotida telefoni boshqa xonada bo‘lgan talabalar diqqat va xotira testlarini yaxshiroq bajargan.",
+        qAudio: "q4_v2.mp3",
+        corAudio: "a4_cor_v2.mp3",
+        wrgAudio: "a4_wrg_v2.mp3"
       }
     ];
 
@@ -1284,7 +1536,7 @@
     function replayCurrentVoice() {
       const resultsScreen = document.getElementById('quiz-results-screen');
       if (resultsScreen && !resultsScreen.classList.contains('hidden')) {
-        playQuizVoice('finish.mp3');
+        playQuizVoice('finish_v2.mp3');
       } else if (quizAnswered) {
         const q = quizQuestions[quizCurrentIdx];
         playQuizVoice(quizLastWasCorrect ? q.corAudio : q.wrgAudio);
@@ -1303,6 +1555,7 @@
       stopQuizVoice();
       const modal = document.getElementById('quiz-modal');
       modal.classList.add('hidden');
+      publishRemoteState();
     }
 
     function toggleQuizModal() {
@@ -1357,6 +1610,7 @@
 
       // Play question narration in chosen Uzbek voice
       playQuizVoice(q.qAudio);
+      publishRemoteState();
     }
 
     function submitQuizAnswer(userPickedFact) {
@@ -1385,15 +1639,15 @@
         if (q.isFact) {
           btnFact.className = "p-3.5 rounded-xl border-2 border-emerald-400 bg-emerald-500/30 text-emerald-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-emerald-400/50 shadow-xl shadow-emerald-500/30 scale-[1.02] transition";
           if (factBadge) {
-            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
-            factBadge.innerHTML = "✅ SIZNING JAVOB TO‘G‘RI (+1)";
+            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[10px] tracking-wide uppercase shadow whitespace-nowrap";
+            factBadge.innerHTML = "✅ JAVOBINGIZ TO‘G‘RI (+1)";
           }
           btnMyth.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/30 text-slate-600 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 opacity-30 transition";
         } else {
           btnMyth.className = "p-3.5 rounded-xl border-2 border-emerald-400 bg-emerald-500/30 text-emerald-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-emerald-400/50 shadow-xl shadow-emerald-500/30 scale-[1.02] transition";
           if (mythBadge) {
-            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
-            mythBadge.innerHTML = "✅ SIZNING JAVOB TO‘G‘RI (+1)";
+            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[10px] tracking-wide uppercase shadow whitespace-nowrap";
+            mythBadge.innerHTML = "✅ JAVOBINGIZ TO‘G‘RI (+1)";
           }
           btnFact.className = "p-3.5 rounded-xl border border-slate-800 bg-slate-900/30 text-slate-600 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 opacity-30 transition";
         }
@@ -1402,23 +1656,23 @@
         if (userPickedFact) {
           btnFact.className = "p-3.5 rounded-xl border-2 border-rose-500 bg-rose-600/30 text-rose-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-rose-500/50 shadow-xl shadow-rose-500/30 transition";
           if (factBadge) {
-            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-black text-[11px] tracking-wide uppercase shadow";
-            factBadge.innerHTML = "❌ SIZNING JAVOB (NOTO‘G‘RI)";
+            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-black text-[10px] tracking-wide uppercase shadow whitespace-nowrap";
+            factBadge.innerHTML = "❌ JAVOBINGIZ NOTO‘G‘RI";
           }
           btnMyth.className = "p-3.5 rounded-xl border-2 border-emerald-400/80 bg-emerald-950/40 text-emerald-300 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-2 ring-emerald-500/40 transition";
           if (mythBadge) {
-            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
+            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[10px] tracking-wide uppercase shadow whitespace-nowrap";
             mythBadge.innerHTML = "✅ ASLIDA TO‘G‘RI JAVOB";
           }
         } else {
           btnMyth.className = "p-3.5 rounded-xl border-2 border-rose-500 bg-rose-600/30 text-rose-200 font-black text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-4 ring-rose-500/50 shadow-xl shadow-rose-500/30 transition";
           if (mythBadge) {
-            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-black text-[11px] tracking-wide uppercase shadow";
-            mythBadge.innerHTML = "❌ SIZNING JAVOB (NOTO‘G‘RI)";
+            mythBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-black text-[10px] tracking-wide uppercase shadow whitespace-nowrap";
+            mythBadge.innerHTML = "❌ JAVOBINGIZ NOTO‘G‘RI";
           }
           btnFact.className = "p-3.5 rounded-xl border-2 border-emerald-400/80 bg-emerald-950/40 text-emerald-300 font-bold text-base flex flex-col sm:flex-row items-center justify-center sm:justify-start space-y-1 sm:space-y-0 sm:space-x-3 ring-2 ring-emerald-500/40 transition";
           if (factBadge) {
-            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[11px] tracking-wide uppercase shadow";
+            factBadge.className = "sm:ml-auto px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-black text-[10px] tracking-wide uppercase shadow whitespace-nowrap";
             factBadge.innerHTML = "✅ ASLIDA TO‘G‘RI JAVOB";
           }
         }
@@ -1440,7 +1694,7 @@
               <span>TO‘G‘RI JAVOB! • CORRECT!</span>
               <span class="text-xs bg-emerald-500/25 text-emerald-300 border border-emerald-400/50 px-2 py-0.5 rounded-full font-mono font-bold">+1 BALL</span>
             </div>
-            <div class="text-emerald-400/80 text-xs">Auditoriya ajoyib topdi! Siz mutlaqo haq edingiz.</div>
+            <div class="text-emerald-400/80 text-xs">Auditoriya to‘g‘ri topdi! Siz mutlaqo haq edingiz.</div>
           </div>
         `;
         vBorder.className = "pt-2 border-t border-emerald-500/30 space-y-1.5";
@@ -1455,7 +1709,7 @@
               <span>NOTO‘G‘RI JAVOB! • INCORRECT!</span>
               <span class="text-xs bg-rose-500/25 text-rose-300 border border-rose-500/50 px-2 py-0.5 rounded-full font-mono font-bold">0 BALL</span>
             </div>
-            <div class="text-rose-400/80 text-xs">Siz belgilagan javob xato bo‘ldi. Haqiqiy fakt quyidagicha:</div>
+            <div class="text-rose-400/80 text-xs">Tanlangan javob noto‘g‘ri. Aslida esa:</div>
           </div>
         `;
         vBorder.className = "pt-2 border-t border-rose-500/30 space-y-1.5";
@@ -1469,9 +1723,72 @@
       uzExp.className = isCorrect ? "text-xs sm:text-sm text-emerald-200/90 italic leading-relaxed" : "text-xs sm:text-sm text-rose-200/90 italic leading-relaxed";
 
       expBox.classList.remove('hidden');
+      if (isCorrect) {
+        launchConfetti(isFactPick(userPickedFact));
+      } else {
+        expBox.classList.remove('shake');
+        void expBox.offsetWidth; // restart the animation
+        expBox.classList.add('shake');
+      }
 
       // Play dedicated correct or incorrect voice narration!
       playQuizVoice(isCorrect ? q.corAudio : q.wrgAudio);
+      publishRemoteState();
+    }
+
+    function isFactPick(pickedFact) {
+      return document.getElementById(pickedFact ? 'btn-fact' : 'btn-myth');
+    }
+
+    // Small canvas confetti burst from the chosen answer button (no library needed)
+    function launchConfetti(originEl) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const canvas = document.createElement('canvas');
+      canvas.className = 'fixed inset-0 pointer-events-none';
+      canvas.style.zIndex = '60';
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      document.body.appendChild(canvas);
+      const ctx = canvas.getContext('2d');
+      const rect = originEl ? originEl.getBoundingClientRect() : { left: canvas.width / 2, top: canvas.height / 2, width: 0, height: 0 };
+      const ox = rect.left + rect.width / 2;
+      const oy = rect.top + rect.height / 2;
+      const colors = ['#34D399', '#38BDF8', '#FBBF24', '#F472B6', '#A78BFA', '#FFFFFF'];
+      const parts = Array.from({ length: 90 }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 4 + Math.random() * 7;
+        return {
+          x: ox, y: oy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 4,
+          size: 4 + Math.random() * 5,
+          rot: Math.random() * Math.PI,
+          vr: (Math.random() - 0.5) * 0.3,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        };
+      });
+      const start = performance.now();
+      function frame(now) {
+        const t = now - start;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        parts.forEach(p => {
+          p.vy += 0.25;
+          p.vx *= 0.985;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vr;
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, 1 - t / 1600);
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size / 1.6);
+          ctx.restore();
+        });
+        if (t < 1600) requestAnimationFrame(frame);
+        else canvas.remove();
+      }
+      requestAnimationFrame(frame);
     }
 
     function nextQuizQuestion() {
@@ -1490,20 +1807,24 @@
 
       document.getElementById('quiz-final-score').innerText = `${quizScore} / ${quizQuestions.length}`;
       let verdict = "";
-      if (quizScore === 4) {
-        verdict = "🌟 Mutlaq g'alaba! Bekordan-bekorga Ma'mun Universitetining talabasi emasligingizni isbotladingiz!";
+      if (quizScore === quizQuestions.length) {
+        verdict = "🌟 Mutlaq g‘alaba! Barcha javoblar to‘g‘ri — haqiqiy Ma’mun Universiteti talabalari!";
       } else if (quizScore >= 2) {
-        verdict = "👏 Ajoyib natija! Ma'mun Universitetining bilimdon talabalari bugun o'z kuchini ko'rsatishdi!";
+        verdict = "👏 Ajoyib natija! Ma’mun Universitetining bilimdon talabalari bugun o‘z kuchini ko‘rsatishdi!";
       } else {
-        verdict = "💡 Faol ishtirok uchun rahmat! Ma'mun Universiteti talabalari bilan savol-javob juda maroqli bo'ldi!";
+        verdict = "💡 Faol ishtirok uchun rahmat! Ma’mun Universiteti talabalari bilan savol-javob juda maroqli bo‘ldi!";
       }
       document.getElementById('quiz-final-verdict').innerText = verdict;
 
       // Play finish voice
-      playQuizVoice('finish.mp3');
+      playQuizVoice('finish_v2.mp3');
+      publishRemoteState();
+      if (quizScore >= Math.ceil(quizQuestions.length / 2)) launchConfetti(null);
     }
 
     window.addEventListener('keydown', (e) => {
+      // Leave browser shortcuts (Ctrl+P, Ctrl+F, ...) alone
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
       const quizModal = document.getElementById('quiz-modal');
       const isQuizOpen = quizModal && !quizModal.classList.contains('hidden');
 
@@ -1527,10 +1848,22 @@
         return;
       }
 
+      const remoteModal = document.getElementById('remote-modal');
+      if (remoteModal && !remoteModal.classList.contains('hidden') && (e.key === 'Escape' || e.key === 'Esc')) {
+        closeRemoteModal();
+        return;
+      }
+
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        // Without preventDefault, Space would also "click" a focused button (e.g. the header arrow) and skip two slides
+        e.preventDefault();
+        if (e.target instanceof HTMLElement && e.target.tagName === 'BUTTON') e.target.blur();
         nextSlide();
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
         prevSlide();
+      } else if (e.key.toLowerCase() === 'p') {
+        openPresenterView();
       } else if (e.key.toLowerCase() === 'n') {
         toggleSpeakerNotes();
       } else if (e.key.toLowerCase() === 'q') {
@@ -1556,11 +1889,145 @@
       touchStartX = e.changedTouches[0].screenX;
     });
     window.addEventListener('touchend', e => {
+      // Ignore swipes inside the quiz or the notes drawer so the slide behind them does not change
+      const quizOpen = !document.getElementById('quiz-modal').classList.contains('hidden');
+      if (quizOpen || e.target.closest('#speaker-notes-panel')) return;
       touchEndX = e.changedTouches[0].screenX;
       if (touchEndX < touchStartX - 50) nextSlide();
       if (touchEndX > touchStartX + 50) prevSlide();
     });
 
+
+    // --- PHONE REMOTE (works when the deck is served by remote_server.py) ---
+    let remoteInfo = null;
+    let remoteCount = 0;
+    let remotePublishTimer = null;
+
+    function isQuizOpen() {
+      return !document.getElementById('quiz-modal').classList.contains('hidden');
+    }
+
+    function publishRemoteState() {
+      if (!remoteInfo) return;
+      // Several hooks can fire in one tick (e.g. close quiz + change slide); send once
+      clearTimeout(remotePublishTimer);
+      remotePublishTimer = setTimeout(() => {
+        const notes = speakerNotes[currentSlide];
+        const q = quizQuestions[quizCurrentIdx];
+        const finished = !document.getElementById('quiz-results-screen').classList.contains('hidden');
+        const state = {
+          slide: currentSlide,
+          total: totalSlides,
+          title: getSlideTitle(currentSlide),
+          nextTitle: currentSlide < totalSlides ? getSlideTitle(currentSlide + 1) : '',
+          notesEn: notes.en,
+          notesUz: notes.uz,
+          quiz: {
+            open: isQuizOpen(),
+            finished,
+            idx: quizCurrentIdx,
+            total: quizQuestions.length,
+            score: quizScore,
+            answered: quizAnswered,
+            correct: quizLastWasCorrect,
+            qEn: q.qEn,
+            qUz: q.qUz,
+            expEn: quizAnswered ? q.expEn : ''
+          }
+        };
+        fetch('/api/state', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(state)
+        }).catch(() => {});
+      }, 30);
+    }
+
+    function handleRemoteCommand(cmd) {
+      switch (cmd.action) {
+        case 'next': if (!isQuizOpen()) nextSlide(); break;
+        case 'prev': if (!isQuizOpen()) prevSlide(); break;
+        case 'goto': if (!isQuizOpen() && Number.isInteger(cmd.n)) goToSlide(cmd.n); break;
+        case 'notes': toggleSpeakerNotes(); break;
+        case 'quiz_open': if (!isQuizOpen()) openQuizModal(); break;
+        case 'quiz_close': if (isQuizOpen()) closeQuizModal(); break;
+        case 'answer': if (isQuizOpen() && !quizAnswered) submitQuizAnswer(cmd.fact === true); break;
+        case 'quiz_next': if (isQuizOpen() && quizAnswered) nextQuizQuestion(); break;
+        case 'quiz_restart': if (isQuizOpen()) restartQuiz(); break;
+        case 'replay': if (isQuizOpen()) replayCurrentVoice(); break;
+        default: return; // 'ping' and unknown commands
+      }
+      publishRemoteState();
+    }
+
+    function updateRemoteCount(count) {
+      const before = remoteCount;
+      remoteCount = count;
+      document.getElementById('remote-dot').classList.toggle('hidden', count === 0);
+      document.getElementById('remote-count').textContent = count === 0
+        ? 'No phone connected yet'
+        : `✅ ${count} phone${count > 1 ? 's' : ''} connected · Telefon ulandi`;
+      if (count > before) {
+        showDownloadToast('📱 Phone connected / Telefon ulandi');
+        // Close the QR window automatically once the phone is in
+        setTimeout(closeRemoteModal, 1200);
+      }
+    }
+
+    function renderRemoteQR() {
+      const url = document.getElementById('remote-url-select').value;
+      const box = document.getElementById('remote-qr');
+      if (typeof qrcode !== 'function') {
+        box.textContent = url;
+        return;
+      }
+      const qr = qrcode(0, 'M');
+      qr.addData(url);
+      qr.make();
+      box.innerHTML = qr.createSvgTag({ cellSize: 6, margin: 0, scalable: true });
+      const svg = box.querySelector('svg');
+      if (svg) svg.setAttribute('style', 'width:100%;height:100%');
+    }
+
+    function openRemoteModal() {
+      if (!remoteInfo) return;
+      const select = document.getElementById('remote-url-select');
+      select.innerHTML = '';
+      remoteInfo.urls.forEach(u => {
+        const opt = document.createElement('option');
+        opt.value = opt.textContent = u;
+        select.appendChild(opt);
+      });
+      document.getElementById('remote-pin').textContent = remoteInfo.pin;
+      renderRemoteQR();
+      document.getElementById('remote-modal').classList.remove('hidden');
+    }
+
+    function closeRemoteModal() {
+      document.getElementById('remote-modal').classList.add('hidden');
+    }
+
+    async function initRemote() {
+      if (!location.protocol.startsWith('http')) return;
+      try {
+        const res = await fetch('/api/info', { cache: 'no-store' });
+        if (!res.ok) return;
+        remoteInfo = await res.json();
+      } catch (e) {
+        return; // opened via a plain static server: no remote
+      }
+      const btn = document.getElementById('btn-remote');
+      btn.classList.remove('hidden');
+      btn.classList.add('flex');
+
+      const events = new EventSource('/api/deck-events');
+      events.onopen = () => publishRemoteState();
+      events.onmessage = (e) => {
+        const msg = JSON.parse(e.data);
+        if (msg.type === 'cmd') handleRemoteCommand(msg.cmd || {});
+        else if (msg.type === 'remotes') updateRemoteCount(msg.count);
+      };
+    }
 
     function updateSlideStageScale() {
       const wrapper = document.getElementById('slide-stage-wrapper');
@@ -1595,6 +2062,7 @@
     initDots();
     updateSlideStageScale();
     updateSlide();
+    initRemote();
   </script>
 </body>
 </html>
