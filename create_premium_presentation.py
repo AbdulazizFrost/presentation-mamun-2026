@@ -801,33 +801,34 @@ def build_presentation():
     p_tyu.font.color.rgb = ACCENT_CYAN
     p_tyu.alignment = PP_ALIGN.CENTER
 
+    # Speech per slide: title in English, title in Uzbek, then the Uzbek talk
     speech_notes = {
-        1: ("Hello everyone! My name is Abdulaziz. Today I will talk about 'Social Networks in My Life'. We use social media every day to communicate, study, and relax. Let's see how they affect our lives.",
-            "Assalomu alaykum! Mening ismim Abdulaziz. Bugun men 'Ijtimoiy tarmoqlar mening hayotimda' mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."),
-        2: ("First, what are social networks? They are websites and apps where people connect, share information, and post content. Today, they are an important part of our daily life.",
-            "Avvalo, ijtimoiy tarmoqlar nima? Bu odamlar muloqot qiladigan, ma’lumot va kontent ulashadigan saytlar hamda ilovalardir. Bugun ular kundalik hayotimizning muhim qismiga aylandi."),
-        3: ("Here are the main apps I use: First, Telegram — for quick messaging and study groups. Second, Instagram — for photos and creative reels. And third, YouTube — for learning video tutorials and relaxing.",
-            "Men eng ko‘p foydalanadigan ilovalar: Birinchidan, Telegram — tezkor xabarlar va o‘quv guruhlari uchun. Ikkinchidan, Instagram — rasmlar va qiziqarli videolar uchun. Uchinchidan, YouTube — darslar o‘rganish va hordiq chiqarish uchun."),
-        4: ("Why do I use social networks? There are four main reasons: to stay in touch with friends, to read latest news, to learn new skills, and to relax after my studies.",
-            "Nega ijtimoiy tarmoqlardan foydalanaman? To‘rtta asosiy sabab bor: do‘stlar bilan aloqada bo‘lish, yangiliklarni bilish, yangi narsalarni o‘rganish va darslardan keyin dam olish."),
-        5: ("Let's look at communication. Social networks make talking to people very fast and easy. Even if our friends live far away, we can send messages, photos, and make video calls in seconds.",
-            "Muloqot haqida gapiradigan bo‘lsak, ijtimoiy tarmoqlar uni juda tez va oson qildi. Do‘stlarimiz uzoqda bo‘lsa ham, bir necha soniyada xabar yozishimiz, rasm yuborishimiz va video qo‘ng‘iroq qilishimiz mumkin."),
-        6: ("Next is education. Social networks are not just for fun — they are great for studying. We can watch free video lessons, learn English, and share study materials with classmates.",
-            "Keyingisi — ta’lim. Ijtimoiy tarmoqlar faqat o‘yin-kulgi uchun emas, balki o‘qish uchun ham juda foydali. Biz bepul video darslarni ko‘rishimiz, ingliz tilini o‘rganishimiz va kursdoshlar bilan materiallar almashishimiz mumkin."),
-        7: ("Now about entertainment. In our free time, we listen to music and watch interesting videos to rest. But it is important to control our screen time and not scroll for too many hours.",
-            "Endi esa dam olish haqida. Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim."),
-        8: ("Let's compare the pros and cons. The advantages are: easy communication, quick access to information, education, and entertainment. The disadvantages are: too much screen time, distraction, false information, and privacy problems.",
-            "Afzalliklari va kamchiliklarini solishtiraylik. Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari."),
-        9: ("To conclude: social networks are powerful tools if we use them wisely. They help us connect, learn, and relax. The key is to keep a healthy balance between our screens and real life. Thank you for your attention!",
-            "Xulosa qilib aytganda: ijtimoiy tarmoqlar to‘g‘ri foydalanilsa, katta foyda keltiradi. Ular muloqot qilish, o‘rganish va dam olishga yordam beradi. Eng asosiysi — virtual olam va real hayot o‘rtasida muvozanatni saqlashdir. E’tiboringiz uchun rahmat!")
+        1: ("Social Networks in My Life", "Ijtimoiy tarmoqlar mening hayotimda",
+            "Bugun men shu mavzu haqida gapirib beraman. Biz har kuni ijtimoiy tarmoqlardan muloqot qilish, o‘qish va dam olish uchun foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."),
+        2: ("What Are Social Networks?", "Ijtimoiy tarmoqlar nima?",
+            "Ijtimoiy tarmoqlar — odamlar muloqot qiladigan, ma’lumot va kontent ulashadigan saytlar hamda ilovalardir. Ularning uchta asosiy vazifasi bor: muloqot, ma’lumot va kontent almashish. Bugun ular kundalik hayotimizning muhim qismiga aylandi."),
+        3: ("Social Networks I Use", "Men foydalanadigan ijtimoiy tarmoqlar",
+            "Men eng ko‘p uchta ilovadan foydalanaman. Birinchisi — Telegram: tezkor xabarlar va o‘quv guruhlari uchun. Ikkinchisi — Instagram: rasmlar va qiziqarli videolar uchun. Uchinchisi — YouTube: video darslar va dam olish uchun."),
+        4: ("Why Do I Use Social Networks?", "Nega ijtimoiy tarmoqlardan foydalanaman?",
+            "Buning to‘rtta asosiy sababi bor: do‘stlar va oila bilan aloqada bo‘lish, yangiliklarni bilish, yangi narsalarni o‘rganish va darslardan keyin dam olish."),
+        5: ("Communication with People", "Odamlar bilan muloqot",
+            "Ijtimoiy tarmoqlar muloqotni juda tez va oson qildi. Do‘stlarimiz uzoqda bo‘lsa ham, bir necha soniyada xabar yozishimiz, rasm yuborishimiz va video qo‘ng‘iroq qilishimiz mumkin."),
+        6: ("Learning and Education", "O‘rganish va ta’lim",
+            "Ijtimoiy tarmoqlar faqat o‘yin-kulgi uchun emas, o‘qish uchun ham juda foydali. Biz bepul video darslarni ko‘rishimiz, onlayn kurslarda o‘qishimiz, ingliz tilini o‘rganishimiz va kursdoshlar bilan materiallar almashishimiz mumkin."),
+        7: ("Entertainment and Free Time", "Ko‘ngilochar va bo‘sh vaqt",
+            "Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va qiziqarli videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim."),
+        8: ("Advantages and Disadvantages", "Afzalliklari va kamchiliklari",
+            "Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari."),
+        9: ("Conclusion", "Xulosa",
+            "Xulosa qilib aytganda, ijtimoiy tarmoqlardan oqilona foydalansak, ular juda foydali vositaga aylanadi. Ular muloqot qilish, o‘rganish va dam olishga yordam beradi. Eng asosiysi — virtual olam va real hayot o‘rtasida muvozanatni saqlash. E’tiboringiz uchun rahmat!")
     }
 
     slides_list = [slide1, slide2, slide3, slide4, slide5, slide6, slide7, slide8, slide9]
     for idx, s in enumerate(slides_list, 1):
         if idx in speech_notes:
-            en_note, uz_note = speech_notes[idx]
+            title_en, title_uz, uz_note = speech_notes[idx]
             try:
-                s.notes_slide.notes_text_frame.text = f"🗣️ English Speech (Say this):\n{en_note}\n\n🇺🇿 O‘zbekcha matn:\n{uz_note}"
+                s.notes_slide.notes_text_frame.text = f"1️⃣ Sarlavha (avval inglizcha, keyin o‘zbekcha):\n🇬🇧 {title_en}\n🇺🇿 {title_uz}\n\n2️⃣ Nutq (o‘zbekcha):\n{uz_note}"
             except Exception:
                 pass
 

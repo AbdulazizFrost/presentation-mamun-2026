@@ -1,110 +1,114 @@
-# “Social Networks in My Life” — Oral Presentation Guide
-# “Ijtimoiy tarmoqlar mening hayotimda” — Taqdimot nutq qo‘llanmasi
+# “Social Networks in My Life” — Taqdimot nutq qo‘llanmasi
 
-Bu qo‘llanma universitet talabalari uchun ingliz tilida erkin, qisqa va tushunarli nutq so‘zlash (A2–B1 daraja) uchun maxsus soddalashtirildi.
-
----
-
-## ⏱️ Foydali maslahatlar (Presentation Tips)
-- **Taqdimot davomiyligi:** Har bir slaydga taxminan 15–25 soniya (umumiy 3–4 daqiqa).
-- **Nutq uslubi:** Qisqa, tushunarli va ravon jumlalar. Matnni qog‘ozdan o‘qimasdan, auditoriyaga qarab erkin gapiring.
-- **Tartib:** Avval inglizcha jumla, zarur bo‘lsa o‘zbekcha qisqa izoh.
+Har bir slaydda tartib bir xil:
+1. **Sarlavhani inglizcha ayting.**
+2. **Sarlavhani o‘zbekcha ayting.**
+3. **Keyin o‘zbekcha gapirib bering.**
 
 ---
 
-## 📌 SLIDE 1 — TITLE (Sarlavha)
-> **Slide:** Social Networks in My Life / *Ijtimoiy tarmoqlar mening hayotimda*
-
-### 🇬🇧 English Speech:
-> "Hello everyone! My name is Abdulaziz. Today I will talk about **Social Networks in My Life**. We use social media every day to communicate, study, and relax. Let's see how they affect our lives."
-
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Assalomu alaykum! Mening ismim Abdulaziz. Bugun men **'Ijtimoiy tarmoqlar mening hayotimda'** mavzusida gapirib beraman. Biz har kuni muloqot qilish, o‘qish va dam olish uchun tarmoqlardan foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."
+## ⏱️ Foydali maslahatlar
+- **Davomiyligi:** har bir slaydga taxminan 20–30 soniya (umumiy 3–4 daqiqa).
+- **Uslub:** qisqa va ravon jumlalar. Matnni o‘qimasdan, auditoriyaga qarab gapiring.
+- **Shpargalka:** matnlar saytdagi 🎙️ Speech Notes, 🖥️ Presenter oynasi va telefondagi 📱 pultda ham bor.
 
 ---
 
-## 📌 SLIDE 2 — WHAT ARE SOCIAL NETWORKS? (Ijtimoiy tarmoqlar nima?)
-> **Slide:** What Are Social Networks? / *Ijtimoiy tarmoqlar nima?*
+## 📌 SLIDE 1
 
-### 🇬🇧 English Speech:
-> "First, what are social networks? They are websites and apps where people connect, share information, and post content. Today, they are an important part of our daily life."
+**1. 🇬🇧 Sarlavha (inglizcha):** Social Networks in My Life
 
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Avvalo, ijtimoiy tarmoqlar nima? Bu odamlar muloqot qiladigan, ma’lumot va kontent ulashadigan saytlar hamda ilovalardir. Bugun ular kundalik hayotimizning muhim qismiga aylandi."
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Ijtimoiy tarmoqlar mening hayotimda
 
----
-
-## 📌 SLIDE 3 — SOCIAL NETWORKS I USE (Men foydalanadigan tarmoqlar)
-> **Slide:** Social Networks I Use / *Men foydalanadigan ijtimoiy tarmoqlar*
-
-### 🇬🇧 English Speech:
-> "Here are the main apps I use: First, **Telegram** — for quick messaging and study groups. Second, **Instagram** — for photos and creative reels. And third, **YouTube** — for learning video tutorials and relaxing."
-
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Men eng ko‘p foydalanadigan ilovalar: Birinchidan, **Telegram** — tezkor xabarlar va o‘quv guruhlari uchun. Ikkinchidan, **Instagram** — rasmlar va qiziqarli videolar uchun. Uchinchidan, **YouTube** — darslar o‘rganish va hordiq chiqarish uchun."
+**3. Nutq (o‘zbekcha):**
+> Bugun men shu mavzu haqida gapirib beraman. Biz har kuni ijtimoiy tarmoqlardan muloqot qilish, o‘qish va dam olish uchun foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz.
 
 ---
 
-## 📌 SLIDE 4 — WHY DO I USE SOCIAL NETWORKS? (Nega foydalanaman?)
-> **Slide:** Why Do I Use Social Networks? / *Nega ijtimoiy tarmoqlardan foydalanaman?*
+## 📌 SLIDE 2
 
-### 🇬🇧 English Speech:
-> "Why do I use social networks? There are four main reasons: to stay in touch with friends, to read latest news, to learn new skills, and to relax after my studies."
+**1. 🇬🇧 Sarlavha (inglizcha):** What Are Social Networks?
 
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Nega ijtimoiy tarmoqlardan foydalanaman? To‘rtta asosiy sabab bor: do‘stlar bilan aloqada bo‘lish, yangiliklarni bilish, yangi narsalarni o‘rganish va darslardan keyin dam olish."
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Ijtimoiy tarmoqlar nima?
 
----
-
-## 📌 SLIDE 5 — COMMUNICATION WITH PEOPLE (Odamlar bilan muloqot)
-> **Slide:** Communication with People / *Odamlar bilan muloqot*
-
-### 🇬🇧 English Speech:
-> "Let's look at communication. Social networks make talking to people very fast and easy. Even if our friends live far away, we can send messages, photos, and make video calls in seconds."
-
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Muloqot haqida gapiradigan bo‘lsak, ijtimoiy tarmoqlar uni juda tez va oson qildi. Do‘stlarimiz uzoqda bo‘lsa ham, bir necha soniyada xabar yozishimiz, rasm yuborishimiz va video qo‘ng‘iroq qilishimiz mumkin."
+**3. Nutq (o‘zbekcha):**
+> Ijtimoiy tarmoqlar — odamlar muloqot qiladigan, ma’lumot va kontent ulashadigan saytlar hamda ilovalardir. Ularning uchta asosiy vazifasi bor: muloqot, ma’lumot va kontent almashish. Bugun ular kundalik hayotimizning muhim qismiga aylandi.
 
 ---
 
-## 📌 SLIDE 6 — LEARNING AND EDUCATION (O‘rganish va ta’lim)
-> **Slide:** Learning and Education / *O‘rganish va ta’lim*
+## 📌 SLIDE 3
 
-### 🇬🇧 English Speech:
-> "Next is education. Social networks are not just for fun — they are great for studying. We can watch free video lessons, learn English, and share study materials with classmates."
+**1. 🇬🇧 Sarlavha (inglizcha):** Social Networks I Use
 
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Keyingisi — ta’lim. Ijtimoiy tarmoqlar faqat o‘yin-kulgi uchun emas, balki o‘qish uchun ham juda foydali. Biz bepul video darslarni ko‘rishimiz, ingliz tilini o‘rganishimiz va kursdoshlar bilan materiallar almashishimiz mumkin."
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Men foydalanadigan ijtimoiy tarmoqlar
 
----
-
-## 📌 SLIDE 7 — ENTERTAINMENT AND FREE TIME (Ko‘ngilochar va bo‘sh vaqt)
-> **Slide:** Entertainment and Free Time / *Ko‘ngilochar va bo‘sh vaqt*
-
-### 🇬🇧 English Speech:
-> "Now about entertainment. In our free time, we listen to music and watch interesting videos to rest. But it is important to control our screen time and not scroll for too many hours."
-
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Endi esa dam olish haqida. Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim."
+**3. Nutq (o‘zbekcha):**
+> Men eng ko‘p uchta ilovadan foydalanaman. Birinchisi — Telegram: tezkor xabarlar va o‘quv guruhlari uchun. Ikkinchisi — Instagram: rasmlar va qiziqarli videolar uchun. Uchinchisi — YouTube: video darslar va dam olish uchun.
 
 ---
 
-## 📌 SLIDE 8 — ADVANTAGES AND DISADVANTAGES (Foyda va zararlari)
-> **Slide:** Advantages and Disadvantages / *Afzalliklari va kamchiliklari*
+## 📌 SLIDE 4
 
-### 🇬🇧 English Speech:
-> "Let's compare the pros and cons. The advantages are: easy communication, quick access to information, education, and entertainment. The disadvantages are: too much screen time, distraction, false information, and privacy problems."
+**1. 🇬🇧 Sarlavha (inglizcha):** Why Do I Use Social Networks?
 
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Afzalliklari va kamchiliklarini solishtiraylik. Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari."
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Nega ijtimoiy tarmoqlardan foydalanaman?
+
+**3. Nutq (o‘zbekcha):**
+> Buning to‘rtta asosiy sababi bor: do‘stlar va oila bilan aloqada bo‘lish, yangiliklarni bilish, yangi narsalarni o‘rganish va darslardan keyin dam olish.
 
 ---
 
-## 📌 SLIDE 9 — CONCLUSION (Xulosa)
-> **Slide:** Conclusion / *Xulosa*
+## 📌 SLIDE 5
 
-### 🇬🇧 English Speech:
-> "To conclude: social networks are powerful tools if we use them wisely. They help us connect, learn, and relax. The key is to keep a healthy balance between our screens and real life. Thank you for your attention!"
+**1. 🇬🇧 Sarlavha (inglizcha):** Communication with People
 
-### 🇺🇿 O‘zbekcha nutq matni:
-> "Xulosa qilib aytganda: ijtimoiy tarmoqlar to‘g‘ri foydalanilsa, katta foyda keltiradi. Ular muloqot qilish, o‘rganish va dam olishga yordam beradi. Eng asosiysi — virtual olam va real hayot o‘rtasida muvozanatni saqlashdir. E’tiboringiz uchun rahmat!"
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Odamlar bilan muloqot
+
+**3. Nutq (o‘zbekcha):**
+> Ijtimoiy tarmoqlar muloqotni juda tez va oson qildi. Do‘stlarimiz uzoqda bo‘lsa ham, bir necha soniyada xabar yozishimiz, rasm yuborishimiz va video qo‘ng‘iroq qilishimiz mumkin.
+
+---
+
+## 📌 SLIDE 6
+
+**1. 🇬🇧 Sarlavha (inglizcha):** Learning and Education
+
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** O‘rganish va ta’lim
+
+**3. Nutq (o‘zbekcha):**
+> Ijtimoiy tarmoqlar faqat o‘yin-kulgi uchun emas, o‘qish uchun ham juda foydali. Biz bepul video darslarni ko‘rishimiz, onlayn kurslarda o‘qishimiz, ingliz tilini o‘rganishimiz va kursdoshlar bilan materiallar almashishimiz mumkin.
+
+---
+
+## 📌 SLIDE 7
+
+**1. 🇬🇧 Sarlavha (inglizcha):** Entertainment and Free Time
+
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Ko‘ngilochar va bo‘sh vaqt
+
+**3. Nutq (o‘zbekcha):**
+> Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va qiziqarli videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim.
+
+---
+
+## 📌 SLIDE 8
+
+**1. 🇬🇧 Sarlavha (inglizcha):** Advantages and Disadvantages
+
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Afzalliklari va kamchiliklari
+
+**3. Nutq (o‘zbekcha):**
+> Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari.
+
+---
+
+## 📌 SLIDE 9
+
+**1. 🇬🇧 Sarlavha (inglizcha):** Conclusion
+
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Xulosa
+
+**3. Nutq (o‘zbekcha):**
+> Xulosa qilib aytganda, ijtimoiy tarmoqlardan oqilona foydalansak, ular juda foydali vositaga aylanadi. Ular muloqot qilish, o‘rganish va dam olishga yordam beradi. Eng asosiysi — virtual olam va real hayot o‘rtasida muvozanatni saqlash. E’tiboringiz uchun rahmat!
+
+---

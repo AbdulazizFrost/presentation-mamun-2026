@@ -58,6 +58,8 @@
 
     .notes { flex: 1; min-height: 120px; overflow-y: auto; -webkit-overflow-scrolling: touch; user-select: text; -webkit-user-select: text; }
     .notes .en { font-size: 17px; line-height: 1.55; font-weight: 500; }
+    .notes .title-en { font-size: 19px; font-weight: 800; }
+    .notes .title-uz { font-size: 17px; font-weight: 600; color: #67E8F9; margin-top: 2px; }
     .notes .uz { font-size: 15px; line-height: 1.5; color: var(--muted); font-style: italic; margin-top: 10px; }
     .row { display: flex; gap: 10px; }
     .row > * { flex: 1; }
@@ -117,9 +119,11 @@
       <div class="dots" id="dots"></div>
 
       <div class="card notes">
-        <div class="label">🗣️ Say this</div>
-        <div class="en" id="notes-en"></div>
-        <div class="uz" id="notes-uz"></div>
+        <div class="label">1. Sarlavha — avval inglizcha, keyin o‘zbekcha</div>
+        <div class="title-en" id="notes-title-en"></div>
+        <div class="title-uz" id="notes-title-uz"></div>
+        <div class="label" style="margin-top:14px;color:var(--cyan)">2. Nutq (o‘zbekcha)</div>
+        <div class="en" id="notes-uz"></div>
       </div>
 
       <div class="row">
@@ -252,7 +256,8 @@
       $('slide-num').textContent = `${pad(s.slide)} / ${pad(s.total)}`;
       $('slide-title').textContent = s.title || '';
       $('slide-next').textContent = s.nextTitle ? `Next ▸ ${s.nextTitle}` : 'Last slide — Q&A';
-      $('notes-en').textContent = s.notesEn || '';
+      $('notes-title-en').textContent = s.titleEn ? '🇬🇧 ' + s.titleEn : '';
+      $('notes-title-uz').textContent = s.titleUz ? '🇺🇿 ' + s.titleUz : '';
       $('notes-uz').textContent = s.notesUz || '';
       const dots = $('dots');
       if (dots.children.length !== s.total) {
