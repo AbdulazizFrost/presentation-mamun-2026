@@ -36,6 +36,7 @@
 ```bash
 # Rebuild styles.css after editing index.html
 npx tailwindcss@3 -c tailwind.config.js -i tailwind.input.css -o styles.css --minify
+# then change ?v=... on the styles.css link in index.html so browsers don't use a cached copy
 
 # Rebuild the PowerPoint from the web slides (needs Microsoft Edge, python-pptx, pymupdf)
 python build_pptx.py
