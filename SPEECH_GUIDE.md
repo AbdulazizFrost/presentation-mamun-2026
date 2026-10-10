@@ -1,4 +1,4 @@
-# “Social Networks in My Life” — Taqdimot nutq qo‘llanmasi
+# “Time Management for Students” — Taqdimot nutq qo‘llanmasi
 
 Har bir slaydda tartib bir xil:
 1. **Sarlavhani inglizcha ayting.**
@@ -8,7 +8,7 @@ Har bir slaydda tartib bir xil:
 ---
 
 ## ⏱️ Foydali maslahatlar
-- **Davomiyligi:** har bir slaydga taxminan 20–30 soniya (umumiy 3–4 daqiqa).
+- **Davomiyligi:** har bir slaydga taxminan 20–30 soniya (umumiy 3–5 daqiqa).
 - **Uslub:** qisqa va ravon jumlalar. Matnni o‘qimasdan, auditoriyaga qarab gapiring.
 - **Shpargalka:** matnlar saytdagi 🎙️ Speech Notes, 🖥️ Presenter oynasi va telefondagi 📱 pultda ham bor.
 
@@ -16,89 +16,89 @@ Har bir slaydda tartib bir xil:
 
 ## 📌 SLIDE 1
 
-**1. 🇬🇧 Sarlavha (inglizcha):** Social Networks in My Life
+**1. 🇬🇧 Sarlavha (inglizcha):** Time Management for Students
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** Ijtimoiy tarmoqlar mening hayotimda
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Talabalar uchun vaqtni boshqarish
 
 **3. Nutq (o‘zbekcha):**
-> Bugun men shu mavzu haqida gapirib beraman. Biz har kuni ijtimoiy tarmoqlardan muloqot qilish, o‘qish va dam olish uchun foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz.
+> Bugun men talabalar uchun vaqtni boshqarish haqida gapirib beraman. Hammamizda har kuni bir xil — yigirma to‘rt soat vaqt bor. Lekin kimdir hamma narsaga ulguradi, kimdir esa doim shoshib yuradi. Farq — vaqtni to‘g‘ri rejalashtirishda.
 
 ---
 
 ## 📌 SLIDE 2
 
-**1. 🇬🇧 Sarlavha (inglizcha):** What Are Social Networks?
+**1. 🇬🇧 Sarlavha (inglizcha):** What Is Time Management?
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** Ijtimoiy tarmoqlar nima?
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Vaqtni boshqarish nima?
 
 **3. Nutq (o‘zbekcha):**
-> Ijtimoiy tarmoqlar — odamlar muloqot qiladigan, ma’lumot va kontent ulashadigan saytlar hamda ilovalardir. Ularning uchta asosiy vazifasi bor: muloqot, ma’lumot va kontent almashish. Bugun ular kundalik hayotimizning muhim qismiga aylandi.
+> Vaqtni boshqarish — bu vaqtingizni oldindan rejalashtirish va uni haqiqatan muhim ishlarga sarflash ko‘nikmasi. U to‘rt bosqichdan iborat: rejalashtirish, ustuvorlikni belgilash, diqqat bilan bajarish va natijani tahlil qilish.
 
 ---
 
 ## 📌 SLIDE 3
 
-**1. 🇬🇧 Sarlavha (inglizcha):** Social Networks I Use
+**1. 🇬🇧 Sarlavha (inglizcha):** Why Is It Important for Students?
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** Men foydalanadigan ijtimoiy tarmoqlar
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Nega bu talabalar uchun muhim?
 
 **3. Nutq (o‘zbekcha):**
-> Men eng ko‘p uchta ilovadan foydalanaman. Birinchisi — Telegram: tezkor xabarlar va o‘quv guruhlari uchun. Ikkinchisi — Instagram: rasmlar va qiziqarli videolar uchun. Uchinchisi — YouTube: video darslar va dam olish uchun.
+> Talabalarda darslar, uy vazifalari, imtihonlar va shaxsiy hayot bor. Vaqtni to‘g‘ri boshqarsak, birinchidan, stress kamayadi. Ikkinchidan, baholar yaxshilanadi, chunki bir kechada emas, muntazam o‘qiymiz. Uchinchidan, do‘stlar va sevimli mashg‘ulotlar uchun vaqt qoladi. To‘rtinchidan, uyqu uchun yetarli vaqt bo‘ladi.
 
 ---
 
 ## 📌 SLIDE 4
 
-**1. 🇬🇧 Sarlavha (inglizcha):** Why Do I Use Social Networks?
+**1. 🇬🇧 Sarlavha (inglizcha):** Common Time Wasters
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** Nega ijtimoiy tarmoqlardan foydalanaman?
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Vaqtni o‘g‘irlaydigan odatlar
 
 **3. Nutq (o‘zbekcha):**
-> Buning to‘rtta asosiy sababi bor: do‘stlar va oila bilan aloqada bo‘lish, yangiliklarni bilish, yangi narsalarni o‘rganish va darslardan keyin dam olish.
+> Talabalarning vaqtini eng ko‘p o‘g‘irlaydigan to‘rtta odat bor. Birinchisi — ijtimoiy tarmoqlarda soatlab vaqt o‘tkazish. Ikkinchisi — ishni keyinga qoldirish. Uchinchisi — bir vaqtda bir nechta ish qilish. To‘rtinchisi — aniq rejaning yo‘qligi. Har birining oddiy yechimi bor: telefonni boshqa xonaga qo‘ying, atigi besh daqiqadan boshlang, bir vaqtda bitta ish qiling va har kuni kechqurun reja yozing.
 
 ---
 
 ## 📌 SLIDE 5
 
-**1. 🇬🇧 Sarlavha (inglizcha):** Communication with People
+**1. 🇬🇧 Sarlavha (inglizcha):** Planning Your Day
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** Odamlar bilan muloqot
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Kunni rejalashtirish
 
 **3. Nutq (o‘zbekcha):**
-> Ijtimoiy tarmoqlar muloqotni juda tez va oson qildi. Do‘stlarimiz uzoqda bo‘lsa ham, bir necha soniyada xabar yozishimiz, rasm yuborishimiz va video qo‘ng‘iroq qilishimiz mumkin.
+> Kunni rejalashtirish uchun to‘rtta oddiy qoida bor. Ertangi kunni kechqurun rejalashtiring. Vazifalar ro‘yxatini yozing. Katta vazifani kichik qadamlarga bo‘ling. Va kalendar yoki ilovadan foydalaning. O‘ng tomonda oddiy kunlik jadval namunasini ko‘rib turibsiz.
 
 ---
 
 ## 📌 SLIDE 6
 
-**1. 🇬🇧 Sarlavha (inglizcha):** Learning and Education
+**1. 🇬🇧 Sarlavha (inglizcha):** Setting Priorities: The Eisenhower Matrix
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** O‘rganish va ta’lim
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Ustuvorliklarni belgilash: Eyzenxauer matritsasi
 
 **3. Nutq (o‘zbekcha):**
-> Ijtimoiy tarmoqlar faqat o‘yin-kulgi uchun emas, o‘qish uchun ham juda foydali. Biz bepul video darslarni ko‘rishimiz, onlayn kurslarda o‘qishimiz, ingliz tilini o‘rganishimiz va kursdoshlar bilan materiallar almashishimiz mumkin.
+> Hamma vazifa bir xil muhim emas. Eyzenxauer matritsasi vazifalarni ikki savol bo‘yicha to‘rt guruhga ajratadi: shoshilinchmi va muhimmi? Muhim va shoshilinch ishlarni darhol bajaring. Muhim, lekin shoshilinch bo‘lmagan ishlarni rejalashtiring. Shoshilinch, lekin muhim bo‘lmagan ishlarni qisqartiring. Muhim ham, shoshilinch ham bo‘lmagan ishlardan esa voz keching.
 
 ---
 
 ## 📌 SLIDE 7
 
-**1. 🇬🇧 Sarlavha (inglizcha):** Entertainment and Free Time
+**1. 🇬🇧 Sarlavha (inglizcha):** The Pomodoro Technique
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** Ko‘ngilochar va bo‘sh vaqt
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Pomodoro usuli
 
 **3. Nutq (o‘zbekcha):**
-> Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va qiziqarli videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim.
+> Diqqatni jamlash uchun Pomodoro usuli juda foydali. Bitta vazifani tanlang va yigirma besh daqiqa telefonsiz ishlang. Keyin besh daqiqa dam oling. To‘rt marta takrorlagandan keyin esa uzoqroq — o‘n beshdan o‘ttiz daqiqagacha dam oling.
 
 ---
 
 ## 📌 SLIDE 8
 
-**1. 🇬🇧 Sarlavha (inglizcha):** Advantages and Disadvantages
+**1. 🇬🇧 Sarlavha (inglizcha):** Balance: Study, Rest and Sleep
 
-**2. 🇺🇿 Sarlavha (o‘zbekcha):** Afzalliklari va kamchiliklari
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Muvozanat: o‘qish, dam olish va uyqu
 
 **3. Nutq (o‘zbekcha):**
-> Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari.
+> Vaqtni boshqarish faqat o‘qish haqida emas — muvozanat ham juda muhim. Kuniga yetti-to‘qqiz soat uxlang, chunki charchagan miya yaxshi o‘rganmaydi. Sport va do‘stlar uchun vaqt ajrating va darslar orasida qisqa tanaffus qiling. Diagrammada bir kunning namunaviy taqsimotini ko‘rib turibsiz.
 
 ---
 
@@ -109,6 +109,6 @@ Har bir slaydda tartib bir xil:
 **2. 🇺🇿 Sarlavha (o‘zbekcha):** Xulosa
 
 **3. Nutq (o‘zbekcha):**
-> Xulosa qilib aytganda, ijtimoiy tarmoqlardan oqilona foydalansak, ular juda foydali vositaga aylanadi. Ular muloqot qilish, o‘rganish va dam olishga yordam beradi. Eng asosiysi — virtual olam va real hayot o‘rtasida muvozanatni saqlash. E’tiboringiz uchun rahmat!
+> Xulosa qilib aytganda, vaqt — qaytarib bo‘lmaydigan yagona boylik. Rejalashtiring, muhim ishlarni birinchi qiling, diqqatni jamlang va dam olishni unutmang. Kichik odatlardan boshlang — natija albatta bo‘ladi. E’tiboringiz uchun rahmat!
 
 ---

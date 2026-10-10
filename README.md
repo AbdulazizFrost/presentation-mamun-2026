@@ -1,98 +1,63 @@
-# 📱 Social Networks in My Life / Ijtimoiy tarmoqlar mening hayotimda
+# ⏰ Time Management for Students / Talabalar uchun vaqtni boshqarish
 
-> **Interactive bilingual web presentation & slide deck** exploring how social media shapes communication, education, daily habits, and digital well-being.
+> **Interactive bilingual (English / O‘zbekcha) web presentation** about planning, priorities, focus and balance in student life — with a phone remote, presenter view and an audience quiz.
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![PowerPoint](https://img.shields.io/badge/PowerPoint-D04423?style=flat&logo=microsoftpowerpoint&logoColor=white)
+**Live:** https://abdulazizfrost.github.io/presentation-mamun-2026/
 
 ---
 
-## ✨ Features / Особенности
+## ✨ Features
 
-- 🌐 **Bilingual (English / O'zbekcha):** Every slide includes English headlines & body with clear Uzbek translations.
-- 🎙️ **Interactive Speech Notes (Подсказки для защиты):** Built-in drawer with the speech for each slide (`N`).
-- 🖥️ **Presenter View (`P`):** Separate window with notes, next slide title and a timer — keep it on the laptop while the projector shows the slides.
-- 📱 **Phone remote:** Run `python remote_server.py` (or double-click `start.bat`), click **📱 Remote** and scan the QR code. The phone switches slides, shows the speech notes and timer, and runs the quiz (Fact / Myth, next question, replay voice). Phone and laptop must be on the same Wi-Fi — or connect the laptop to the phone's hotspot. Protected by a 6-digit PIN; no extra Python packages needed.
-- 🌐 **Online remote (no laptop needed):** Open the deck from GitHub Pages (or any computer, even as a file) and click **📱 Remote** — the phone connects over the internet through the public [ntfy.sh](https://ntfy.sh) relay using a random room code from the QR. Both devices need internet; test it in the room beforehand, since some networks block the relay.
-- ✨ **Animations:** staggered entrances, floating hero phone, confetti for correct quiz answers, shake for wrong ones (turned off automatically when the OS asks for reduced motion).
-- 📴 **Works offline:** Tailwind is prebuilt into `styles.css` (rebuild: `npx tailwindcss@3 -c tailwind.config.js -i tailwind.input.css -o styles.css --minify`).
-- 🖥️ **Presentation & Fullscreen Mode:**
-  - One-click fullscreen toggle (`F` or button);
-  - Auto-hiding control panels for distraction-free presentation;
-  - Edge proximity detection to access controls smoothly;
-  - Smooth slide transitions (keyboard arrows `←` / `→` or `Space`).
-- 📥 **Direct PPTX Download:** Direct download button for `Social_Networks_in_My_Life.pptx` right from the interface.
-- 🖨️ **PDF Export:** Clean print stylesheet to export the presentation as PDF.
-- 📱 **Fully Responsive:** Tailored layouts for Desktop (1080p+), Laptop, Tablet, and Mobile devices.
+- 🌐 **Bilingual:** every slide has English headlines with Uzbek translations.
+- 🎙️ **Speech notes (`N`)** for every slide: say the title in English, then in Uzbek, then talk in Uzbek.
+- 🖥️ **Presenter view (`P`):** separate window with the speech, next slide and a timer.
+- 📱 **Phone remote:**
+  - **Online (no laptop needed):** open the live link, click **📱 Remote**, scan the QR. Phone and computer talk over the internet through the public [ntfy.sh](https://ntfy.sh) relay with a random room code. Both need internet — test it in the room beforehand.
+  - **Local Wi-Fi:** run `start.bat` (or `python remote_server.py`) on a laptop; the phone connects over the same Wi-Fi with a PIN.
+- ⚡ **"Fact or Myth?" quiz** with Uzbek voice narration, confetti and score.
+- ✨ **Animations:** staggered entrances, live clock, Pomodoro ring (off when the OS asks for reduced motion).
+- 📴 **Works offline:** Tailwind is prebuilt into `styles.css`.
+- 🖨️ **PDF export** and 📥 **PPTX download**.
 
----
+## 📑 Slides
 
-## 📑 Slide Deck Overview / Структура слайдов
+1. **Time Management for Students** — title.
+2. **What Is Time Management?** — definition and the Plan → Prioritize → Focus → Review cycle.
+3. **Why Is It Important for Students?** — less stress, better grades, more free time, healthy sleep.
+4. **Common Time Wasters** — scrolling, procrastination, multitasking, no plan — and a fix for each.
+5. **Planning Your Day** — four simple rules and an example daily schedule.
+6. **Setting Priorities: The Eisenhower Matrix** — do now / plan / limit / drop.
+7. **The Pomodoro Technique** — 25 minutes of focus, 5 minutes of rest.
+8. **Balance: Study, Rest and Sleep** — 7–9 hours of sleep, sport, breaks; an example 24-hour day.
+9. **Conclusion** — key takeaways, thank you and the quiz.
 
-1. **Title:** *Social Networks in My Life* — author, university and hero phone mockup.
-2. **What Are Social Networks?** Definition and three functions: communication, information, content sharing.
-3. **Social Networks I Use:** Telegram, Instagram and YouTube and what each is used for.
-4. **Why Do I Use Social Networks?** Four reasons: communication, information, learning, entertainment.
-5. **Communication with People:** Messages, photos and video calls with friends far away.
-6. **Learning and Education:** Video lessons, online courses, educational channels.
-7. **Entertainment and Free Time:** Music, videos and keeping screen time under control.
-8. **Advantages and Disadvantages:** Pros and cons side by side.
-9. **Conclusion:** Key takeaway, thank you, and the "Fact or Myth?" audience quiz.
-
----
-
-## 🚀 How to Run Locally / Как запустить локально
-
-Simply open `index.html` in any modern web browser:
+## 🛠️ Maintenance
 
 ```bash
-# Windows
-start index.html
+# Rebuild styles.css after editing index.html
+npx tailwindcss@3 -c tailwind.config.js -i tailwind.input.css -o styles.css --minify
 
-# Mac
-open index.html
+# Rebuild the PowerPoint from the web slides (needs Microsoft Edge, python-pptx, pymupdf)
+python build_pptx.py
 
-# Linux
-xdg-open index.html
+# Generate quiz narration (ElevenLabs API key)
+python generate_elevenlabs.py --api-key YOUR_KEY --voice-id VOICE_ID
 ```
 
-Or serve with any static HTTP server (e.g. Python):
-
-```bash
-python -m http.server 8000
-```
-Then visit `http://localhost:8000`.
-
----
-
-## 🌐 Deploy to GitHub Pages / Публикация на GitHub Pages
-
-1. Push this repository to GitHub.
-2. Go to **Settings** > **Pages**.
-3. Under **Branch**, select `main` and `/ (root)`.
-4. Click **Save**. Your interactive presentation will be live online!
-
----
-
-## 📁 Repository Structure / Структура репозитория
+## 📁 Structure
 
 ```text
-├── index.html                       # Main interactive presentation
-├── styles.css                       # Prebuilt Tailwind CSS (offline)
-├── remote_server.py / start.bat     # Local server + phone remote
-├── remote.html                      # Phone remote control page
-├── vendor/qrcode.js                 # QR code generator (MIT)
-├── Social_Networks_in_My_Life.pptx   # PowerPoint presentation file
-├── SPEECH_GUIDE.md                  # Detailed speech guide for presentation
-├── assets/                          # Core slide icons and graphics
-├── assets_premium/                  # High-resolution visuals, UI mockups, and avatars
-└── README.md                        # Documentation
+├── index.html                        # The presentation
+├── styles.css                        # Prebuilt Tailwind CSS (offline)
+├── remote.html                       # Phone remote page
+├── remote_server.py / start.bat      # Local server for the Wi-Fi remote
+├── build_pptx.py                     # Builds Time_Management_for_Students.pptx
+├── generate_elevenlabs.py            # Quiz narration texts + generator
+├── SPEECH_GUIDE.md                   # Full speech for every slide
+├── assets/audio/                     # Quiz narration (mp3)
+└── vendor/qrcode.js                  # QR code generator (MIT)
 ```
-
----
 
 ## 👤 Author
 
-- **Abdulaziz** ([@AbdulazizFrost](https://github.com/AbdulazizFrost))
+- **Abdulaziz** ([@AbdulazizFrost](https://github.com/AbdulazizFrost)) · Ma’mun University · 2026

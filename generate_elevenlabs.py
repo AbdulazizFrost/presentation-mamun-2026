@@ -9,21 +9,24 @@ AUDIO_DIR = os.path.join(WORKSPACE_DIR, "assets", "audio")
 os.makedirs(AUDIO_DIR, exist_ok=True)
 
 # 13 items for the Fact or Myth quiz with natural human phrasing
-# Corrected quiz texts. Files with the "_v2" suffix are the ones index.html now plays;
-# q1/a1 are unchanged and keep their existing recordings.
+# Quiz narration for "Time Management for Students" (numbers written as words so the voice reads them in Uzbek).
+# finish_v2.mp3 is shared with the previous deck and already recorded.
 ITEMS = [
-    ("a2_cor_v2.mp3", "To'g'ri! Barakalla! Bu yolg'on. Xabarnomalar diqqatni oshirmaydi, balki chalg'itadi. Tadqiqotlarga ko'ra, chalg'igandan keyin ishga to'liq qaytish uchun taxminan yigirma uch daqiqa kerak bo'ladi."),
-    ("a2_wrg_v2.mp3", "Afsuski noto'g'ri! Aslida bu yolg'on. Xabarnomalar diqqatni oshirmaydi, balki chalg'itadi. Tadqiqotlarga ko'ra, chalg'igandan keyin ishga to'liq qaytish uchun taxminan yigirma uch daqiqa kerak bo'ladi."),
+    ("tm_q1.mp3", "Birinchi savol. Bir vaqtning o'zida bir nechta ish qilish, ya'ni multitasking, uy vazifasini tezroq tugatishga yordam beradi. Bu rostmi yoki yolg'on?"),
+    ("tm_a1_cor.mp3", "To'g'ri! Barakalla! Bu yolg'on. Vazifalar orasida almashish vaqtni yo'qotadi va xatolarni ko'paytiradi. Amerika Psixologik Assotsiatsiyasi ma'lumotiga ko'ra, bu samarali vaqtning qirq foizigacha qismini olib ketishi mumkin."),
+    ("tm_a1_wrg.mp3", "Afsuski noto'g'ri! Aslida bu yolg'on. Vazifalar orasida almashish vaqtni yo'qotadi va xatolarni ko'paytiradi. Amerika Psixologik Assotsiatsiyasi ma'lumotiga ko'ra, bu samarali vaqtning qirq foizigacha qismini olib ketishi mumkin."),
 
-    ("q3_v2.mp3", "Uchinchi savol. Birinchi ijtimoiy tarmoqlar faqat ikki ming o'ninchi yillarda paydo bo'lgan. Bu rostmi yoki yolg'on?"),
-    ("a3_cor_v2.mp3", "To'g'ri! Barakalla! Bu yolg'on. Birinchi ijtimoiy tarmoqlardan biri, SixDegrees, bir ming to'qqiz yuz to'qson yettinchi yilda ishga tushgan. Facebook ikki ming to'rtinchi yilda, YouTube esa ikki ming beshinchi yilda paydo bo'lgan."),
-    ("a3_wrg_v2.mp3", "Afsuski noto'g'ri! Aslida bu yolg'on. Birinchi ijtimoiy tarmoqlardan biri, SixDegrees, bir ming to'qqiz yuz to'qson yettinchi yilda ishga tushgan. Facebook ikki ming to'rtinchi yilda, YouTube esa ikki ming beshinchi yilda paydo bo'lgan."),
+    ("tm_q2.mp3", "Ikkinchi savol. Pomodoro usulida yigirma besh daqiqa diqqat bilan ishlanadi va qisqa tanaffus qilinadi. Bu rostmi yoki yolg'on?"),
+    ("tm_a2_cor.mp3", "To'g'ri! Barakalla! Bu rost. Bu usulni bir ming to'qqiz yuz saksoninchi yillarning oxirida Franchesko Chirillo yaratgan: yigirma besh daqiqa ishlash, keyin besh daqiqa dam olish, to'rt raunddan keyin esa uzoqroq tanaffus."),
+    ("tm_a2_wrg.mp3", "Afsuski noto'g'ri! Aslida bu rost. Bu usulni bir ming to'qqiz yuz saksoninchi yillarning oxirida Franchesko Chirillo yaratgan: yigirma besh daqiqa ishlash, keyin besh daqiqa dam olish, to'rt raunddan keyin esa uzoqroq tanaffus."),
 
-    ("q4_v2.mp3", "To'rtinchi savol. Telefon stol ustida turishining o'zi, hatto ovozsiz bo'lsa ham, diqqatni jamlashni qiyinlashtirishi mumkin. Bu rostmi yoki yolg'on?"),
-    ("a4_cor_v2.mp3", "To'g'ri! Barakalla! Bu rost. Texas universiteti tadqiqotida telefoni boshqa xonada bo'lgan talabalar diqqat va xotira testlarini yaxshiroq bajargan."),
-    ("a4_wrg_v2.mp3", "Afsuski noto'g'ri! Aslida bu rost. Texas universiteti tadqiqotida telefoni boshqa xonada bo'lgan talabalar diqqat va xotira testlarini yaxshiroq bajargan."),
+    ("tm_q3.mp3", "Uchinchi savol. Imtihondan oldin tun bo'yi uxlamay o'qish materialni eslab qolishning eng yaxshi usuli. Bu rostmi yoki yolg'on?"),
+    ("tm_a3_cor.mp3", "To'g'ri! Barakalla! Bu yolg'on. Uyqu paytida miya o'rganilgan ma'lumotni xotirada mustahkamlaydi. Uyqusizlik xotira va diqqatni yomonlashtiradi, shuning uchun oldinroq o'qib, yaxshi uxlash afzal."),
+    ("tm_a3_wrg.mp3", "Afsuski noto'g'ri! Aslida bu yolg'on. Uyqu paytida miya o'rganilgan ma'lumotni xotirada mustahkamlaydi. Uyqusizlik xotira va diqqatni yomonlashtiradi, shuning uchun oldinroq o'qib, yaxshi uxlash afzal."),
 
-    ("finish_v2.mp3", "Ajoyib natija! Viktorina yakunlandi. Ma'mun Universiteti talabalari bugun o'z bilimini ko'rsatishdi. Barchangizga e'tibor uchun katta rahmat!")
+    ("tm_q4.mp3", "To'rtinchi savol. Aniq reja tuzish, ya'ni nima, qachon va qayerda qilishni belgilash, vazifani bajarish ehtimolini oshiradi. Bu rostmi yoki yolg'on?"),
+    ("tm_a4_cor.mp3", "To'g'ri! Barakalla! Bu rost. To'qson to'rtta tadqiqot tahlili aniq qachon va qayerda rejasi odamlarga maqsadga ancha ko'proq erishishga yordam berishini ko'rsatgan."),
+    ("tm_a4_wrg.mp3", "Afsuski noto'g'ri! Aslida bu rost. To'qson to'rtta tadqiqot tahlili aniq qachon va qayerda rejasi odamlarga maqsadga ancha ko'proq erishishga yordam berishini ko'rsatgan."),
 ]
 
 def generate_with_elevenlabs(api_key, voice_id="pNInz6obpgDQGcFmaJgB"):

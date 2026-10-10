@@ -194,7 +194,7 @@ def main():
     server.daemon_threads = True
 
     print("=" * 60)
-    print("  Social Networks in My Life — presentation server")
+    print("  Time Management for Students — presentation server")
     print("=" * 60)
     print(f"  Laptop:  http://localhost:{PORT}")
     for ip in lan_addresses():

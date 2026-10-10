@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Social Networks in My Life • Ijtimoiy tarmoqlar mening hayotimda</title>
+  <title>Time Management for Students • Talabalar uchun vaqtni boshqarish</title>
   <!-- Tailwind is prebuilt locally (styles.css) so the deck works without internet -->
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -158,6 +158,10 @@
     .slide.active .stagger > *:nth-child(5) { animation-delay: 0.44s; }
 
     .float-y { animation: floatY 6s ease-in-out 0.8s infinite; }
+    @keyframes clockTick { to { transform: rotate(360deg); } }
+    .clock-sec { transform-box: view-box; transform-origin: 50% 50%; animation: clockTick 60s steps(60) infinite; }
+    @keyframes pomodoroFill { 0% { stroke-dashoffset: 691.15; } 100% { stroke-dashoffset: 0; } }
+    .slide.active .pomodoro-ring { animation: pomodoroFill 12s linear infinite; }
     .lift { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s; }
     .lift:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -10px rgba(0, 0, 0, 0.6); }
     .shake { animation: shake 0.45s ease-in-out; }
@@ -321,7 +325,7 @@
         Bilingual • EN / UZ
       </span>
       <h1 class="text-xs sm:text-sm font-semibold text-slate-200 truncate hidden lg:inline">
-        Social Networks in My Life <span class="text-sky-400 italic font-normal">| Ijtimoiy tarmoqlar</span>
+        Time Management for Students <span class="text-sky-400 italic font-normal">| Vaqtni boshqarish</span>
       </h1>
       <div class="flex items-center space-x-1.5 font-mono text-xs font-bold text-sky-400 whitespace-nowrap shrink-0">
         <span id="current-slide-num">01</span> / 09
@@ -375,6 +379,27 @@
     <div id="slide-stage-wrapper" class="relative w-full h-full flex flex-col items-center justify-center overflow-hidden">
       <div id="slide-stage" class="overflow-hidden flex flex-col justify-center select-none" style="width: 1200px; height: 675px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(1); transform-origin: center center; padding: 2.25rem 3.5rem;">
 
+    <!-- Icon sprite used by the slides: <svg><use href="#i-name"/></svg> -->
+    <svg width="0" height="0" class="absolute" aria-hidden="true">
+      <defs>
+        <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+        <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+        <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></symbol>
+        <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></symbol>
+        <symbol id="i-smile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+        <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></symbol>
+        <symbol id="i-switch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></symbol>
+        <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></symbol>
+        <symbol id="i-hourglass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9"/></symbol>
+        <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></symbol>
+        <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></symbol>
+        <symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"/></symbol>
+      </defs>
+    </svg>
+
     <!-- ========================================== -->
     <!-- SLIDE 1: HERO                              -->
     <!-- ========================================== -->
@@ -382,22 +407,22 @@
       <div class="w-full flex flex-row items-center justify-between gap-10">
         <div class="flex-1 space-y-6 text-left max-w-xl stagger">
           <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/30 text-sky-400 text-xs font-bold uppercase tracking-wider">
-            <span>DIGITAL LIFE · UNIVERSITY PRESENTATION</span>
+            <span>STUDENT LIFE · UNIVERSITY PRESENTATION</span>
           </div>
           <div>
             <h1 class="text-5xl font-extrabold tracking-tight text-white mb-2 leading-none">
-              Social Networks<br><span class="text-white">in My Life</span>
+              Time Management<br><span class="text-white">for Students</span>
             </h1>
             <p class="text-2xl font-medium text-sky-400 italic">
-              Ijtimoiy tarmoqlar mening hayotimda
+              Talabalar uchun vaqtni boshqarish
             </p>
           </div>
           <div class="pt-3 border-t border-slate-800">
             <p class="text-xl font-semibold text-slate-200 mb-1">
-              How social media shapes the way we communicate, learn and live
+              How to plan your day, focus on what matters and still have time to rest
             </p>
             <p class="text-base text-slate-400 italic">
-              Ijtimoiy tarmoqlar muloqot, ta’lim va turmush tarzimizni qanday shakllantiradi
+              Kunni qanday rejalashtirish, muhim ishlarga e’tibor berish va dam olishga ham vaqt topish
             </p>
           </div>
           <div class="pt-2 space-y-1">
@@ -406,390 +431,418 @@
           </div>
         </div>
 
-        <div class="w-1/2 flex justify-center items-center relative float-y">
-          <img src="assets_premium/hero_phone.png" alt="Smartphone Social Mockup" class="w-full max-h-[570px] max-w-md object-contain">
+        <!-- Hero visual: live clock + planner cards -->
+        <div class="w-1/2 relative h-[520px] flex items-center justify-center float-y">
+          <div class="absolute w-[420px] h-[420px] rounded-full bg-sky-500/10 blur-3xl"></div>
+          <svg viewBox="0 0 340 340" class="relative w-[340px] h-[340px] drop-shadow-2xl" aria-label="Clock">
+            <defs>
+              <linearGradient id="clockRing" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#38BDF8"/>
+                <stop offset="1" stop-color="#6366F1"/>
+              </linearGradient>
+            </defs>
+            <circle cx="170" cy="170" r="160" fill="#0F172A" stroke="url(#clockRing)" stroke-width="10"/>
+            <circle cx="170" cy="170" r="140" fill="#111827" stroke="#1E293B" stroke-width="2"/>
+            <g stroke="#64748B" stroke-width="4" stroke-linecap="round">
+              <line x1="170" y1="40" x2="170" y2="58"/><line x1="170" y1="282" x2="170" y2="300"/>
+              <line x1="40" y1="170" x2="58" y2="170"/><line x1="282" y1="170" x2="300" y2="170"/>
+            </g>
+            <g stroke="#334155" stroke-width="3" stroke-linecap="round">
+              <line x1="235" y1="57.4" x2="229" y2="67.8"/><line x1="282.6" y1="105" x2="272.2" y2="111"/>
+              <line x1="282.6" y1="235" x2="272.2" y2="229"/><line x1="235" y1="282.6" x2="229" y2="272.2"/>
+              <line x1="105" y1="282.6" x2="111" y2="272.2"/><line x1="57.4" y1="235" x2="67.8" y2="229"/>
+              <line x1="57.4" y1="105" x2="67.8" y2="111"/><line x1="105" y1="57.4" x2="111" y2="67.8"/>
+            </g>
+            <!-- 10:10 -->
+            <line x1="170" y1="170" x2="118" y2="140" stroke="#F8FAFC" stroke-width="9" stroke-linecap="round"/>
+            <line x1="170" y1="170" x2="245" y2="127" stroke="#38BDF8" stroke-width="6" stroke-linecap="round"/>
+            <line class="clock-sec" x1="170" y1="190" x2="170" y2="62" stroke="#F43F5E" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="170" cy="170" r="9" fill="#F8FAFC"/>
+            <circle cx="170" cy="170" r="4" fill="#F43F5E"/>
+          </svg>
+
+          <!-- Today's plan -->
+          <div class="absolute top-6 left-0 w-56 editorial-card-dark rounded-2xl p-4 shadow-2xl">
+            <div class="flex items-center gap-2 text-sky-400 text-xs font-bold uppercase tracking-wide mb-2">
+              <svg class="w-4 h-4"><use href="#i-list"/></svg> Today’s plan
+            </div>
+            <div class="space-y-1.5 text-sm">
+              <div class="flex items-center gap-2 text-slate-500 line-through"><span class="text-emerald-400 no-underline">✓</span> Lectures 9:00</div>
+              <div class="flex items-center gap-2 text-slate-500 line-through"><span class="text-emerald-400">✓</span> Gym 17:30</div>
+              <div class="flex items-center gap-2 text-white font-semibold"><span class="w-3.5 h-3.5 rounded-full border-2 border-sky-400"></span> Essay — 2 Pomodoros</div>
+            </div>
+          </div>
+
+          <!-- Focus timer -->
+          <div class="absolute bottom-10 right-0 w-52 editorial-card-dark rounded-2xl p-4 shadow-2xl">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wide text-rose-400">⏱ Focus</span>
+              <span class="font-mono font-black text-2xl text-white">25:00</span>
+            </div>
+            <div class="mt-2 h-2 rounded-full bg-slate-800 overflow-hidden">
+              <div class="h-full w-2/3 rounded-full bg-gradient-to-r from-rose-500 to-amber-400"></div>
+            </div>
+          </div>
+
+          <!-- Progress -->
+          <div class="absolute top-16 right-2 editorial-card-dark rounded-xl px-3 py-2 shadow-2xl flex items-center gap-2">
+            <svg class="w-5 h-5 text-emerald-400"><use href="#i-check"/></svg>
+            <span class="text-sm font-bold text-white">3 / 5 tasks</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 2: WHAT ARE SOCIAL NETWORKS?         -->
+    <!-- SLIDE 2: WHAT IS TIME MANAGEMENT?          -->
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="2">
       <div class="border-b border-slate-800 pb-3">
         <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 02 • Definition</span>
-        <h2 class="text-3xl font-extrabold text-white">What Are Social Networks?</h2>
-        <p class="text-base uz-title">Ijtimoiy tarmoqlar nima?</p>
+        <h2 class="text-3xl font-extrabold text-white">What Is Time Management?</h2>
+        <p class="text-base uz-title">Vaqtni boshqarish nima?</p>
       </div>
 
       <div class="grid grid-cols-12 gap-8 items-stretch">
-        <!-- Left Editorial Text Block -->
-        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
-          <div>
-            <div class="mb-6">
-              <p class="text-lg font-bold text-white leading-snug mb-2">
-                Social networks are online platforms where people can communicate, share information and create content. They have become an important part of modern life.
-              </p>
-              <p class="text-sm uz-sub leading-relaxed">
-                Ijtimoiy tarmoqlar — odamlar muloqot qilishi, ma’lumot almashishi va kontent yaratishi mumkin bo‘lgan onlayn platformalardir. Ular zamonaviy hayotning muhim qismiga aylandi.
-              </p>
-            </div>
-
-            <div class="space-y-4 pt-4 border-t border-slate-800 stagger">
-              <div>
-                <p class="text-base font-bold text-sky-400">1. Communication</p>
-                <p class="text-xs uz-sub">Muloqot — connecting instantly with friends and family</p>
-              </div>
-              <div>
-                <p class="text-base font-bold text-cyan-400">2. Information</p>
-                <p class="text-xs uz-sub">Ma’lumot — accessing news, updates and global awareness</p>
-              </div>
-              <div>
-                <p class="text-base font-bold text-purple-400">3. Content sharing</p>
-                <p class="text-xs uz-sub">Kontent almashish — publishing creative photos, videos and ideas</p>
-              </div>
-            </div>
+        <div class="col-span-6 editorial-card-dark rounded-2xl p-8 flex flex-col justify-center border-l-4 border-l-sky-400">
+          <p class="text-2xl font-bold text-white leading-snug mb-3">
+            Time management is the skill of planning your time and spending it on the things that really matter.
+          </p>
+          <p class="text-base uz-sub leading-relaxed">
+            Vaqtni boshqarish — vaqtingizni oldindan rejalashtirish va uni haqiqatan muhim ishlarga sarflash ko‘nikmasi.
+          </p>
+          <div class="mt-6 pt-4 border-t border-slate-800 flex items-center gap-3 text-sm text-slate-300">
+            <svg class="w-6 h-6 text-amber-400 shrink-0"><use href="#i-hourglass"/></svg>
+            <span>Everyone has the same <b class="text-white">24 hours</b> a day · <span class="italic text-slate-400">Hammada kuniga bir xil 24 soat bor</span></span>
           </div>
         </div>
 
-        <!-- Right Visual Graphic -->
-        <div class="col-span-7 flex justify-center items-center">
-          <img src="assets_premium/network_visual.png" alt="Connected Network" class="w-full object-contain drop-shadow">
+        <!-- 4-step cycle -->
+        <div class="col-span-6 flex flex-col justify-center">
+          <div class="relative pl-10 space-y-4 stagger">
+            <div class="absolute left-[19px] top-6 bottom-6 w-0.5 bg-gradient-to-b from-sky-400 via-purple-400 to-emerald-400"></div>
+            <div class="relative flex items-center gap-4 editorial-card-dark rounded-xl p-4">
+              <span class="absolute -left-10 w-10 h-10 rounded-full bg-sky-500 text-slate-950 font-black flex items-center justify-center ring-4 ring-[#090E1A]">1</span>
+              <svg class="w-7 h-7 text-sky-400 shrink-0"><use href="#i-calendar"/></svg>
+              <div><p class="font-bold text-lg">Plan</p><p class="text-xs uz-sub">Rejalashtirish — decide what to do</p></div>
+            </div>
+            <div class="relative flex items-center gap-4 editorial-card-dark rounded-xl p-4">
+              <span class="absolute -left-10 w-10 h-10 rounded-full bg-purple-500 text-white font-black flex items-center justify-center ring-4 ring-[#090E1A]">2</span>
+              <svg class="w-7 h-7 text-purple-400 shrink-0"><use href="#i-target"/></svg>
+              <div><p class="font-bold text-lg">Prioritize</p><p class="text-xs uz-sub">Ustuvorlik — the most important first</p></div>
+            </div>
+            <div class="relative flex items-center gap-4 editorial-card-dark rounded-xl p-4">
+              <span class="absolute -left-10 w-10 h-10 rounded-full bg-amber-400 text-slate-950 font-black flex items-center justify-center ring-4 ring-[#090E1A]">3</span>
+              <svg class="w-7 h-7 text-amber-400 shrink-0"><use href="#i-bolt"/></svg>
+              <div><p class="font-bold text-lg">Focus</p><p class="text-xs uz-sub">Diqqat — one task at a time</p></div>
+            </div>
+            <div class="relative flex items-center gap-4 editorial-card-dark rounded-xl p-4">
+              <span class="absolute -left-10 w-10 h-10 rounded-full bg-emerald-500 text-slate-950 font-black flex items-center justify-center ring-4 ring-[#090E1A]">4</span>
+              <svg class="w-7 h-7 text-emerald-400 shrink-0"><use href="#i-chart"/></svg>
+              <div><p class="font-bold text-lg">Review</p><p class="text-xs uz-sub">Tahlil — what worked, what to change</p></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 3: SOCIAL NETWORKS I USE             -->
+    <!-- SLIDE 3: WHY IS IT IMPORTANT?              -->
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="3">
-      <div class="border-b border-slate-800 pb-3 flex justify-between items-end">
-        <div>
-          <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 03 • My Apps</span>
-          <h2 class="text-3xl font-extrabold text-white">Social Networks I Use</h2>
-          <p class="text-base uz-title">Men foydalanadigan ijtimoiy tarmoqlar</p>
-        </div>
-        <p class="text-xs text-slate-400 italic hidden sm:block">Examples commonly used by students / Talabalar hayotidan misollar</p>
+      <div class="border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 03 • Benefits</span>
+        <h2 class="text-3xl font-extrabold text-white">Why Is It Important for Students?</h2>
+        <p class="text-base uz-title">Nega bu talabalar uchun muhim?</p>
       </div>
 
-      <div class="grid grid-cols-12 gap-8 items-stretch">
-        <!-- Left Narrative -->
-        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
-          <div>
-            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">POPULAR STUDENT PLATFORMS</span>
-            <h3 class="text-xl font-bold text-white mt-2 mb-1">
-              Commonly used platforms in student life:
-            </h3>
-            <p class="text-xs uz-sub mb-6">
-              Talabalar hayotida keng qo‘llaniladigan platformalar:
-            </p>
+      <div class="editorial-card-dark rounded-xl p-5 border-l-4 border-l-sky-400">
+        <p class="text-lg font-bold text-white mb-1">
+          Students have lectures, homework, exams, part-time jobs and a personal life. Good time management helps to do everything without stress.
+        </p>
+        <p class="text-sm uz-sub">
+          Talabalarda darslar, uy vazifalari, imtihonlar, ish va shaxsiy hayot bor. Vaqtni to‘g‘ri boshqarish hammasiga stresssiz ulgurishga yordam beradi.
+        </p>
+      </div>
 
-            <div class="space-y-4 pt-2 stagger">
-              <div class="border-l-2 border-sky-400 pl-3">
-                <p class="text-base font-bold text-white">Telegram</p>
-                <p class="text-xs font-semibold text-sky-400">communication and useful information</p>
-                <p class="text-xs uz-sub">muloqot va foydali ma’lumotlar uchun</p>
-              </div>
-
-              <div class="border-l-2 border-pink-500 pl-3">
-                <p class="text-base font-bold text-white">Instagram</p>
-                <p class="text-xs font-semibold text-pink-400">photos, videos and creative content</p>
-                <p class="text-xs uz-sub">fotosuratlar, videolar va ijodiy kontent uchun</p>
-              </div>
-
-              <div class="border-l-2 border-red-500 pl-3">
-                <p class="text-base font-bold text-white">YouTube</p>
-                <p class="text-xs font-semibold text-red-400">education and entertainment</p>
-                <p class="text-xs uz-sub">ta’lim va ko‘ngilochar kontent uchun</p>
-              </div>
-            </div>
-          </div>
+      <div class="grid grid-cols-4 gap-5 stagger">
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-sky-500">
+          <svg class="w-9 h-9 text-sky-400 mb-3"><use href="#i-smile"/></svg>
+          <h3 class="text-xl font-bold text-white mb-0.5">Less stress</h3>
+          <p class="text-xs font-semibold text-sky-400 italic mb-2">Kamroq stress</p>
+          <p class="text-sm text-slate-300 mb-1">No last-minute panic before deadlines.</p>
+          <p class="text-xs uz-sub">Muddat oldidan shoshilish va vahima yo‘q.</p>
         </div>
-
-        <!-- Right Ecosystem Mockup -->
-        <div class="col-span-7 flex justify-center items-center">
-          <img src="assets_premium/platforms_visual.png" alt="Platform Ecosystem" class="w-full object-contain drop-shadow">
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-purple-500">
+          <svg class="w-9 h-9 text-purple-400 mb-3"><use href="#i-cap"/></svg>
+          <h3 class="text-xl font-bold text-white mb-0.5">Better grades</h3>
+          <p class="text-xs font-semibold text-purple-400 italic mb-2">Yaxshiroq baholar</p>
+          <p class="text-sm text-slate-300 mb-1">Regular study instead of cramming.</p>
+          <p class="text-xs uz-sub">Bir kecha emas, muntazam o‘qish.</p>
+        </div>
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-emerald-500">
+          <svg class="w-9 h-9 text-emerald-400 mb-3"><use href="#i-heart"/></svg>
+          <h3 class="text-xl font-bold text-white mb-0.5">More free time</h3>
+          <p class="text-xs font-semibold text-emerald-400 italic mb-2">Ko‘proq bo‘sh vaqt</p>
+          <p class="text-sm text-slate-300 mb-1">Time for friends, sport and hobbies.</p>
+          <p class="text-xs uz-sub">Do‘stlar, sport va sevimli mashg‘ulotlarga vaqt.</p>
+        </div>
+        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-indigo-500">
+          <svg class="w-9 h-9 text-indigo-400 mb-3"><use href="#i-moon"/></svg>
+          <h3 class="text-xl font-bold text-white mb-0.5">Healthy sleep</h3>
+          <p class="text-xs font-semibold text-indigo-400 italic mb-2">Sog‘lom uyqu</p>
+          <p class="text-sm text-slate-300 mb-1">No more studying all night.</p>
+          <p class="text-xs uz-sub">Tun bo‘yi o‘qishga hojat qolmaydi.</p>
         </div>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 4: WHY DO I USE SOCIAL NETWORKS?     -->
+    <!-- SLIDE 4: COMMON TIME WASTERS               -->
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="4">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 04 • Reasons</span>
-        <h2 class="text-3xl font-extrabold text-white">Why Do I Use Social Networks?</h2>
-        <p class="text-base uz-title">Nega ijtimoiy tarmoqlardan foydalanaman?</p>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 04 • Problems & Solutions</span>
+        <h2 class="text-3xl font-extrabold text-white">Common Time Wasters</h2>
+        <p class="text-base uz-title">Vaqtni o‘g‘irlaydigan odatlar</p>
       </div>
 
-      <!-- Main statement -->
-      <div class="editorial-card-dark rounded-xl p-5 border-l-4 border-l-sky-400">
-        <p class="text-base sm:text-lg font-bold text-white mb-1">
-          I use social networks for several reasons. They help me communicate with other people, find useful information, learn new things and relax in my free time.
-        </p>
-        <p class="text-sm uz-sub">
-          Men ijtimoiy tarmoqlardan bir nechta sabablar tufayli foydalanaman. Ular menga boshqa odamlar bilan muloqot qilish, foydali ma’lumot topish, yangi narsalarni o‘rganish va bo‘sh vaqtimda dam olishga yordam beradi.
-        </p>
-      </div>
-
-      <!-- 4 Distinct Infographic Columns -->
-      <div class="grid grid-cols-4 gap-5 stagger">
-        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-blue-500 hover:border-blue-400 transition">
-          <div class="text-2xl font-black text-sky-400 mb-3">01</div>
-          <h3 class="text-xl font-bold text-white mb-0.5">Communication</h3>
-          <p class="text-xs font-semibold text-sky-400 italic mb-2">Muloqot</p>
-          <p class="text-sm text-slate-300 mb-1">Staying in touch with friends, family and classmates.</p>
-          <p class="text-xs uz-sub">Do‘stlar, oila va kursdoshlar bilan muntazam aloqada bo‘lish.</p>
+      <div class="grid grid-cols-2 gap-6 stagger">
+        <div class="editorial-card-dark rounded-2xl p-7 flex gap-5 border-l-4 border-l-rose-500">
+          <div class="w-14 h-14 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center shrink-0"><svg class="w-8 h-8"><use href="#i-phone"/></svg></div>
+          <div class="flex-1">
+            <p class="text-2xl font-bold">Endless scrolling</p>
+            <p class="text-sm uz-sub mb-3">Ijtimoiy tarmoqlarda soatlab vaqt o‘tkazish</p>
+            <p class="text-base text-emerald-300 font-semibold">→ Phone in another room while studying</p>
+            <p class="text-sm uz-sub">Dars paytida telefonni boshqa xonaga qo‘ying</p>
+          </div>
         </div>
-
-        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-cyan-500 hover:border-cyan-400 transition">
-          <div class="text-2xl font-black text-cyan-400 mb-3">02</div>
-          <h3 class="text-xl font-bold text-white mb-0.5">Information</h3>
-          <p class="text-xs font-semibold text-cyan-400 italic mb-2">Ma’lumot</p>
-          <p class="text-sm text-slate-300 mb-1">Reading the news and university updates.</p>
-          <p class="text-xs uz-sub">Yangiliklar, universitet e’lonlari va jahon voqealarini bilish.</p>
+        <div class="editorial-card-dark rounded-2xl p-7 flex gap-5 border-l-4 border-l-rose-500">
+          <div class="w-14 h-14 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center shrink-0"><svg class="w-8 h-8"><use href="#i-hourglass"/></svg></div>
+          <div class="flex-1">
+            <p class="text-2xl font-bold">Procrastination</p>
+            <p class="text-sm uz-sub mb-3">Ishni keyinga qoldirish</p>
+            <p class="text-base text-emerald-300 font-semibold">→ Start with just 5 minutes</p>
+            <p class="text-sm uz-sub">Atigi 5 daqiqadan boshlang</p>
+          </div>
         </div>
-
-        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-purple-500 hover:border-purple-400 transition">
-          <div class="text-2xl font-black text-purple-400 mb-3">03</div>
-          <h3 class="text-xl font-bold text-white mb-0.5">Learning</h3>
-          <p class="text-xs font-semibold text-purple-400 italic mb-2">O‘rganish</p>
-          <p class="text-sm text-slate-300 mb-1">Learning new skills and foreign languages.</p>
-          <p class="text-xs uz-sub">Amaliy ko‘nikmalar, chet tillari va yangi bilimlarni o‘rganish.</p>
+        <div class="editorial-card-dark rounded-2xl p-7 flex gap-5 border-l-4 border-l-rose-500">
+          <div class="w-14 h-14 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center shrink-0"><svg class="w-8 h-8"><use href="#i-switch"/></svg></div>
+          <div class="flex-1">
+            <p class="text-2xl font-bold">Multitasking</p>
+            <p class="text-sm uz-sub mb-3">Bir vaqtda bir nechta ish qilish</p>
+            <p class="text-base text-emerald-300 font-semibold">→ One task at a time</p>
+            <p class="text-sm uz-sub">Bir vaqtda faqat bitta vazifa</p>
+          </div>
         </div>
-
-        <div class="editorial-card-dark lift rounded-2xl p-6 border-t-4 border-t-emerald-500 hover:border-emerald-400 transition">
-          <div class="text-2xl font-black text-emerald-400 mb-3">04</div>
-          <h3 class="text-xl font-bold text-white mb-0.5">Entertainment</h3>
-          <p class="text-xs font-semibold text-emerald-400 italic mb-2">Ko‘ngilochar</p>
-          <p class="text-sm text-slate-300 mb-1">Listening to music, watching videos and resting.</p>
-          <p class="text-xs uz-sub">Sevimli musiqa tinglash, videolar ko‘rish va maroqli dam olish.</p>
+        <div class="editorial-card-dark rounded-2xl p-7 flex gap-5 border-l-4 border-l-rose-500">
+          <div class="w-14 h-14 rounded-xl bg-rose-500/15 text-rose-400 flex items-center justify-center shrink-0"><svg class="w-8 h-8"><use href="#i-list"/></svg></div>
+          <div class="flex-1">
+            <p class="text-2xl font-bold">No clear plan</p>
+            <p class="text-sm uz-sub mb-3">Aniq rejaning yo‘qligi</p>
+            <p class="text-base text-emerald-300 font-semibold">→ Write a to-do list every evening</p>
+            <p class="text-sm uz-sub">Har kuni kechqurun vazifalar ro‘yxatini yozing</p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 5: COMMUNICATION                     -->
+    <!-- SLIDE 5: PLANNING YOUR DAY                 -->
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="5">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 05 • Communication</span>
-        <h2 class="text-3xl font-extrabold text-white">Communication with People</h2>
-        <p class="text-base uz-title">Odamlar bilan muloqot</p>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 05 • Planning</span>
+        <h2 class="text-3xl font-extrabold text-white">Planning Your Day</h2>
+        <p class="text-base uz-title">Kunni rejalashtirish</p>
       </div>
 
       <div class="grid grid-cols-12 gap-8 items-stretch">
-        <!-- Left Narrative -->
-        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
-          <div>
-            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">SPEED & CONNECTION</span>
-            <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
-              Social networks make communication faster and easier. I can send messages, share photos and talk to friends and family even when they are far away.
-            </p>
-            <p class="text-sm uz-sub mb-6 leading-relaxed">
-              Ijtimoiy tarmoqlar muloqotni tezroq va osonroq qiladi. Men do‘stlarim va oilam uzoqda bo‘lsa ham, xabar yuborishim, fotosurat ulashishim va ular bilan suhbatlashishim mumkin.
-            </p>
-
-            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs stagger">
-              <div class="flex items-center gap-2">
-                <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Instant messages</span>
-                <span class="text-slate-400 italic">• Tezkor xabarlar</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Sharing photos in seconds</span>
-                <span class="text-slate-400 italic">• Fotosuratlar ulashish</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Video calls</span>
-                <span class="text-slate-400 italic">• Jonli video muloqot</span>
-              </div>
-            </div>
+        <div class="col-span-5 editorial-card-dark rounded-2xl p-7 flex flex-col justify-center border-l-4 border-l-sky-400">
+          <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">SIMPLE RULES</span>
+          <div class="space-y-4 pt-4 stagger">
+            <div class="flex gap-3"><span class="text-sky-400 font-black">1</span><div><p class="font-bold">Plan tomorrow in the evening</p><p class="text-xs uz-sub">Ertangi kunni kechqurun rejalashtiring</p></div></div>
+            <div class="flex gap-3"><span class="text-sky-400 font-black">2</span><div><p class="font-bold">Write a to-do list</p><p class="text-xs uz-sub">Vazifalar ro‘yxatini yozing</p></div></div>
+            <div class="flex gap-3"><span class="text-sky-400 font-black">3</span><div><p class="font-bold">Break big tasks into small steps</p><p class="text-xs uz-sub">Katta vazifani kichik qadamlarga bo‘ling</p></div></div>
+            <div class="flex gap-3"><span class="text-sky-400 font-black">4</span><div><p class="font-bold">Use a calendar or a planner app</p><p class="text-xs uz-sub">Kalendar yoki rejalashtirish ilovasidan foydalaning</p></div></div>
           </div>
         </div>
 
-        <!-- Right Realistic Chat UI -->
-        <div class="col-span-7 flex justify-center items-center">
-          <img src="assets_premium/chat_visual.png" alt="Digital Chat UI" class="w-full object-contain drop-shadow">
+        <!-- Schedule mockup -->
+        <div class="col-span-7 editorial-card-dark rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-sky-400"><use href="#i-calendar"/></svg>
+              <span class="font-bold">My day · <span class="italic font-normal text-slate-400">Mening kunim</span></span>
+            </div>
+            <span class="text-xs font-mono text-slate-400">Example / Namuna</span>
+          </div>
+          <div class="space-y-2 stagger text-sm">
+            <div class="flex items-center gap-3"><span class="w-12 font-mono text-slate-400">07:00</span><div class="flex-1 rounded-lg px-3 py-2 bg-amber-500/15 border-l-4 border-amber-400">Wake up & breakfast <span class="text-slate-400 italic">· Nonushta</span></div></div>
+            <div class="flex items-center gap-3"><span class="w-12 font-mono text-slate-400">08:30</span><div class="flex-1 rounded-lg px-3 py-2.5 bg-sky-500/15 border-l-4 border-sky-400 font-semibold">Classes at university <span class="text-slate-400 italic font-normal">· Darslar</span></div></div>
+            <div class="flex items-center gap-3"><span class="w-12 font-mono text-slate-400">14:00</span><div class="flex-1 rounded-lg px-3 py-2 bg-slate-700/40 border-l-4 border-slate-500">Lunch & rest <span class="text-slate-400 italic">· Tushlik va dam</span></div></div>
+            <div class="flex items-center gap-3"><span class="w-12 font-mono text-slate-400">15:00</span><div class="flex-1 rounded-lg px-3 py-2.5 bg-rose-500/15 border-l-4 border-rose-400 font-semibold">Homework — 4 Pomodoros 🍅 <span class="text-slate-400 italic font-normal">· Uy vazifasi</span></div></div>
+            <div class="flex items-center gap-3"><span class="w-12 font-mono text-slate-400">17:30</span><div class="flex-1 rounded-lg px-3 py-2 bg-emerald-500/15 border-l-4 border-emerald-400">Sport / hobby <span class="text-slate-400 italic">· Sport</span></div></div>
+            <div class="flex items-center gap-3"><span class="w-12 font-mono text-slate-400">21:00</span><div class="flex-1 rounded-lg px-3 py-2 bg-purple-500/15 border-l-4 border-purple-400">Plan tomorrow <span class="text-slate-400 italic">· Ertangi reja</span></div></div>
+            <div class="flex items-center gap-3"><span class="w-12 font-mono text-slate-400">23:00</span><div class="flex-1 rounded-lg px-3 py-2 bg-indigo-500/15 border-l-4 border-indigo-400">Sleep 😴 <span class="text-slate-400 italic">· Uyqu</span></div></div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 6: LEARNING AND EDUCATION            -->
+    <!-- SLIDE 6: EISENHOWER MATRIX                 -->
     <!-- ========================================== -->
-    <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="6">
+    <div class="slide w-full h-full flex-col justify-center space-y-5 text-white" data-slide="6">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 06 • Education</span>
-        <h2 class="text-3xl font-extrabold text-white">Learning and Education</h2>
-        <p class="text-base uz-title">O‘rganish va ta’lim</p>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 06 • Priorities</span>
+        <h2 class="text-3xl font-extrabold text-white">Setting Priorities: The Eisenhower Matrix</h2>
+        <p class="text-base uz-title">Ustuvorliklarni belgilash: Eyzenxauer matritsasi</p>
       </div>
 
-      <div class="grid grid-cols-12 gap-8 items-stretch">
-        <!-- Left Narrative -->
-        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
-          <div>
-            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">ACADEMIC & EDUCATIONAL POWER</span>
-            <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
-              Social networks can also be useful for education. I can watch educational videos, follow useful channels and find new information about different topics.
-            </p>
-            <p class="text-sm uz-sub mb-6 leading-relaxed">
-              Ijtimoiy tarmoqlar ta’lim uchun ham foydali bo‘lishi mumkin. Men ta’limiy videolar ko‘rishim, foydali kanallarni kuzatishim va turli mavzular haqida yangi ma’lumot topishim mumkin.
-            </p>
-
-            <div class="space-y-3 pt-3 border-t border-slate-800 stagger">
-              <div class="border-l-2 border-sky-400 pl-3">
-                <p class="text-sm font-bold text-white">Video lessons</p>
-                <p class="text-xs uz-sub">Video darslar — visual tutorials and step-by-step guides</p>
-              </div>
-              <div class="border-l-2 border-cyan-400 pl-3">
-                <p class="text-sm font-bold text-white">Online courses</p>
-                <p class="text-xs uz-sub">Onlayn kurslar — structured modules for languages and skills</p>
-              </div>
-              <div class="border-l-2 border-purple-400 pl-3">
-                <p class="text-sm font-bold text-white">Educational channels</p>
-                <p class="text-xs uz-sub">Ta’limiy kanallar — expert insights and quizzes</p>
-              </div>
-              <div class="border-l-2 border-emerald-400 pl-3">
-                <p class="text-sm font-bold text-white">Useful information</p>
-                <p class="text-xs uz-sub">Foydali ma’lumotlar — research articles and e-books</p>
-              </div>
-            </div>
-          </div>
+      <div class="grid grid-cols-12 gap-6 items-stretch">
+        <div class="col-span-3 editorial-card-dark rounded-2xl p-6 flex flex-col justify-center border-l-4 border-l-sky-400">
+          <p class="text-lg font-bold leading-snug mb-2">Not all tasks are equally important.</p>
+          <p class="text-sm uz-sub mb-4">Hamma vazifa bir xil muhim emas.</p>
+          <p class="text-sm text-slate-300">Sort every task by two questions:</p>
+          <p class="text-sm font-semibold text-rose-300 mt-2">Is it urgent?</p>
+          <p class="text-xs uz-sub">Shoshilinchmi?</p>
+          <p class="text-sm font-semibold text-sky-300 mt-2">Is it important?</p>
+          <p class="text-xs uz-sub">Muhimmi?</p>
         </div>
 
-        <!-- Right Video Player Mockup -->
-        <div class="col-span-7 flex justify-center items-center">
-          <img src="assets_premium/education_player.png" alt="Educational Player UI" class="w-full object-contain drop-shadow">
+        <div class="col-span-9">
+          <div class="grid grid-cols-[auto_1fr_1fr] grid-rows-[auto_1fr_1fr] gap-3">
+            <div></div>
+            <div class="text-center text-xs font-bold uppercase tracking-widest text-rose-300">Urgent · Shoshilinch</div>
+            <div class="text-center text-xs font-bold uppercase tracking-widest text-slate-400">Not urgent · Shoshilinch emas</div>
+
+            <div class="flex items-center"><span class="text-xs font-bold uppercase tracking-widest text-sky-300 [writing-mode:vertical-rl] rotate-180">Important · Muhim</span></div>
+            <div class="rounded-2xl p-5 bg-rose-500/15 border-2 border-rose-500/60 lift">
+              <p class="text-xl font-black text-rose-300">1. DO NOW</p>
+              <p class="text-xs uz-sub mb-2">Darhol bajaring</p>
+              <p class="text-sm text-slate-200">Exam tomorrow · deadline today</p>
+            </div>
+            <div class="rounded-2xl p-5 bg-sky-500/15 border-2 border-sky-500/60 lift">
+              <p class="text-xl font-black text-sky-300">2. PLAN</p>
+              <p class="text-xs uz-sub mb-2">Rejalashtiring</p>
+              <p class="text-sm text-slate-200">Study for next week · sport · reading</p>
+            </div>
+
+            <div class="flex items-center"><span class="text-xs font-bold uppercase tracking-widest text-slate-400 [writing-mode:vertical-rl] rotate-180">Not important</span></div>
+            <div class="rounded-2xl p-5 bg-amber-500/15 border-2 border-amber-500/60 lift">
+              <p class="text-xl font-black text-amber-300">3. LIMIT</p>
+              <p class="text-xs uz-sub mb-2">Qisqartiring</p>
+              <p class="text-sm text-slate-200">Most messages · some calls</p>
+            </div>
+            <div class="rounded-2xl p-5 bg-slate-700/30 border-2 border-slate-600 lift">
+              <p class="text-xl font-black text-slate-300">4. DROP</p>
+              <p class="text-xs uz-sub mb-2">Voz keching</p>
+              <p class="text-sm text-slate-200">Endless scrolling · too much gaming</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 7: ENTERTAINMENT & BALANCE           -->
+    <!-- SLIDE 7: POMODORO TECHNIQUE                -->
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="7">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 07 • Free Time</span>
-        <h2 class="text-3xl font-extrabold text-white">Entertainment and Free Time</h2>
-        <p class="text-base uz-title">Ko‘ngilochar va bo‘sh vaqt</p>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 07 • Focus</span>
+        <h2 class="text-3xl font-extrabold text-white">The Pomodoro Technique</h2>
+        <p class="text-base uz-title">Pomodoro usuli</p>
       </div>
 
-      <div class="grid grid-cols-12 gap-8 items-stretch">
-        <!-- Left Narrative -->
-        <div class="col-span-5 editorial-card-dark rounded-2xl p-6 sm:p-8 flex flex-col justify-between border-l-4 border-l-sky-400">
-          <div>
-            <span class="text-xs font-bold text-sky-400 uppercase tracking-wide">RECREATION & DIGITAL WELLBEING</span>
-            <p class="text-xl font-bold text-white mt-2 mb-2 leading-snug">
-              Social networks are also a way to relax. I can watch videos, listen to music, see interesting content and discover new ideas. However, I try not to spend too much time online.
-            </p>
-            <p class="text-sm uz-sub mb-6 leading-relaxed">
-              Ijtimoiy tarmoqlar dam olish usuli hamdir. Men videolar ko‘rishim, musiqa tinglashim, qiziqarli kontent tomosha qilishim va yangi g‘oyalarni kashf qilishim mumkin. Biroq internetda juda ko‘p vaqt sarflamaslikka harakat qilaman.
-            </p>
-
-            <div class="space-y-3 pt-3 border-t border-slate-800 text-xs stagger">
-              <div class="flex items-center gap-2">
-                <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Relaxation & Music</span>
-                <span class="text-slate-400 italic">• Dam olish va musiqa</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">New creative ideas</span>
-                <span class="text-slate-400 italic">• Yangi ijodiy g‘oyalar</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sky-400 font-bold">✔</span>
-                <span class="font-semibold text-slate-200">Limiting screen time</span>
-                <span class="text-slate-400 italic">• Sog‘lom ekran vaqti nazorati</span>
-              </div>
-            </div>
+      <div class="grid grid-cols-12 gap-8 items-center">
+        <div class="col-span-6 editorial-card-dark rounded-2xl p-7 border-l-4 border-l-rose-400">
+          <span class="text-xs font-bold text-rose-400 uppercase tracking-wide">HOW IT WORKS</span>
+          <div class="space-y-4 pt-4 stagger">
+            <div class="flex gap-3"><span class="w-7 h-7 rounded-full bg-rose-500/20 text-rose-300 font-black text-sm flex items-center justify-center shrink-0">1</span><div><p class="font-bold">Choose one task</p><p class="text-xs uz-sub">Bitta vazifani tanlang</p></div></div>
+            <div class="flex gap-3"><span class="w-7 h-7 rounded-full bg-rose-500/20 text-rose-300 font-black text-sm flex items-center justify-center shrink-0">2</span><div><p class="font-bold">Work for 25 minutes — no phone</p><p class="text-xs uz-sub">25 daqiqa ishlang — telefonsiz</p></div></div>
+            <div class="flex gap-3"><span class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-300 font-black text-sm flex items-center justify-center shrink-0">3</span><div><p class="font-bold">Take a 5-minute break</p><p class="text-xs uz-sub">5 daqiqa dam oling</p></div></div>
+            <div class="flex gap-3"><span class="w-7 h-7 rounded-full bg-sky-500/20 text-sky-300 font-black text-sm flex items-center justify-center shrink-0">4</span><div><p class="font-bold">After 4 rounds — a long break (15–30 min)</p><p class="text-xs uz-sub">4 marta takrorlagach — uzoqroq tanaffus (15–30 daqiqa)</p></div></div>
           </div>
         </div>
 
-        <!-- Right Wellbeing Widget UI -->
-        <div class="col-span-7 flex justify-center items-center">
-          <img src="assets_premium/balance_wellbeing.png" alt="Digital Balance UI" class="w-full object-contain drop-shadow">
+        <div class="col-span-6 flex flex-col items-center gap-6">
+          <div class="relative w-[260px] h-[260px]">
+            <svg viewBox="0 0 260 260" class="w-full h-full -rotate-90">
+              <circle cx="130" cy="130" r="110" fill="#111827" stroke="#1E293B" stroke-width="16"/>
+              <circle class="pomodoro-ring" cx="130" cy="130" r="110" fill="none" stroke="url(#pomoGrad)" stroke-width="16" stroke-linecap="round" stroke-dasharray="691.15" stroke-dashoffset="230"/>
+              <defs>
+                <linearGradient id="pomoGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#F43F5E"/>
+                  <stop offset="1" stop-color="#FBBF24"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-5xl">🍅</span>
+              <span class="font-mono font-black text-4xl mt-1">25:00</span>
+              <span class="text-xs font-bold uppercase tracking-widest text-rose-300">Focus · Diqqat</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5 text-[11px] font-bold">
+            <span class="px-2 py-1 rounded bg-rose-500/25 text-rose-200">25</span><span class="px-1.5 py-1 rounded bg-emerald-500/25 text-emerald-200">5</span>
+            <span class="px-2 py-1 rounded bg-rose-500/25 text-rose-200">25</span><span class="px-1.5 py-1 rounded bg-emerald-500/25 text-emerald-200">5</span>
+            <span class="px-2 py-1 rounded bg-rose-500/25 text-rose-200">25</span><span class="px-1.5 py-1 rounded bg-emerald-500/25 text-emerald-200">5</span>
+            <span class="px-2 py-1 rounded bg-rose-500/25 text-rose-200">25</span><span class="px-3 py-1 rounded bg-sky-500/25 text-sky-200">15–30</span>
+            <span class="ml-1 text-slate-400 font-normal">min</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 8: ADVANTAGES VS DISADVANTAGES       -->
+    <!-- SLIDE 8: BALANCE: STUDY, REST AND SLEEP    -->
     <!-- ========================================== -->
     <div class="slide w-full h-full flex-col justify-center space-y-6 text-white" data-slide="8">
       <div class="border-b border-slate-800 pb-3">
-        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 08 • Pros & Cons</span>
-        <h2 class="text-3xl font-extrabold text-white">Advantages and Disadvantages</h2>
-        <p class="text-base uz-title">Afzalliklari va kamchiliklari</p>
+        <span class="text-xs font-bold text-sky-400 uppercase tracking-widest">Slide 08 • Balance</span>
+        <h2 class="text-3xl font-extrabold text-white">Balance: Study, Rest and Sleep</h2>
+        <p class="text-base uz-title">Muvozanat: o‘qish, dam olish va uyqu</p>
       </div>
 
-      <!-- Sophisticated Two-Column Comparison -->
-      <div class="grid grid-cols-2 gap-8 items-stretch">
-        <!-- ADVANTAGES -->
-        <div class="editorial-card-dark rounded-2xl p-7 border-l-4 border-l-emerald-500 flex flex-col justify-between">
-          <div>
-            <div class="mb-6 pb-3 border-b border-slate-800">
-              <h3 class="text-2xl font-extrabold text-emerald-400 tracking-wide">ADVANTAGES</h3>
-              <p class="text-sm font-semibold text-emerald-300/80 italic">AFZALLIKLARI</p>
-            </div>
-
-            <div class="space-y-4 stagger">
-              <div class="border-l-2 border-emerald-400 pl-3">
-                <p class="text-base font-bold text-white">Easy communication</p>
-                <p class="text-sm uz-sub">Oson muloqot</p>
-              </div>
-              <div class="border-l-2 border-emerald-400 pl-3">
-                <p class="text-base font-bold text-white">Quick access to information</p>
-                <p class="text-sm uz-sub">Ma’lumotga tezkor kirish</p>
-              </div>
-              <div class="border-l-2 border-emerald-400 pl-3">
-                <p class="text-base font-bold text-white">Educational opportunities</p>
-                <p class="text-sm uz-sub">Ta’lim imkoniyatlari</p>
-              </div>
-              <div class="border-l-2 border-emerald-400 pl-3">
-                <p class="text-base font-bold text-white">Entertainment</p>
-                <p class="text-sm uz-sub">Ko‘ngilochar imkoniyatlar</p>
-              </div>
-            </div>
+      <div class="grid grid-cols-12 gap-8 items-center">
+        <div class="col-span-6 space-y-4 stagger">
+          <div class="editorial-card-dark rounded-2xl p-5 flex gap-4 border-l-4 border-l-indigo-400">
+            <svg class="w-8 h-8 text-indigo-400 shrink-0"><use href="#i-moon"/></svg>
+            <div><p class="text-lg font-bold">Sleep 7–9 hours</p><p class="text-xs uz-sub">7–9 soat uxlang — tired brain learns badly</p></div>
           </div>
-          <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-slate-400">
-            Good sides for students / Talabalar uchun foydali tomonlari
+          <div class="editorial-card-dark rounded-2xl p-5 flex gap-4 border-l-4 border-l-emerald-400">
+            <svg class="w-8 h-8 text-emerald-400 shrink-0"><use href="#i-heart"/></svg>
+            <div><p class="text-lg font-bold">Make time for sport and friends</p><p class="text-xs uz-sub">Sport va do‘stlar uchun vaqt ajrating</p></div>
+          </div>
+          <div class="editorial-card-dark rounded-2xl p-5 flex gap-4 border-l-4 border-l-amber-400">
+            <svg class="w-8 h-8 text-amber-400 shrink-0"><use href="#i-pause"/></svg>
+            <div><p class="text-lg font-bold">Take short breaks</p><p class="text-xs uz-sub">Darslar orasida qisqa tanaffus qiling</p></div>
           </div>
         </div>
 
-        <!-- DISADVANTAGES -->
-        <div class="editorial-card-dark rounded-2xl p-7 border-l-4 border-l-rose-500 flex flex-col justify-between">
-          <div>
-            <div class="mb-6 pb-3 border-b border-slate-800">
-              <h3 class="text-2xl font-extrabold text-rose-400 tracking-wide">DISADVANTAGES</h3>
-              <p class="text-sm font-semibold text-rose-300/80 italic">KAMCHILIKLARI</p>
-            </div>
-
-            <div class="space-y-4 stagger">
-              <div class="border-l-2 border-rose-400 pl-3">
-                <p class="text-base font-bold text-white">Too much screen time</p>
-                <p class="text-sm uz-sub">Ekran qarshisida ortiqcha vaqt</p>
-              </div>
-              <div class="border-l-2 border-rose-400 pl-3">
-                <p class="text-base font-bold text-white">Distraction</p>
-                <p class="text-sm uz-sub">Diqqatni chalg‘itishi</p>
-              </div>
-              <div class="border-l-2 border-rose-400 pl-3">
-                <p class="text-base font-bold text-white">False information</p>
-                <p class="text-sm uz-sub">Noto‘g‘ri ma’lumotlar</p>
-              </div>
-              <div class="border-l-2 border-rose-400 pl-3">
-                <p class="text-base font-bold text-white">Privacy problems</p>
-                <p class="text-sm uz-sub">Maxfiylik muammolari</p>
-              </div>
+        <!-- 24h donut -->
+        <div class="col-span-6 flex items-center gap-6">
+          <div class="relative w-[240px] h-[240px] shrink-0">
+            <svg viewBox="0 0 240 240" class="w-full h-full -rotate-90">
+              <circle cx="120" cy="120" r="100" fill="none" stroke="#1E293B" stroke-width="34"/>
+              <circle cx="120" cy="120" r="100" fill="none" stroke="#818CF8" stroke-width="34" stroke-dasharray="207.4 628.32" stroke-dashoffset="0"/>
+              <circle cx="120" cy="120" r="100" fill="none" stroke="#38BDF8" stroke-width="34" stroke-dasharray="207.4 628.32" stroke-dashoffset="-209.44"/>
+              <circle cx="120" cy="120" r="100" fill="none" stroke="#FBBF24" stroke-width="34" stroke-dasharray="76.5 628.32" stroke-dashoffset="-418.88"/>
+              <circle cx="120" cy="120" r="100" fill="none" stroke="#34D399" stroke-width="34" stroke-dasharray="50.3 628.32" stroke-dashoffset="-497.42"/>
+              <circle cx="120" cy="120" r="100" fill="none" stroke="#F472B6" stroke-width="34" stroke-dasharray="76.5 628.32" stroke-dashoffset="-549.78"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="font-black text-4xl">24h</span>
+              <span class="text-xs text-slate-400">Example day</span>
             </div>
           </div>
-          <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-slate-400">
-            Needs self-control / O‘zini nazorat qilishni talab qiladi
+          <div class="space-y-2.5 text-sm">
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-indigo-400"></span><b>8h</b> Sleep <span class="text-slate-400 italic">· Uyqu</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-sky-400"></span><b>8h</b> Classes & study <span class="text-slate-400 italic">· O‘qish</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-amber-400"></span><b>3h</b> Meals & travel <span class="text-slate-400 italic">· Ovqat, yo‘l</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-emerald-400"></span><b>2h</b> Sport & hobbies <span class="text-slate-400 italic">· Sport</span></div>
+            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-sm bg-pink-400"></span><b>3h</b> Free time <span class="text-slate-400 italic">· Bo‘sh vaqt</span></div>
           </div>
         </div>
       </div>
@@ -805,26 +858,21 @@
         <p class="text-base uz-title">Xulosa</p>
       </div>
 
-      <!-- Big Key Takeaway Statement -->
       <div class="editorial-card-dark rounded-2xl p-6 sm:p-8 border-l-4 border-l-blue-500">
         <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-tight">
-          “Social networks are useful when we use them wisely.”
+          “Time is the one thing we can’t get back — so plan it wisely.”
         </h3>
-        <p class="text-lg sm:text-xl font-medium text-sky-400 italic mb-6">
-          “Ijtimoiy tarmoqlardan oqilona foydalansak, ular foydali vositaga aylanishi mumkin.”
+        <p class="text-lg sm:text-xl font-medium text-sky-400 italic mb-5">
+          “Vaqt — qaytarib bo‘lmaydigan yagona boylik. Uni oqilona rejalashtiring.”
         </p>
-
-        <div class="pt-4 border-t border-slate-800 space-y-2">
-          <p class="text-base sm:text-lg font-semibold text-slate-200">
-            Social networks are an important part of modern life. They help me communicate, learn and relax. However, I believe it is important to use them responsibly and keep a healthy balance between online and real life.
-          </p>
-          <p class="text-sm sm:text-base uz-sub">
-            Ijtimoiy tarmoqlar zamonaviy hayotning muhim qismidir. Ular menga muloqot qilish, o‘rganish va dam olishga yordam beradi. Biroq ulardan mas’uliyat bilan foydalanish va onlayn hamda real hayot o‘rtasida sog‘lom muvozanatni saqlash muhim deb hisoblayman.
-          </p>
+        <div class="pt-4 border-t border-slate-800 grid grid-cols-4 gap-3 stagger">
+          <div class="rounded-xl bg-sky-500/10 border border-sky-500/30 p-3 text-center"><p class="font-bold">📅 Plan</p><p class="text-xs uz-sub">Rejalashtiring</p></div>
+          <div class="rounded-xl bg-purple-500/10 border border-purple-500/30 p-3 text-center"><p class="font-bold">🎯 Prioritize</p><p class="text-xs uz-sub">Muhimini birinchi qiling</p></div>
+          <div class="rounded-xl bg-rose-500/10 border border-rose-500/30 p-3 text-center"><p class="font-bold">🍅 Focus</p><p class="text-xs uz-sub">Diqqatni jamlang</p></div>
+          <div class="rounded-xl bg-emerald-500/10 border border-emerald-500/30 p-3 text-center"><p class="font-bold">😴 Rest</p><p class="text-xs uz-sub">Dam olishni unutmang</p></div>
         </div>
       </div>
 
-      <!-- Memorable Closing Box -->
       <div class="editorial-card-dark rounded-2xl p-6 text-center border border-blue-500/30 bg-gradient-to-r from-blue-950/40 via-slate-900 to-blue-950/40">
         <h3 class="text-3xl sm:text-4xl font-extrabold text-white mb-1 tracking-tight">
           Thank you for your attention!
@@ -835,8 +883,6 @@
         <p class="text-xs text-slate-400 italic mb-4">
           Questions & Discussion • Savollar va muhokama
         </p>
-
-        <!-- Interactive Quiz Button on Slide 9 -->
         <button onclick="openQuizModal()" class="inline-flex items-center space-x-2 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/25 transition transform hover:scale-105 active:scale-95 cursor-pointer pulse-glow">
           <span>⚡ Play "Fact or Myth?" with the Audience</span>
           <span>🎮</span>
@@ -1040,49 +1086,49 @@
     // Speech per slide: say the title in English, then in Uzbek, then the Uzbek talk
     const speakerNotes = {
       1: {
-        titleEn: "Social Networks in My Life",
-        titleUz: "Ijtimoiy tarmoqlar mening hayotimda",
-        uz: "Bugun men shu mavzu haqida gapirib beraman. Biz har kuni ijtimoiy tarmoqlardan muloqot qilish, o‘qish va dam olish uchun foydalanamiz. Keling, ular hayotimizga qanday ta’sir qilishini ko‘rib chiqamiz."
+        titleEn: "Time Management for Students",
+        titleUz: "Talabalar uchun vaqtni boshqarish",
+        uz: "Bugun men talabalar uchun vaqtni boshqarish haqida gapirib beraman. Hammamizda har kuni bir xil — yigirma to‘rt soat vaqt bor. Lekin kimdir hamma narsaga ulguradi, kimdir esa doim shoshib yuradi. Farq — vaqtni to‘g‘ri rejalashtirishda."
       },
       2: {
-        titleEn: "What Are Social Networks?",
-        titleUz: "Ijtimoiy tarmoqlar nima?",
-        uz: "Ijtimoiy tarmoqlar — odamlar muloqot qiladigan, ma’lumot va kontent ulashadigan saytlar hamda ilovalardir. Ularning uchta asosiy vazifasi bor: muloqot, ma’lumot va kontent almashish. Bugun ular kundalik hayotimizning muhim qismiga aylandi."
+        titleEn: "What Is Time Management?",
+        titleUz: "Vaqtni boshqarish nima?",
+        uz: "Vaqtni boshqarish — bu vaqtingizni oldindan rejalashtirish va uni haqiqatan muhim ishlarga sarflash ko‘nikmasi. U to‘rt bosqichdan iborat: rejalashtirish, ustuvorlikni belgilash, diqqat bilan bajarish va natijani tahlil qilish."
       },
       3: {
-        titleEn: "Social Networks I Use",
-        titleUz: "Men foydalanadigan ijtimoiy tarmoqlar",
-        uz: "Men eng ko‘p uchta ilovadan foydalanaman. Birinchisi — Telegram: tezkor xabarlar va o‘quv guruhlari uchun. Ikkinchisi — Instagram: rasmlar va qiziqarli videolar uchun. Uchinchisi — YouTube: video darslar va dam olish uchun."
+        titleEn: "Why Is It Important for Students?",
+        titleUz: "Nega bu talabalar uchun muhim?",
+        uz: "Talabalarda darslar, uy vazifalari, imtihonlar va shaxsiy hayot bor. Vaqtni to‘g‘ri boshqarsak, birinchidan, stress kamayadi. Ikkinchidan, baholar yaxshilanadi, chunki bir kechada emas, muntazam o‘qiymiz. Uchinchidan, do‘stlar va sevimli mashg‘ulotlar uchun vaqt qoladi. To‘rtinchidan, uyqu uchun yetarli vaqt bo‘ladi."
       },
       4: {
-        titleEn: "Why Do I Use Social Networks?",
-        titleUz: "Nega ijtimoiy tarmoqlardan foydalanaman?",
-        uz: "Buning to‘rtta asosiy sababi bor: do‘stlar va oila bilan aloqada bo‘lish, yangiliklarni bilish, yangi narsalarni o‘rganish va darslardan keyin dam olish."
+        titleEn: "Common Time Wasters",
+        titleUz: "Vaqtni o‘g‘irlaydigan odatlar",
+        uz: "Talabalarning vaqtini eng ko‘p o‘g‘irlaydigan to‘rtta odat bor. Birinchisi — ijtimoiy tarmoqlarda soatlab vaqt o‘tkazish. Ikkinchisi — ishni keyinga qoldirish. Uchinchisi — bir vaqtda bir nechta ish qilish. To‘rtinchisi — aniq rejaning yo‘qligi. Har birining oddiy yechimi bor: telefonni boshqa xonaga qo‘ying, atigi besh daqiqadan boshlang, bir vaqtda bitta ish qiling va har kuni kechqurun reja yozing."
       },
       5: {
-        titleEn: "Communication with People",
-        titleUz: "Odamlar bilan muloqot",
-        uz: "Ijtimoiy tarmoqlar muloqotni juda tez va oson qildi. Do‘stlarimiz uzoqda bo‘lsa ham, bir necha soniyada xabar yozishimiz, rasm yuborishimiz va video qo‘ng‘iroq qilishimiz mumkin."
+        titleEn: "Planning Your Day",
+        titleUz: "Kunni rejalashtirish",
+        uz: "Kunni rejalashtirish uchun to‘rtta oddiy qoida bor. Ertangi kunni kechqurun rejalashtiring. Vazifalar ro‘yxatini yozing. Katta vazifani kichik qadamlarga bo‘ling. Va kalendar yoki ilovadan foydalaning. O‘ng tomonda oddiy kunlik jadval namunasini ko‘rib turibsiz."
       },
       6: {
-        titleEn: "Learning and Education",
-        titleUz: "O‘rganish va ta’lim",
-        uz: "Ijtimoiy tarmoqlar faqat o‘yin-kulgi uchun emas, o‘qish uchun ham juda foydali. Biz bepul video darslarni ko‘rishimiz, onlayn kurslarda o‘qishimiz, ingliz tilini o‘rganishimiz va kursdoshlar bilan materiallar almashishimiz mumkin."
+        titleEn: "Setting Priorities: The Eisenhower Matrix",
+        titleUz: "Ustuvorliklarni belgilash: Eyzenxauer matritsasi",
+        uz: "Hamma vazifa bir xil muhim emas. Eyzenxauer matritsasi vazifalarni ikki savol bo‘yicha to‘rt guruhga ajratadi: shoshilinchmi va muhimmi? Muhim va shoshilinch ishlarni darhol bajaring. Muhim, lekin shoshilinch bo‘lmagan ishlarni rejalashtiring. Shoshilinch, lekin muhim bo‘lmagan ishlarni qisqartiring. Muhim ham, shoshilinch ham bo‘lmagan ishlardan esa voz keching."
       },
       7: {
-        titleEn: "Entertainment and Free Time",
-        titleUz: "Ko‘ngilochar va bo‘sh vaqt",
-        uz: "Bo‘sh vaqtimizda hordiq chiqarish uchun musiqa tinglaymiz va qiziqarli videolar ko‘ramiz. Ammo me’yorni bilish va internetda soatlab vaqt yo‘qotmaslik muhim."
+        titleEn: "The Pomodoro Technique",
+        titleUz: "Pomodoro usuli",
+        uz: "Diqqatni jamlash uchun Pomodoro usuli juda foydali. Bitta vazifani tanlang va yigirma besh daqiqa telefonsiz ishlang. Keyin besh daqiqa dam oling. To‘rt marta takrorlagandan keyin esa uzoqroq — o‘n beshdan o‘ttiz daqiqagacha dam oling."
       },
       8: {
-        titleEn: "Advantages and Disadvantages",
-        titleUz: "Afzalliklari va kamchiliklari",
-        uz: "Afzalliklari — oson muloqot, ma’lumotga tez kirish, ta’lim va ko‘ngilochar imkoniyatlar. Kamchiliklari — ekran qarshisida ortiqcha vaqt, diqqatning chalg‘ishi, noto‘g‘ri ma’lumotlar va maxfiylik muammolari."
+        titleEn: "Balance: Study, Rest and Sleep",
+        titleUz: "Muvozanat: o‘qish, dam olish va uyqu",
+        uz: "Vaqtni boshqarish faqat o‘qish haqida emas — muvozanat ham juda muhim. Kuniga yetti-to‘qqiz soat uxlang, chunki charchagan miya yaxshi o‘rganmaydi. Sport va do‘stlar uchun vaqt ajrating va darslar orasida qisqa tanaffus qiling. Diagrammada bir kunning namunaviy taqsimotini ko‘rib turibsiz."
       },
       9: {
         titleEn: "Conclusion",
         titleUz: "Xulosa",
-        uz: "Xulosa qilib aytganda, ijtimoiy tarmoqlardan oqilona foydalansak, ular juda foydali vositaga aylanadi. Ular muloqot qilish, o‘rganish va dam olishga yordam beradi. Eng asosiysi — virtual olam va real hayot o‘rtasida muvozanatni saqlash. E’tiboringiz uchun rahmat!"
+        uz: "Xulosa qilib aytganda, vaqt — qaytarib bo‘lmaydigan yagona boylik. Rejalashtiring, muhim ishlarni birinchi qiling, diqqatni jamlang va dam olishni unutmang. Kichik odatlardan boshlang — natija albatta bo‘ladi. E’tiboringiz uchun rahmat!"
       }
     };
 
@@ -1374,7 +1420,7 @@
     });
 
     function downloadPPTX() {
-      const filename = 'Social_Networks_in_My_Life.pptx';
+      const filename = 'Time_Management_for_Students.pptx';
       if (window.EMBEDDED_PPTX_BASE64) {
         try {
           const binaryString = atob(window.EMBEDDED_PPTX_BASE64);
@@ -1428,48 +1474,47 @@
     }
 
     // --- INTERACTIVE FACT OR MYTH QUIZ LOGIC WITH UZBEK NEURAL VOICE ---
-    // Audio files with a "_v2" suffix belong to the corrected texts. Until they are generated
-    // (python generate_elevenlabs.py), play() fails silently and the quiz simply runs without voice.
+    // Quiz narration: assets/audio/tm_*.mp3 (texts in generate_elevenlabs.py). Missing files just play silently.
     const quizQuestions = [
       {
-        qEn: "An average person will spend more than 5 whole years of their lifetime browsing social media.",
-        qUz: "O‘rtacha inson o‘z umri davomida 5 yildan ortiq vaqtini ijtimoiy tarmoqlarda o‘tkazadi.",
-        isFact: true,
-        expEn: "FACT! People spend about 2.5 hours a day on social media (DataReportal / GWI). Over a lifetime, that adds up to more than 5 years.",
-        expUz: "ROST! Odamlar kuniga o‘rtacha 2,5 soatga yaqin vaqtni ijtimoiy tarmoqlarda o‘tkazadi (DataReportal / GWI). Butun umr davomida bu 5 yildan ortiq vaqtni tashkil etadi.",
-        qAudio: "q1.mp3",
-        corAudio: "a1_cor.mp3",
-        wrgAudio: "a1_wrg.mp3"
-      },
-      {
-        qEn: "Checking notifications immediately after waking up triggers a rush of dopamine and improves morning productivity.",
-        qUz: "Ertalab uyg‘onish bilanoq yangi xabarlarni tekshirish kishida dopamin ajratib, ishchanlikni oshiradi.",
+        qEn: "Doing several tasks at the same time (multitasking) helps you finish homework faster.",
+        qUz: "Bir vaqtning o‘zida bir nechta ish qilish (multitasking) uy vazifasini tezroq tugatishga yordam beradi.",
         isFact: false,
-        expEn: "MYTH! Notifications break your focus instead of improving it. Research by Gloria Mark (UC Irvine) shows that after an interruption it takes about 23 minutes to fully return to a task.",
-        expUz: "YOLG‘ON! Xabarnomalar diqqatni oshirmaydi, balki chalg‘itadi. Gloria Mark (UC Irvine) tadqiqotiga ko‘ra, chalg‘igandan keyin ishga to‘liq qaytish uchun taxminan 23 daqiqa kerak bo‘ladi.",
-        qAudio: "q2.mp3",
-        corAudio: "a2_cor_v2.mp3",
-        wrgAudio: "a2_wrg_v2.mp3"
+        expEn: "MYTH! Switching between tasks costs time and causes more mistakes. According to the American Psychological Association, task switching can cost up to 40% of productive time.",
+        expUz: "YOLG‘ON! Vazifalar orasida almashish vaqtni yo‘qotadi va xatolarni ko‘paytiradi. Amerika Psixologik Assotsiatsiyasi ma’lumotiga ko‘ra, bu samarali vaqtning 40 foizigacha qismini olib ketishi mumkin.",
+        qAudio: "tm_q1.mp3",
+        corAudio: "tm_a1_cor.mp3",
+        wrgAudio: "tm_a1_wrg.mp3"
       },
       {
-        qEn: "The first social networks appeared only in the 2010s.",
-        qUz: "Birinchi ijtimoiy tarmoqlar faqat 2010-yillarda paydo bo‘lgan.",
-        isFact: false,
-        expEn: "MYTH! One of the first social networks, SixDegrees.com, started in 1997. Facebook appeared in 2004 and YouTube in 2005.",
-        expUz: "YOLG‘ON! Birinchi ijtimoiy tarmoqlardan biri — SixDegrees.com — 1997-yilda ishga tushgan. Facebook 2004-yilda, YouTube esa 2005-yilda paydo bo‘lgan.",
-        qAudio: "q3_v2.mp3",
-        corAudio: "a3_cor_v2.mp3",
-        wrgAudio: "a3_wrg_v2.mp3"
-      },
-      {
-        qEn: "Just having your phone on the desk — even when it is silent — can make it harder to concentrate.",
-        qUz: "Telefon stol ustida turishining o‘zi — hatto ovozsiz bo‘lsa ham — diqqatni jamlashni qiyinlashtirishi mumkin.",
+        qEn: "The Pomodoro Technique uses 25-minute focus sessions with short breaks.",
+        qUz: "Pomodoro usulida 25 daqiqa diqqat bilan ishlanadi va qisqa tanaffus qilinadi.",
         isFact: true,
-        expEn: "FACT! In the 'Brain Drain' study (University of Texas at Austin, 2017), students did better on attention and memory tests when their phone was in another room.",
-        expUz: "ROST! Texas universiteti (Ostin, 2017) o‘tkazgan 'Brain Drain' tadqiqotida telefoni boshqa xonada bo‘lgan talabalar diqqat va xotira testlarini yaxshiroq bajargan.",
-        qAudio: "q4_v2.mp3",
-        corAudio: "a4_cor_v2.mp3",
-        wrgAudio: "a4_wrg_v2.mp3"
+        expEn: "FACT! Francesco Cirillo created it in the late 1980s: 25 minutes of focused work, then a 5-minute break; after four rounds — a longer break.",
+        expUz: "ROST! Bu usulni 1980-yillarning oxirida Franchesko Chirillo yaratgan: 25 daqiqa diqqat bilan ishlash, keyin 5 daqiqa dam olish; to‘rt raunddan keyin — uzoqroq tanaffus.",
+        qAudio: "tm_q2.mp3",
+        corAudio: "tm_a2_cor.mp3",
+        wrgAudio: "tm_a2_wrg.mp3"
+      },
+      {
+        qEn: "Staying up all night before an exam is the best way to remember the material.",
+        qUz: "Imtihondan oldin tun bo‘yi uxlamay o‘qish — materialni eslab qolishning eng yaxshi usuli.",
+        isFact: false,
+        expEn: "MYTH! During sleep the brain stores what you learned. Without sleep, memory and attention get worse — it is better to study earlier and sleep well.",
+        expUz: "YOLG‘ON! Uyqu paytida miya o‘rganilgan ma’lumotni xotirada mustahkamlaydi. Uyqusizlik xotira va diqqatni yomonlashtiradi — oldinroq o‘qib, yaxshi uxlash afzal.",
+        qAudio: "tm_q3.mp3",
+        corAudio: "tm_a3_cor.mp3",
+        wrgAudio: "tm_a3_wrg.mp3"
+      },
+      {
+        qEn: "Making a specific plan — what, when and where you will do a task — makes you more likely to finish it.",
+        qUz: "Aniq reja tuzish — nima, qachon va qayerda qilishni belgilash — vazifani bajarish ehtimolini oshiradi.",
+        isFact: true,
+        expEn: "FACT! An analysis of 94 studies (Gollwitzer & Sheeran, 2006) found that clear \"when and where\" plans help people reach their goals much more often.",
+        expUz: "ROST! 94 ta tadqiqot tahlili (Gollwitzer va Sheeran, 2006) aniq \"qachon va qayerda\" rejasi odamlarga maqsadga ancha ko‘proq erishishga yordam berishini ko‘rsatgan.",
+        qAudio: "tm_q4.mp3",
+        corAudio: "tm_a4_cor.mp3",
+        wrgAudio: "tm_a4_wrg.mp3"
       }
     ];
 
@@ -2087,6 +2132,8 @@
     }
 
     async function initRemote() {
+      // build_pptx.py prints the deck with ?print — an open relay connection would keep the page "loading"
+      if (new URLSearchParams(location.search).has('print')) return;
       if (location.protocol.startsWith('http')) {
         try {
           const res = await fetch('/api/info', { cache: 'no-store' });
