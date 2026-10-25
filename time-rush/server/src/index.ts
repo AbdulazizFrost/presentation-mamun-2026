@@ -23,7 +23,8 @@ const isDev = process.argv.includes('--dev');
 // Development uses SERVER_PORT (Vite proxies to it); hosting platforms set PORT in production.
 const port = Number((isDev ? process.env.SERVER_PORT : process.env.PORT ?? process.env.SERVER_PORT) ?? 3001);
 const clientPort = isDev ? Number(process.env.CLIENT_PORT ?? 5173) : port;
-const publicUrl = process.env.PUBLIC_URL || undefined;
+// Render sets RENDER_EXTERNAL_URL to the service's public https address.
+const publicUrl = process.env.PUBLIC_URL || process.env.RENDER_EXTERNAL_URL || undefined;
 
 const app = express();
 app.disable('x-powered-by');

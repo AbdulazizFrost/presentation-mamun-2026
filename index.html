@@ -1612,23 +1612,25 @@
       }
     }
 
-    // TIME RUSH runs on this laptop (npm run dev in the time-rush folder); ?game=URL overrides the address.
-    const GAME_URL = new URLSearchParams(location.search).get('game') || 'http://localhost:5173/host';
-    // Opens the game in its own tab; if it is not running yet, says how to start it.
+    // TIME RUSH: the copy on this laptop (start_game.bat) if it is running, otherwise the online one
+    // on Render (render.yaml). ?game=URL overrides both.
+    const LOCAL_GAME_URL = 'http://localhost:5173/host';
+    const ONLINE_GAME_URL = 'https://time-rush-mamun.onrender.com/host';
+    const GAME_URL_OVERRIDE = new URLSearchParams(location.search).get('game');
+
     async function openGame() {
       const tab = window.open('', 'time-rush'); // open now, while the click still counts
-      try {
-        await fetch(new URL('/healthz', GAME_URL), { mode: 'no-cors', cache: 'no-store' });
-        if (tab) tab.location.href = GAME_URL;
-        else window.open(GAME_URL, 'time-rush');
-      } catch {
-        if (tab) tab.close();
-        alert('TIME RUSH is not running yet.
-Double-click start_game.bat in the presentation folder, wait for "TIME RUSH is running", then press the button again.
-
-O‘yin hali ishga tushmagan.
-Taqdimot papkasidagi start_game.bat faylini ikki marta bosing, "TIME RUSH is running" yozuvini kuting va tugmani qayta bosing.');
+      let url = GAME_URL_OVERRIDE || ONLINE_GAME_URL;
+      if (!GAME_URL_OVERRIDE) {
+        try {
+          await fetch(new URL('/healthz', LOCAL_GAME_URL), { mode: 'no-cors', cache: 'no-store', signal: AbortSignal.timeout(1500) });
+          url = LOCAL_GAME_URL;
+        } catch {
+          // not running on this laptop: use the online game (the first visit may take a minute to wake it up)
+        }
       }
+      if (tab) tab.location.href = url;
+      else window.open(url, 'time-rush');
     }
 
     function openQuizModal() {

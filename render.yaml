@@ -1,0 +1,14 @@
+# Render Blueprint for the TIME RUSH game (https://render.com → New → Blueprint → this repository).
+# The free plan sleeps after 15 minutes without visitors; the first visit then takes about a minute.
+services:
+  - type: web
+    name: time-rush-mamun
+    runtime: node
+    plan: free
+    rootDir: time-rush
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
