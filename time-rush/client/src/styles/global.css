@@ -1,0 +1,193 @@
+:root {
+  --bg: #0b1020;
+  --panel: #10172a;
+  --panel-2: #151e35;
+  --line: #24304a;
+  --text: #f8fafc;
+  --muted: #8b98b3;
+  --team-a: #1f8bff;
+  --team-b: #22e05a;
+  --team-a-light: #5eb0ff;
+  --team-b-light: #5cf58a;
+  --accent: #facc15;
+  --danger: #ef4444;
+  --ok: #22c55e;
+  --font: 'Segoe UI', 'Inter', system-ui, -apple-system, Roboto, sans-serif;
+  --mono: 'JetBrains Mono', 'Cascadia Mono', Consolas, ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+.mono {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: #3b4a6b;
+  background: #1b2642;
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #111827;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #fde047;
+  border-color: #fde047;
+}
+
+.btn-ghost {
+  background: transparent;
+}
+
+.btn-big {
+  font-size: 1.15rem;
+  padding: 1rem 2.2rem;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0.3rem;
+}
+
+.icon-btn:hover {
+  color: var(--danger);
+}
+
+.team-A {
+  --team: var(--team-a);
+  --team-light: var(--team-a-light);
+}
+
+.team-B {
+  --team: var(--team-b);
+  --team-light: var(--team-b-light);
+}
+
+.team-text-A {
+  color: var(--team-a);
+}
+
+.team-text-B {
+  color: var(--team-b);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.host-loading {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+/* ---------- UZ | EN language switch ---------- */
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(11, 16, 32, 0.75);
+  padding: 2px;
+  gap: 2px;
+}
+.lang-switch button {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 700 12px/1 var(--font);
+  letter-spacing: 0.06em;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.lang-switch button.is-active {
+  background: var(--accent);
+  color: #111827;
+}
+.is-corner {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 50;
+}
+.lobby-lang {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px auto 10px;
+}

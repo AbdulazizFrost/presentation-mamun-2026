@@ -1,0 +1,10 @@
+{
+  "//": "Editor / tooling entry point (tsx and esbuild read paths from here). Type checking uses tsconfig.client.json and tsconfig.server.json.",
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "types": ["node", "vite/client"]
+  },
+  "include": ["client/src", "server/src", "server/tests", "shared/src", "vite.config.ts", "vitest.config.ts"]
+}

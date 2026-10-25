@@ -15,6 +15,7 @@
   - **Online (no laptop needed):** open the live link, click **📱 Remote**, scan the QR. Phone and computer talk over the internet through the public [ntfy.sh](https://ntfy.sh) relay with a random room code. Both need internet — test it in the room beforehand.
   - **Local Wi-Fi:** run `start.bat` (or `python remote_server.py`) on a laptop; the phone connects over the same Wi-Fi with a PIN.
 - ⚡ **"Fact or Myth?" quiz** with Uzbek voice narration, confetti and score.
+- 🏃 **TIME RUSH team game (`G`):** a 3D race where two teams answer time-management questions on their phones (UZ / EN, music, 20 doors). It runs on the presenting laptop: double-click **`start_game.bat`** (needs [Node.js](https://nodejs.org); the first start installs and builds it), keep the window open, then press **🏃 TIME RUSH** in the slides. Phones join by QR code over the same Wi‑Fi. Details: [`time-rush/README.md`](time-rush/README.md).
 - ✨ **Animations:** staggered entrances, live clock, Pomodoro ring (off when the OS asks for reduced motion).
 - 📴 **Works offline:** Tailwind is prebuilt into `styles.css`.
 - 🖨️ **PDF export** and 📥 **PPTX download**.

@@ -1,0 +1,13 @@
+{
+  "model": "runner.fbx",
+  "animations": {
+    "idle": "animations/idle.fbx",
+    "run": "animations/run.fbx",
+    "fall": "animations/fall.fbx",
+    "getUp": "animations/getup.fbx",
+    "cheer": "animations/victory.fbx",
+    "sad": "animations/defeat.fbx"
+  },
+  "height": 1.7,
+  "rotationY": 180
+}
