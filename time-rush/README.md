@@ -2,7 +2,7 @@
 
 A browser-based multiplayer 3D runner for a live classroom presentation on **“Time Management for Students”**.
 
-The projector shows two sci-fi school corridors side by side — blue for **Team A**, green for **Team B**. Students scan a QR code and join with a name; when the host presses START, the server splits everyone into two **random, balanced teams** and the race begins. Each runner runs to the next door gate in its corridor and stops; the team answers **its own English question** on their phones within 30 seconds. The right door opens and the runner runs through; the wrong one (red ✕) sends the runner tumbling and respawning behind the gate. Teams race at their own pace.
+The projector shows two sci-fi school corridors side by side — blue for **Team A**, green for **Team B**. Students scan a QR code and join with a name; when the host presses START, the server splits everyone into two **random, balanced teams** and the race begins. Each runner runs to the next door gate in its corridor and stops; the team answers **its own English question** on their phones within one minute. The right door opens and the runner runs through; the wrong one (red ✕) sends the runner tumbling and respawning behind the gate. Teams race at their own pace.
 
 The runner uses the model in `client/public/models/` (see [client/public/models/README.md](client/public/models/README.md)); Team B's copy is recoloured green automatically.
 
@@ -96,7 +96,7 @@ Set `PUBLIC_URL` to the public address. One instance only: rooms are kept in mem
 
 - Players join in the lobby with a name only. On START the server splits everyone into **two random, balanced teams**. **After the start nobody new can join** (players who lose connection can come back).
 - **A race to 20 doors.** After "3, 2, 1, GO!" both runners run down their own corridor. The door gates stand still; each runner stops in front of its next gate.
-- At every gate the team gets **its own question** and **30 seconds**. As soon as **every connected team member has voted**, voting closes early — teams never wait for each other.
+- At every gate the team gets **its own question** and **60 seconds**. As soon as **every connected team member has voted**, voting closes early — teams never wait for each other.
 - The team's majority answer picks the door:
   - **right door** → it opens and the runner runs through (+100 points);
   - **wrong door** → the runner crashes, falls, vanishes and reappears behind the gate (0 points, and it costs time);

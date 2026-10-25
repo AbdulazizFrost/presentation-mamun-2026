@@ -62,7 +62,7 @@ const en = {
   joinGame: 'JOIN GAME',
   openHost: 'Open the projector screen (host) →',
   // host start
-  hostTagline: 'A classroom race about time management. Two teams, 20 doors, 30 seconds to choose at each one.',
+  hostTagline: 'A classroom race about time management. Two teams, 20 doors, one minute to choose at each one.',
   roomGone: 'The previous game is no longer available (the server was restarted). Create a new room.',
   connectingCaps: 'CONNECTING…',
   restoringCaps: 'RESTORING GAME…',
@@ -186,7 +186,7 @@ const uz: Texts = {
   roomCode: 'XONA KODI',
   joinGame: 'O‘YINGA KIRISH',
   openHost: 'Proyektor ekranini ochish (boshlovchi) →',
-  hostTagline: 'Vaqtni boshqarish haqida sinf poygasi. Ikki jamoa, 20 ta eshik, har birida tanlash uchun 30 soniya.',
+  hostTagline: 'Vaqtni boshqarish haqida sinf poygasi. Ikki jamoa, 20 ta eshik, har birida tanlash uchun 1 daqiqa.',
   roomGone: 'Oldingi o‘yin endi mavjud emas (server qayta ishga tushirildi). Yangi xona yarating.',
   connectingCaps: 'ULANMOQDA…',
   restoringCaps: 'O‘YIN TIKLANMOQDA…',

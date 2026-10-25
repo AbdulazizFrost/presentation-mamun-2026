@@ -10,7 +10,7 @@ interface Props {
   serverNow: number;
 }
 
-/** The team's own question at the top of its half, with its own 30-second timer and live votes. */
+/** The team's own question at the top of its half, with its own 60-second timer and live votes. */
 export function TeamQuestion({ team, snapshot, serverNow }: Props) {
   const t = useT();
   const lang = useLang();

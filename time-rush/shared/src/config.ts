@@ -30,7 +30,7 @@ export const GAME_CONFIG: GameConfig = {
   shuffleQuestions: true,
   countdownMs: 4000,
   runMs: 3500,
-  votingMs: 30000,
+  votingMs: 60000,
   tieBreakMs: 5000,
   passMs: 2400,
   crashMs: 3400,
