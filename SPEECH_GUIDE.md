@@ -112,3 +112,24 @@ Har bir slaydda tartib bir xil:
 > Xulosa qilib aytganda, vaqt — qaytarib bo‘lmaydigan yagona boylik. Rejalashtiring, muhim ishlarni birinchi qiling, diqqatni jamlang va dam olishni unutmang. Kichik odatlardan boshlang — natija albatta bo‘ladi. E’tiboringiz uchun rahmat!
 
 ---
+
+## 🎮 O‘YIN: TIME RUSH (xulosadan keyin)
+
+Slayddagi **🏃 Play TIME RUSH** tugmasini (yoki **G** tugmasini) bosing → **XONA YARATISH**.
+
+**1. 🇬🇧 Sarlavha (inglizcha):** Let’s Play: TIME RUSH
+
+**2. 🇺🇿 Sarlavha (o‘zbekcha):** Keling, o‘ynaymiz: TIME RUSH
+
+**3. Nutq (o‘zbekcha) — o‘yin oldidan:**
+> Endi o‘rganganlarimizni o‘yinda tekshirib ko‘ramiz. Bu o‘yin — TIME RUSH. Ekrandagi QR kodni telefoningiz bilan skanerlang va ismingizni yozing. O‘yin boshlanganda hammangiz tasodifiy ravishda ikki jamoaga bo‘linasiz: ko‘k — A jamoa va yashil — B jamoa. Har bir jamoaning o‘z yuguruvchisi bor. Yuguruvchi eshik oldiga yetganda, telefoningizda vaqtni boshqarish haqida savol chiqadi. Jamoangiz bilan birga bir daqiqa ichida to‘g‘ri javobni tanlang. Javob to‘g‘ri bo‘lsa, eshik ochiladi va yuguruvchi o‘tib ketadi. Noto‘g‘ri bo‘lsa, u eshikka urilib yiqiladi. Jami yigirmata eshik bor. Qaysi jamoa ko‘proq to‘g‘ri javob topsa, o‘sha jamoa g‘olib bo‘ladi. To‘g‘ri javoblar soni teng bo‘lsa, ikkala jamoa ham g‘olib! Hamma kirdimi? Tayyormisiz? Boshladik!
+
+👉 Hamma kirgach, **O‘YINNI BOSHLASH** tugmasini bosing.
+
+**O‘yin davomida (qisqa iboralar):**
+> Telefoningizga qarang — savol chiqdi! · Bir daqiqa vaqtingiz bor! · Hamma ovoz berdimi? · Zo‘r, to‘g‘ri javob! · Hechqisi yo‘q, keyingi eshikda omad!
+
+**O‘yindan keyin:**
+> Ajoyib o‘yin bo‘ldi! Ko‘rib turganingizdek, rejalashtirish, ustuvorlik va diqqat haqida bilganlarimiz o‘yinda ham yordam berdi. G‘oliblarni tabriklaymiz! Qatnashganingiz uchun hammaga rahmat!
+
+---
